@@ -1,0 +1,65 @@
+<div class="billing_address_content">
+	
+	<h1 class="acountTitle">YOUR ADDITIONAL ADDRESS</h1>
+	<h1 class="acountTitle">SELECT YOUR ADDRESS</h1>
+    <p>Please highlight the correct address below and click 'continue'.</p>
+
+    <div class="addressForm">
+    	<div class="addressDiv">
+		<?php $userinfo=Mage::getSingleton('customer/session')->getCustomer(); 
+			
+				?>
+		<?php
+			$pincode=$this->getRequest()->getParam('postcode'); 
+			$country=$this->getRequest()->getParam('country_id'); 
+
+			
+			$resource = Mage::getSingleton('core/resource');
+			$read = $resource->getConnection('core_read');
+		
+			$query = "SELECT * FROM findaddress where postcode=$pincode";
+			$result=$read->query($query);
+			$landingpages = $result->fetchAll();
+		
+			
+		?>
+        	<select size="4" id="selectinput" class="textareaSty selectinput">			
+				<?php 
+				//$breakvalue='<br />';
+				foreach($landingpages as $landingpage)
+				{
+					$finaladdress=$landingpage['street'].' '.$landingpage['city'].' '.$landingpage['postcode'].' '.$landingpage['state'].' '.$landingpage['country_id'];
+					$finaladdressoption=$landingpage['id'];
+					echo '<option value="'.$finaladdressoption.'">'.$finaladdress.'</option>';
+				
+				}
+				?>
+			</select>          
+        </div>
+        <div class="addressDiv" style="*margin-bottom:20px;">
+        <?php $userid=$userinfo->getData('default_billing'); ?>
+		<span class="back-link">
+		<a href="<?php echo $this->escapeUrl($this->getBaseUrl().'customer/address/findadditional')?>">
+		<span class="goBackBtn">Go back</span>
+		</a>
+		</span>
+            <input type="submit" class="continueBtn" value="Continue"/>
+        </div> 
+                
+    </div>
+  
+    	
+</div>
+
+<script>
+	jQuery(".continueBtn").click(function(){
+	var YourParam = jQuery("select option:selected").val();
+	//alert(YourParam);
+	//return false;
+	if(YourParam==undefined){alert('please select address');return false;}
+	var country_id='<?php echo $country ?>';
+	
+	window.location.href='<?php echo $this->getBaseUrl().'customer/address/additionaledit'?>'+"?id="+YourParam+"&country_id="+country_id;
+	
+	});
+</script>

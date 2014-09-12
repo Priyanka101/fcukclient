@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <requestproduct_adminhtml_requestmodel_index>
+	<reference name="content">
+	  <block type="requestproduct/adminhtml_requestmodel" name="requestmodel" />
+	</reference>
+  </requestproduct_adminhtml_requestmodel_index>
+</layout>

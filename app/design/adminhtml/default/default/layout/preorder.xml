@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <preorder_adminhtml_preorder_index>
+	<reference name="content">
+	  <block type="preorder/adminhtml_preorder" name="preorder" />
+	</reference>
+  </preorder_adminhtml_preorder_index>
+</layout>

@@ -1,0 +1,56 @@
+<div class="block block-subscribe">
+     <div class="subscribe_option f-right">
+    <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail" name="newsletter-validate-detail"  >
+        <div class="block-content block-message">
+        
+            <div class="form-subscribe-header">
+            
+				<p>Subscribe for Latest Updates and Special Offers </p>
+            </div>
+          
+           <div class="margin_bot">            
+                
+			<div class="input-box">
+			<input name="email" type="text" id="newsletter" class="input-text fc-mail-field validate-email required-entry" placeholder="Enter your email address..." onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;">
+			
+					<span class="email-message" style="color:red"></span>
+				</div>
+			   <div class="actions icons_news">
+					<button type="submit" title="<?php //echo $this->__('Subscribe') ?>" id="newsletter-button" class="button" onclick="return check()"><?php //echo $this->__('Subscribe') ?><img src="<?php echo $this->getSkinUrl('images/sms.jpg')?>"></button>
+				</div>
+				
+            </div>
+	
+            <span class="error-message" style="color:red;float:right"></span>
+        </div>
+	
+    </form>
+		<!--div class="newsletter-msg" style="display:none"><span class="red"></span></div-->
+		<div class="success_msg"><div class="newsletter-result-msg" style="color:red">Thank you for subscription</div></div>
+    </div>
+	</div>
+    <script type="text/javascript">
+	
+	  var myForm= new VarienForm('newsletter-validate-detail', true);
+		
+		function check(){
+			// alert('hi1');
+			if(myForm.validate())
+			{
+				var form_data = jQuery('#newsletter').val();
+			//	alert(form_data);
+			}
+			return false;
+		} 
+
+    </script>
+
+<style type = "text/css">
+.success_msg .newsletter-result-msg{
+
+	border: 3px solid #ccc;
+	padding: 5px;
+	}
+.success_msg{display:none;}
+</style>
+	

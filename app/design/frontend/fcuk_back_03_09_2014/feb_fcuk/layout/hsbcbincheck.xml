@@ -1,0 +1,32 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">   
+  <hsbcbincheck_index_index>   
+    <reference name="root">   
+      <action method="setTemplate"><template>page/1column.phtml</template></action>   
+    </reference>   
+    <reference name="content">   
+      <block type="hsbcbincheck/index" name="hsbcbincheck_index" template="hsbcbincheck/index.phtml"/>   
+    </reference>   
+  </hsbcbincheck_index_index>   
+  <hsbcbincheck_index_loadccform>   
+    <reference name="root">   
+      <action method="setTemplate"><template>page/1column.phtml</template></action>   
+    </reference>
+    <remove name="header" />   
+    <remove name="footer" />   
+    <reference name="content">   
+      <block type="core/template" name="hsbcbincheck_bin" template="hsbcbincheck/bincheck.phtml"/>   
+    </reference>   
+  </hsbcbincheck_index_loadccform>   
+  <hsbcbincheck_index_loaddcform>   
+    <reference name="root">   
+      <action method="setTemplate"><template>page/1column.phtml</template></action>   
+    </reference>
+    <remove name="header" />   
+    <remove name="footer" />   
+    <reference name="content">   
+      <block type="core/template" name="hsbcbincheck_bin" template="hsbcbincheck/dbincheck.phtml"/>   
+    </reference>   
+  </hsbcbincheck_index_loaddcform>   
+</layout>   
+	

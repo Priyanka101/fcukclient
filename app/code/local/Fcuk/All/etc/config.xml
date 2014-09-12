@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Fcuk_All>
+      <version>0.1.0</version>
+    </Fcuk_All>
+  </modules>
+  <global>
+    <helpers>
+      <all>
+        <class>Fcuk_All_Helper</class>
+      </all>
+    </helpers>
+	<blocks>
+	  <all>
+		<class>Fcuk_All_Block</class>
+	  </all>
+	</blocks>
+	 <!-- <events>
+	  <sales_order_creditmemo_save_after>
+        <observers>
+            <inventory>
+                <class>Fcuk_All_Model_Observer</class>
+                <method>refundCreditmenoInventory</method>
+            </inventory>
+        </observers>
+      </sales_order_creditmemo_save_after>
+    </events> -->
+  </global>
+  <admin>
+	<routers>
+	  <all>
+	    <use>admin</use>
+		<args>
+		  <module>Fcuk_All</module>
+		  <frontName>all</frontName>
+		</args>
+	  </all>
+	</routers>
+  </admin>
+  <adminhtml>
+	<!-- <menu>
+	  <all module="all">
+		<title>All</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <allbackend module="all">
+			<title>Backend Page Title</title>
+			<sort_order>0</sort_order>
+			<action>all/adminhtml_allbackend</action>
+		  </allbackend>
+		</children>
+	  </all>
+	</menu> -->
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<all translate="title" module="all">
+			  <title>All</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <allbackend translate="title">
+			<title>Backend Page Title</title>
+		  </allbackend>
+			  </children>
+			</all>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<all>
+		  <file>all.xml</file>
+		</all>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

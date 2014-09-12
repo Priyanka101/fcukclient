@@ -1,0 +1,12 @@
+<?xml version="1.0"?>   
+<layout version="0.1.1">   
+  <check_index_index>   
+    <reference name="root">   
+      <action method="setTemplate"><template>page/1column.phtml</template></action>   
+    </reference>   
+    <reference name="content">   
+      <block type="check/index" name="check_index" template="check/index.phtml"/>   
+    </reference>   
+  </check_index_index>   
+</layout>   
+	

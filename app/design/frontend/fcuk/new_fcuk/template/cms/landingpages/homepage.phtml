@@ -1,0 +1,162 @@
+<style type="text/css">
+  .flowplayer { background-color: #000; }  
+</style>
+<script>
+  jQuery(document).ready(function($){        
+    /*removed video*/
+    $(".cms-home .main-container").height(720);
+    /*
+    $(".container_24").hide();  
+    $(".cms-home .main-container").css("min-height","680px");
+    var flowplay_ht = $('.flowplayer').height();
+    $(".fp-engine").css("height", flowplay_ht+"px");
+   
+    $('#video-close').click(function(){
+   
+      if(!jQuery.browser.msie){
+        $("#vid_home")[0].pause();
+      }
+
+      if(jQuery.browser.msie){
+        $("#vid_flow, .flowplayer, #vid_home").remove();
+      }
+      // $(".flowplayer").attr("data-swf","flowplayer1.swf")
+      $(".flowplayer object, #video-close").hide();
+      $(".flowplayer").hide();
+      $("#vid_bg").fadeOut(2000);
+      $(".cms-home .main-container").height(720);
+      $(".container_24").fadeIn();      
+      var i = 1;
+      var max_slides = 5;
+      rotate(i,max_slides);
+    });*/
+
+    if ($.browser.msie  && parseInt($.browser.version, 10) === 7){
+      
+      $(".flowplayer, #video-close, #vid_bg").hide();
+      $(".cms-home .main-container").height(720);
+      $(".container_24").fadeIn();
+     /* var i = 1;
+      var max_slides = 5;
+      rotate(i,max_slides);*/
+    }
+
+    // if(jQuery.browser.msie){
+    //   $(".flowplayer").attr("data-swf","flowplayer1.swf")
+    //   $(".flowplayer, #video-close").hide();
+    //   $(".cms-home .main-container").height(1000);
+    //   $(".container_24").fadeIn();
+    //   var i = 1;
+    //   var max_slides = 5;
+    //   rotate(i,max_slides);
+    // }
+
+  });
+</script>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('js/flowplayer/skin/minimalist.css')?>">
+
+<!--script type="text/javascript" id="vid_flow" src="<?php echo $this->getSkinUrl('js/flowplayer/flowplayer.min.js')?>"></script>
+<div style="
+    width: 100%;
+    height: 100%;
+    background: #000;
+    position: absolute;
+" id ="vid_bg">&nbsp;</div>
+<div class="flowplayer" data-swf="<?php echo $this->getSkinUrl('js/flowplayer/flowplayer.swf')?>" data-ratio="0.4167" >
+    <video id="vid_home" autoplay>
+    
+       <source type="video/webm" src="<?php echo $this->getSkinUrl()?>vid/fcuk.webm">       
+       <source type="video/ogv" src="<?php echo $this->getSkinUrl()?>vid/fcuk.ogv">
+       <source type="video/ogg" src="<?php echo $this->getSkinUrl()?>vid/fcuk.ogg">
+       <source type="video/mp4" src="<?php echo $this->getBaseUrl()?>fcuk.mp4">
+    </video>
+</div>
+<div id="video-close">
+  <a class="skip">    
+    <img src="<?php echo $this->getSkinUrl('images/fcuk_vid/big_vid_close.png')?>" class="no-svg_image">
+    <br>
+    <img src="<?php echo $this->getSkinUrl('images/fcuk_vid/big_vid_close_text.png')?>">
+  </a>
+</div-->
+<div class="container_24">
+  <!--a id="hidden_link" style="display:none;" href="<?php echo $this->getSkinUrl(); ?>images/kishan/catalogue.jpg" target="_blank"><img src="<?php echo $this->getSkinUrl(); ?>images/kishan/catalogue.jpg" border="0" /></a>
+  <map name="Map" id="Map">
+    <area shape="rect" coords="0,0,320,320" href="<?php echo $this->getBaseUrl().'woman/category/mid-season-sale.html';?>" />    
+  </map-->
+  <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('cms/landingpages/social_media.phtml')->toHtml(); ?>
+    <div class="hp_slider_wrapper">
+      <div class="hp_slide_container_home">
+      </div>
+      <div class="hp_static_image"></div>
+      <div class="gw_from_sketch">
+        <img src="http://www.frenchconnection.in/skin/frontend/fcuk/new_fcuk/images/kishan/from_sketch_big.png" style="width: 444px;height: 55px;">
+      </div>
+      <div class="gw_to_store"> <img src="http://www.frenchconnection.in/skin/frontend/fcuk/new_fcuk/images/kishan/to_store.png" style="width: 312px;height: 55px;"></div>
+      <div class="homepage_banner_links">
+           <a class="highlight_gateway highlight_gateway_woman" href="<?php echo $this->getUrl().'woman.html'?>">Woman</a>
+           <a class="highlight_gateway highlight_gateway_man" href="<?php echo $this->getUrl().'man.html'?>">Man</a>
+           <a class="highlight_gateway highlight_gateway_home" href="<?php echo $this->getUrl().'underwear.html'?>">underwear</a>
+
+           <!-- <a href="#" class="watch-video" onclick='jwplayer().play()'>watch the<br />making of the <br />AW13 campaign</a> -->
+      </div>
+      <!--div class="gw_image_box"> 
+        <a href="<?php echo $this->getBaseUrl().'campaign'?>"><img src="<?php echo $this->getSkinUrl(); ?>images/kishan/Shop_for_sale_main_page.png" /></a>
+      </div-->
+      <!--div class="gw_image_box_area">
+       
+        <!--a class="image_box" id="image_box_1" href="<?php echo $this->getBaseUrl().'campaign'?>"><img src="<?php echo $this->getSkinUrl(); ?>images/kishan/Shop_for_sale_main_page.png" /></a>
+        <a class="image_box" id="image_box_1"><img src="<?php echo $this->getSkinUrl(); ?>images/kishan/main_page_hover.png" /></a>
+        <a  class="image_box" id="image_box_2" ><img src="<?php echo $this->getSkinUrl(); ?>images/kishan/main_page_1.png" /></a>
+      </div-->
+  </div>
+</div>
+<!--script type="text/javascript">
+jQuery(document).ready(function($){
+   var i = 1;
+   var max_slides = 2;
+   rotate(i,max_slides);
+});
+</script-->
+<?php 
+
+$my_product_sku = Mage::getStoreConfig('configuration/configuration/product_sku');
+//echo $my_product_sku;exit;
+$product_model = Mage::getModel('catalog/product');
+$my_product_id  = $product_model->getIdBySku($my_product_sku);
+
+$my_product = $product_model->load($my_product_id);
+      //echo '<pre>';print_r($my_product->getData());exit;
+$stocklevel = (int)Mage::getModel('cataloginventory/stock_item')
+                ->loadByProduct($my_product)->getQty();
+//var_dump($stocklevel);exit;
+?>
+<style type="text/css">
+.gw_image_box_area {
+display: inline-block;
+position: absolute;
+margin-top: 205px;
+}
+.image_box{display: block;position: absolute;}
+
+</style>
+
+<script type="text/javascript">
+
+jQuery(document).ready(function($){
+  //$.cookie("test", "1", { expires: 1 });
+  //test = $.cookie("test");
+  var i = 1;
+  var max_slides = 2;
+  rotate_imagbox(i,max_slides);
+  stocklevel = <?php echo $stocklevel?>;
+  //alert($.type(stocklevel));return false;
+  //if(stocklevel != 0){
+   /*$("#hidden_link").fancybox({
+        onComplete: function() {
+        $('#fancybox-img').attr('usemap', '#Map');
+    }
+   }).trigger('click');*/
+ //}
+});
+
+</script>

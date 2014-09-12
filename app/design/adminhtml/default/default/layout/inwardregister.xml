@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <inwardregister_adminhtml_inwardregister_index>
+        <reference name="content">
+            <block type="inwardregister/adminhtml_inwardregister" name="inwardregister" />
+        </reference>
+    </inwardregister_adminhtml_inwardregister_index>
+	<inwardregister_adminhtml_inwardregister_inwardreport>
+		<reference name="head">
+		   <action method="addJs"><js>extjs/jquery1.8.min.js</js></action>
+		</reference>
+		<reference name="content">
+	  <block type="inwardregister/adminhtml_inwardregister" name="inwardregisterreport" template="inwardregister/inwardregisterreport.phtml"/>
+	</reference>
+	</inwardregister_adminhtml_inwardregister_inwardreport>
+	
+</layout>

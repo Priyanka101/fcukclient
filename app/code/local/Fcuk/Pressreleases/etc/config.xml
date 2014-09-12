@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Fcuk_Pressreleases>
+      <version>0.1.0</version>
+    </Fcuk_Pressreleases>
+  </modules>
+  <frontend>
+    <routers>
+      <pressreleases>
+        <use>standard</use>
+          <args>
+            <module>Fcuk_Pressreleases</module>
+            <frontName>pressreleases</frontName>
+          </args>
+      </pressreleases>
+    </routers>
+		<layout>
+		  <updates>
+			<pressreleases>
+			  <file>pressreleases.xml</file>
+			</pressreleases>
+		  </updates>
+		</layout>
+  </frontend>
+  <global>
+    <helpers>
+      <pressreleases>
+        <class>Fcuk_Pressreleases_Helper</class>
+      </pressreleases>
+    </helpers>
+	<blocks>
+	  <pressreleases>
+		<class>Fcuk_Pressreleases_Block</class>
+	  </pressreleases>
+	</blocks>
+	<models>
+	  <pressreleases>
+		<class>Fcuk_Pressreleases_Model</class>
+		<resourceModel>pressreleases_mysql4</resourceModel>
+	  </pressreleases>
+	  <pressreleases_mysql4>
+		<class>Fcuk_Pressreleases_Model_Mysql4</class>
+		<entities>		  
+			  <pressreleases>
+				<table>pressreleases</table>
+			  </pressreleases>		  
+			  <presscoverage>
+				<table>presscoverage</table>
+			  </presscoverage>		  
+			  <defaultbanner>
+				<table>defaultbanner</table>
+			  </defaultbanner>
+        </entities>
+	  </pressreleases_mysql4>
+	</models>
+	<resources>
+	  <pressreleases_setup>
+		<setup>
+		  <module>Fcuk_Pressreleases</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </pressreleases_setup>
+	  <pressreleases_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </pressreleases_write>
+	  <pressreleases_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </pressreleases_read>
+	</resources>
+  </global>
+  <admin>
+	<routers>
+	  <pressreleases>
+	    <use>admin</use>
+		<args>
+		  <module>Fcuk_Pressreleases</module>
+		  <frontName>pressreleases</frontName>
+		</args>
+	  </pressreleases>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <pressreleases module="pressreleases">
+		<title>Pressreleases</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <pressreleases module="pressreleases">
+		    <title>Manage Pressreleases</title>
+			<sort_order>0</sort_order>
+			<action>pressreleases/adminhtml_pressreleases</action>
+		  </pressreleases>
+		  <presscoverage module="pressreleases">
+		    <title>Manage Presscoverage</title>
+			<sort_order>10</sort_order>
+			<action>pressreleases/adminhtml_presscoverage</action>
+		  </presscoverage>
+		  <defaultbanner module="pressreleases">
+		    <title>Manage Defaultbanner</title>
+			<sort_order>20</sort_order>
+			<action>pressreleases/adminhtml_defaultbanner</action>
+		  </defaultbanner>
+		</children>
+	  </pressreleases>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<pressreleases translate="title" module="pressreleases">
+			  <title>Pressreleases</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <pressreleases translate="title">
+			<title>Manage Pressreleases</title>
+			<sort_order>0</sort_order>
+		  </pressreleases>
+		  <presscoverage translate="title">
+			<title>Manage Presscoverage</title>
+			<sort_order>10</sort_order>
+		  </presscoverage>
+		  <defaultbanner translate="title">
+			<title>Manage Defaultbanner</title>
+			<sort_order>20</sort_order>
+		  </defaultbanner>
+			  </children>
+			</pressreleases>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<pressreleases>
+		  <file>pressreleases.xml</file>
+		</pressreleases>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

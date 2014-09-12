@@ -1,0 +1,131 @@
+<?php
+    $_rtl           = Mage::getStoreConfig('custom_menu/general/rtl') + 0;
+    $_categories    = $this->getStoreCategories();
+    if (is_object($_categories)) $_categories = $this->getStoreCategories()->getNodes();
+?>
+<div class="nav-container">
+    <div id="custommenu" class="<?php echo $_rtl ? ' rtl' : ''; ?>">
+    <span class="home_link_wrap">
+        <a class="home-link" href="<?php echo $this->getBaseUrl()?>" title="Click here to return to French Connection home"></a>
+        <div>Return To<br/> Home Page</div>
+    </span>
+        <?php if ($this->showHomeLink()) : ?>
+        <div class="menu">
+            <div class="parentMenu menu0">
+                <a href="<?php echo $this->getUrl('') ?>">
+                    <span><?php echo $this->__('Home'); ?></span>
+                </a>
+            </div>
+        </div>
+        <?php endif ?>
+        <?php // echo get_class($this); exit; ?>
+        <?php foreach ($_categories as $_category): ?>
+            <?php $menu = $this->drawCustomMenuItem($_category); ?>
+            <?php //if($menu[0][3] !="<span>Underwear</span>"): ?>
+            <?php $menuPart[] = $menu[0]; ?>
+            <?php //endif; ?>
+            <?php $menuTogglePart[] = $menu[1] ?>
+        <?php endforeach ?>
+        <?php echo $this->makeStringMenu($menuPart); ?>
+        
+        <div class="menu">
+            <div class="parentMenu menu7">
+                <a href="http://911fashion.frenchconnection.in/" >
+                    <span><?php echo $this->__('BLOG'); ?></span>
+                </a>
+            </div>
+        </div>
+
+		<div class="menu-form-areanew">
+			<div class="menu-form">
+			<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('catalogsearch/form.mini.phtml')->toHtml(); ?>
+			</div>
+		</div>
+        <a class="subscribe-link" href="<?php echo $this->getUrl('about_you');?>" title="Click here to sign up to newsletter"><div>Subscribe To<br/>Newsletter</div></a>
+        <div class="clearBoth"></div>
+        <?php echo $this->makeStringMenu($menuTogglePart); ?>
+        <div class="clearBoth"></div>
+
+    </div>
+    <div id="custommenu-mobile" class="<?php echo $_rtl ? ' rtl' : ''; ?>" style="display:none;">
+        <div id="menu-button" onclick="wpMenuButtonToggle()">
+            <a href="javascript:void(0);">
+                <span>Menu</span>
+            </a>
+        </div>
+        <div id="menu-content" style="display:none;">
+            <?php if ($this->showHomeLink()) : ?>
+            <div id="menu-mobile-0" class="menu-mobile level0">
+                <div class="parentMenu">
+                    <a href="<?php echo $this->getUrl('') ?>">
+                        <span><?php echo $this->__('Home'); ?></span>
+                    </a>
+                </div>
+            </div>
+            <?php endif ?>
+            <?php foreach ($_categories as $_category): ?>
+                <?php echo $this->drawCustomMenuMobileItem($_category) ?>
+            <?php endforeach ?>
+            <div class="clearBoth"></div>
+        </div>
+    </div>
+    
+   
+	
+</div>
+
+
+
+<script type="text/javascript">
+//<![CDATA[
+var CUSTOMMENU_POPUP_WIDTH = <?php echo Mage::getStoreConfig('custom_menu/popup/width') + 0; ?>;
+var CUSTOMMENU_POPUP_TOP_OFFSET = <?php echo Mage::getStoreConfig('custom_menu/popup/top_offset') + 0; ?>;
+var CUSTOMMENU_POPUP_DELAY_BEFORE_DISPLAYING = <?php echo Mage::getStoreConfig('custom_menu/popup/delay_displaying') + 0; ?>;
+var CUSTOMMENU_POPUP_DELAY_BEFORE_HIDING = <?php echo Mage::getStoreConfig('custom_menu/popup/delay_hiding') + 0; ?>;
+var CUSTOMMENU_RTL_MODE = <?php echo $_rtl; ?>;
+var wpCustommenuTimerShow = {};
+var wpCustommenuTimerHide = {};
+var wpActiveMenu = null;
+//wpCustomMenuMobileToggle();
+//]]>
+</script>
+<script type="text/javascript">
+
+    jQuery(document).ready(function($){
+        //alert("hello");
+         jQuery(".right-slider-wrapper").css({"float":"right"});
+         jQuery(".wp-custom-menu-popup").css("display","none");
+
+         // Hover Effects on Home and Subscribe link Starts
+         jQuery(".home_link_wrap > div").css("display", "none");
+         jQuery(".home_link_wrap").hover(function(){
+            jQuery(".home_link_wrap > div").stop(true,true).fadeToggle(500);
+         });
+
+         jQuery(".subscribe-link > div").css("display", "none");
+         jQuery(".subscribe-link").hover(function(){
+            jQuery(".subscribe-link > div").stop(true,true).fadeToggle(500);
+         });
+        // Hover Effects on Home and Subscribe link Ends
+
+        //unbind link for underwear
+        $('.unbind').attr('disabled','disabled');
+        $('.unbind').bind('click', false);
+    });
+    // jQuery(document).ready(function(){
+        //jQuery(".wp-custom-menu-popup ").hide();
+        // jQuery('.bxslider').bxSlider({
+        //     minSlides: 3,
+        //     maxSlides: 3,
+        //     slideWidth: 100,
+        //     slideMargin: 10,
+        //     moveSlides: 1,
+        //     pager: false,
+        //     captions: true
+        // });
+    // });
+
+</script>
+<style type="text/css">
+
+</style>

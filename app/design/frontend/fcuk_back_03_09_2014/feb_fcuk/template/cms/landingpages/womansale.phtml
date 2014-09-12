@@ -1,0 +1,122 @@
+<?php
+$resource = Mage::getSingleton('core/resource');
+		$read = $resource->getConnection('core_read');
+	
+		$query = "SELECT * FROM landingpages where catname='womansale'";
+		$result=$read->query($query);
+		$landingpage = $result->fetchAll();
+		//print_r($landingpage);
+		$mediaurl=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+		//print_r($mediaurl);
+?>
+
+<style type="text/css">
+
+.category-man{background-image:none;}
+ .home-banner {
+    background-image: url("<?php echo $mediaurl.''.$landingpage[0]['bannerimage']; ?>");
+    background-repeat:no-repeat;
+    margin: 0;
+    padding: 0;
+    background-color: #5a9dc7;
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+.header-bg-1 {
+    background-image: url("<?php echo $this->getSkinUrl('images/fcukwrapper.jpg') ?>");
+    background-position: left top;
+    background-repeat: repeat-x;
+    width: 100%;
+	height:128px;
+}
+
+ .wrapper {
+    background: url("<?php echo $this->getSkinUrl('images/fcukwrapper.jpg') ?>") repeat-x scroll 0 0 transparent;
+    margin: 0;
+    padding: 0;
+}
+
+ .header-bg{
+    background-color: rgba(255, 255, 255, 0.6);
+    width: 100%;
+}
+
+ .home-cat-links {
+margin-top: 380px;
+*margin-top: 265px;
+}
+ .copyright_text {
+margin-top: 95px;
+ background-color: #fff;
+ width: 100%;
+}
+ .home-cat-links{
+	list-style: none;
+}
+ .home-cat-links li span{
+	font-size: 20px;
+	font-weight: bold;
+	color:red;
+	padding-left: 10px;
+}
+ .home-cat-links ul{padding-top: 25px;}
+.home-banner img {width: 10%;line-height: 1.4; border: 0;margin-bottom: 17px;}
+.home-banner {position: absolute; left:0px; width: 100%; }
+.home-banner img:hover{opacity: 0.6;}
+ .shopabysale a{margin-left: 130px;}
+.home-banner{top:123px; }
+</style>
+
+<div class="main-container home-banner"> 
+	<div class="mainArea">
+   
+   
+		
+    
+	<div class="home-cat-links" >
+		
+        <p><a title="Dresses" class="ms-sale_link gateway-woman" href="<?php echo $this->getBaseUrl().'woman/category/woman-dresses.html'?>">
+			<img width="6%;" style="margin-left: 35px;margin-top: 15px;" alt="Dresses" src="<?php echo $this->getSkinUrl('images/dresses.gif');?>"></a>
+
+			<a title="Tops" class="ms-sale_link gateway-woman" href="<?php echo $this->getBaseUrl().'woman/category/woman-tops.html'?>">
+			<img width="6%;" style="margin-left: 10px;margin-top: 15px;" alt="Tops" src="<?php echo $this->getSkinUrl('images/tops.gif');?>"></a>
+
+			<a title="Skirts & Skirts" class="ms-sale_link gateway-man" href="<?php echo $this->getBaseUrl().'woman/category/shorts.html'?>">
+			<img width="6%;" style="margin-left: 10px;margin-top: 15px;" alt="Skirts" src="<?php echo $this->getSkinUrl('images/skirts.gif');?>"></a>
+
+			
+		</p>
+		<p>
+			<a title="Accessories" class="ms-sale_link gateway-woman" href="<?php echo $this->getBaseUrl().'woman/category/woman-accessories.html'?>">
+			<img width="6%;" style="margin-left: 35px;" alt="Accessories" src="<?php echo $this->getSkinUrl('images/accessories.gif');?>"></a>
+			
+			<a title="Trousers" class="ms-sale_link gateway-man" href="<?php echo $this->getBaseUrl().'woman/category/woman-trousers-leggings.html'?>">
+			<img width="6%;" style="margin-left: 10px;" alt="Trousers" src="<?php echo $this->getSkinUrl('images/trousers.gif');?>"></a>
+
+			<a title="Jeans" class="ms-sale_link gateway-man" href="<?php echo $this->getBaseUrl().'woman/category/woman-jeans.html'?>">
+			<img width="6%;" style="margin-left: 10px;" alt="Shorts" src="<?php echo $this->getSkinUrl('images/jeans.gif');?>"></a>
+			
+		</p>
+			<a title="Knitwear" class="ms-sale_link gateway-woman" href="<?php echo $this->getBaseUrl().'woman/category/woman-knitwear.html'?>">
+			<img width="6%;" style="margin-left: 145px;" alt="Knitwear" src="<?php echo $this->getSkinUrl('images/knitwear.gif');?>"></a>	
+		</p>
+	<!-- 	<p>
+			<a title="Denim" class="ms-sale_link gateway-man" href="<?php echo $this->getBaseUrl().'woman/category/woman-jeans.html'?>">
+			<img width="6%;" style="margin-left: 30px;" alt="denim" src="<?php echo $this->getSkinUrl('images/denims.gif');?>"></a> 
+	
+			<a title="Knitwear" class="ms-sale_link gateway-man" href="<?php echo $this->getBaseUrl().'woman/category/woman-knitwear.html'?>">
+			<img width="6%;" style="margin-left: 10px;" alt="knitwear" src="<?php echo $this->getSkinUrl('images/knitwear.gif');?>"></a>
+		</p> -->
+
+		<p class="shopabysale"><a title="Sale Woman" class="ms-sale_link gateway-man" href="<?php echo $this->getBaseUrl().'woman/category/woman-dresses.html'?>">
+		<img  style="width:13%;" alt="Woman" src="<?php echo $this->getSkinUrl('images/shop_sale.gif');?>"></a></p>
+	</div>	
+	
+
+		
+</div>
+
+	<div class="copyright_text">
+		Established in 1972, French Connection is a world-renowned fashion brand famed for its high-design approach. In addition to producing seasonal <a href="/man.html">menswear</a> and <a href="/woman.html">womenswear</a> clothing collections, French Connection also offers <a href="/woman/category/woman-accessories.html">accessories</a>.
+	</div>
+</div>

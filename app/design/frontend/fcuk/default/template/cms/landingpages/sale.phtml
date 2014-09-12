@@ -1,0 +1,82 @@
+<?php
+$resource = Mage::getSingleton('core/resource');
+		$read = $resource->getConnection('core_read');
+	
+		$query = "SELECT * FROM landingpages where catname='homesale'";
+		$result=$read->query($query);
+		$landingpage = $result->fetchAll();
+		//print_r($landingpage);
+		$mediaurl=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+		//print_r($mediaurl);
+?>
+
+<style type="text/css">
+
+.cms-home{background-image:none;}
+.home-banner {
+    background-image: url("<?php echo $mediaurl.''.$landingpage[0]['bannerimage']; ?>");
+    background-repeat:no-repeat;
+    margin: 0;
+    padding: 0;
+    background-color: #5a9dc7;
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+ .header-bg-1 {
+    background-image: url("<?php echo $this->getSkinUrl('images/fcukwrapper.jpg') ?>");
+    background-position: left top;
+    background-repeat: repeat-x;
+    width: 100%;
+	height:128px;
+}
+
+.wrapper {
+    background: url("<?php echo $this->getSkinUrl('images/fcukwrapper.jpg') ?>") repeat-x scroll 0 0 transparent;
+    margin: 0;
+    padding: 0;
+}
+
+.header-bg{
+    background-color: rgba(255, 255, 255, 0.6);
+    width: 100%;
+}
+
+.home-cat-links {
+margin-top: 380px;
+*margin-top: 265px;
+}
+.copyright_text {
+ margin-top: 95px;
+ background-color: #fff;
+ width: 100%;
+}
+.home-cat-links{
+	list-style: none;
+}
+.home-cat-links li span{
+	font-size: 20px;
+	font-weight: bold;
+	color:red;
+	padding-left: 10px;
+}
+.home-cat-links ul{padding-top: 25px;}
+.cms-index-index .home-banner img {width: 15%;}
+.home-banner{top:123px; }
+ </style>
+
+<div class="main-container home-banner"> 
+	<div class="mainArea">
+   
+		
+    
+	<div class="home-cat-links" >
+		
+               <a title="Woman" class="ms-sale_link gateway-woman" href="<?php echo $this->getBaseUrl().'woman.html'?>"><img width="15%;" style="margin-left: 40px;margin-top: 15px;" alt="woman" src="<?php echo $this->getSkinUrl('images/woman.gif');?>"></a>
+               <a title="Man" class="ms-sale_link gateway-man" href="<?php echo $this->getBaseUrl().'man.html'?>"><img width="15%;" style="margin-left: 10px;margin-top: 15px;" alt="Man" src="<?php echo $this->getSkinUrl('images/man.gif');?>"></a>
+         		
+	</div>	
+</div>
+
+	<div class="copyright_text">
+		Established in 1972, French Connection is a world-renowned fashion brand famed for its high-design approach. In addition to producing seasonal <a href="/man.html">menswear</a> and <a href="/woman.html">womenswear</a> clothing collections, French Connection also offers <a href="/woman/category/woman-accessories.html">accessories</a>.
+	</div>

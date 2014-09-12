@@ -1,0 +1,341 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<!--div class="footer-container">
+    <div class="footer">
+        <?php //echo $this->getChildHtml() ?>
+        <p class="bugs"><?php //echo $this->__('Help Us to Keep Magento Healthy') ?> - <a href="http://www.magentocommerce.com/bug-tracking" onclick="this.target='_blank'"><strong><?php //echo $this->__('Report All Bugs') ?></strong></a> <?php //echo $this->__('(ver. %s)', Mage::getVersion()) ?></p>
+        <address><?php //echo $this->getCopyright() ?></address>
+    </div>
+</div-->
+
+
+<div class="footer">
+<div id="siteFooter">
+
+ <div id="slidtoggle">
+	<div id="footer_bar">
+	<span class="click-here"><img src="<?php echo $this->getSkinUrl('images/clickhere.png') ?>"/></span>
+	   <div class="page" id="footstrip">
+		  <div id="footerNav_container_bar">
+			<ul class="new-clearfix gotham">
+				<li class="footHdr"><span>SHOP ONLINE</span></li>
+				<li class="footHdr"><span>ABOUT FC</span></li>
+				<li class="footHdr"><span>COMPANY</span></li> 
+				<li style="border:0;" class="footHdr"><span>MORE</span></li>
+			</ul>
+		   </div>		   
+		   <div class="socialLinks">
+				<ul>
+					<li><a class="facebook" href="http://www.facebook.com/frenchconnectionindia?ref=ts"></a></li>
+					
+					<li><a class="twitter" href="https://twitter.com/fcuk_india"></a></li>
+					<!--li><a class="google"href="http://www.youtube.com/frenchconnectionin"></a></li-->
+					<li><a class="pinterest"href="http://pinterest.com/fcukindia/"></a></li>
+					<li><a class="youtube"href="http://www.youtube.com/frenchconnectionin"></a></li>
+					
+				</ul>
+		   </div>
+		   
+		
+		   
+			<div class="subscrbArea">
+				<form name="newsletter-validate-detail" id="newslettervalidatedetail" method="post" onsubmit="return false">
+					<input type="text" class="required-entry validate-email subscrb" value="Enter your email address..." onfocus="javascript: if(this.value=='Enter your email address...'){this.value='';}" onblur= "javascript: if(this.value==''){this.value='Enter your email address...';}" id="emailsubscribe" name="emailsubscribe"/>
+					
+                    <button type="submit" value="&nbsp" class="subscrbbtn " title="Send"  ></button>
+                    <!--input type="text" name="email" id="email_address" value="" title="Email Address" class="input-text validate-email required-entry"-->
+                    <!--button type="submit" title="Submit" class="subscrbbtn" onclick="return check()">	</button-->
+				</form>
+				 <script type="text/javascript">
+				//< ![CDATA[
+				  var myForm= new VarienForm('newslettervalidatedetail');
+				//]]>
+				jQuery('.subscrbbtn').click(function(){
+
+				var subval=jQuery('.subscrb').val();
+				var link= '<?php echo $this->getBaseUrl().'newsletter/subscriber/new'; ?>';
+										
+				jQuery.post(link, { email: subval }, function(data){ 
+						if(jQuery("#emailsubscribe").hasClass("validation-failed"))
+							{
+								
+							}
+							else
+							{
+								jQuery("#emailsubscribe").css("color","#424041");
+								jQuery("#emailsubscribe").css("font-weight","bold");
+								jQuery("#emailsubscribe").val("Thank You!");
+								/* jQuery("#emailsubscribe").delay(4000).fadeOut(400); */
+												
+							}
+							
+						} );	
+								
+				});							
+				</script>
+			</div>
+	   </div>
+	</div>      
+      <div class="page" id="footslide">  
+ 	  <nav id="footerNav" role="navigation">
+			<ul class="clearfix">
+			  <li>
+				<!--span class="footHdr">FCUK</span-->
+				<ul>
+				  <li><a href="<?php echo $this->getUrl('woman.html')?>" title="Woman">Woman</a></li>
+				  <li><a href="<?php echo $this->getUrl('man.html')?>" title="Man">Man</a></li>
+				  <!--li><a href="<?php echo $this->getUrl('underwear.html')?>" title="Underwear">Underwear</a></li-->
+				  <!--li><a href="<?php echo $this->getUrl('giftvoucher.html')?>" title="Man">GiftCard</a></li-->
+				</ul>
+			  </li>
+			  <li>
+				<!--span class="footHdr">About FC</span-->
+				<ul>
+				  <li><a href="<?php echo $this->getUrl('about_fcuk_india')?>" title="FC India">FC India</a></li>
+				  
+				  <li><a href="https://www.frenchconnection.com/content/marketing/fashion-is-our-business.htm" target="_blank" title="About French Connection">About FCUK</a></li>
+				  
+				  <li><a href="<?php echo $this->getUrl('how-to-order')?>" title="Help">Help</a></li>
+				  <!--
+                  <li><a href="<?php //echo $this->getUrl('about_fcuk_india')?>" title="About French Connection India">About French Connection India</a></li>
+				  -->
+	
+                 
+				  <li><a href="<?php echo $this->getUrl('contact-us')?>" title="Contact Us">Contact Us</a></li>
+				    <li><a href="<?php echo $this->getUrl('shipping-delivery')?>" title="Delivery">Delivery</a></li>
+				  <li><a href="<?php echo $this->getUrl('cancellation-refund')?>" title="Cancellation Refund Policy">Cancellation Policy</a></li>
+				  <!--li><a href="<?php //echo $this->getUrl('contacts')?>" title="Feedback">Feedback</a></li-->
+				</ul>
+			  </li>
+			  <li>
+				<!--span class="footHdr">Company</span-->
+				<ul>
+				 <!--  <li><a href="<?php echo $this->getUrl()."pressreleases/index/pressrelease?release=Spring%20Summer'13"?>" title="Press">Press</a></li>  -->
+				   <li><a href="<?php echo $this->getBaseUrl()."press-home"?>" title="Press">Press</a></li>
+				  <li><a href="<?php echo $this->getUrl('careers')?>" title="Careers">Careers</a></li>
+				</ul>
+			  </li>
+			  <li class="last" style="border:0;">
+				<!--span class="footHdr">More</span-->
+				<ul>
+				  <li><a href="<?php echo $this->getUrl('privacy-policy')?>" title="Privacy Policy">Privacy Policy</a></li>
+				  <li><a href="<?php echo $this->getUrl('termsconditions')?>" target="_blank" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
+				  <li><a href="<?php echo $this->getUrl('storelocator')?>" title="Store Locator">Store Locator</a></li>
+				  <li><a href="<?php echo $this->getBaseUrl().'sitemap'?>" title="sitemap">Site Map</a></li>	
+				  
+				
+				  <!--li><a href="<?php echo $this->getUrl('sales/order/history/')?>" title="Track Your Shipment">Track Your Shipment</a></li>
+				   <li><a href="<?php echo $this->getUrl('shipping-delivery-policy').'#servicepin'?>" title="Serviceable Pincode">Serviceable Pincode</a></li-->
+				  
+				</ul>
+			  </li>
+			</ul>
+		  </nav>
+		  
+		  <div class="updateInfo">
+			Enter your email address to receive regular style updates.
+		  </div>
+		
+		<div class="copyright"><address><?php echo $this->getCopyright() ?></address></div></div>
+       </div>
+        
+        
+     
+
+      </div>
+	  </div>
+	
+      <!--div id="socialNav_container">
+        <nav id="socialNav">
+          <ul class="clearfix">
+            <li>
+                <ul class="clearfix">
+                <!--li><a class="facebook" title="Facebook" target="_blank" href="">Facebook</a></li>
+                <li><a class="twitter" title="Twitter" target="_blank" href="">Twitter</a></li>
+                <li><a class="pinterest" title="Pinterest" target="_blank" href="">Pinterest</a></li>
+                <li><a class="youtube_footer" title="Youtube" target="_blank" href=">Youtube</a></li>
+              </ul>
+			 	<li class="fc-head-facebook"><a href="http://www.facebook.com/frenchconnectionindia?ref=ts" target="_blank">Facebook</a></li>
+				<li class="fc-head-twitter"><a href="https://twitter.com/fcuk_india" target="_blank">Twitter</a></li>
+				<li class="fc-head-youtube"><a href="http://www.youtube.com/frenchconnectionin" target="_blank">Youtube</a></li>
+				<li class="fc-head-pinterest"><a href="http://www.pinterest.com/frenchconnectionin" target="_blank">Pinterest</a></li>
+			
+            </li>
+          </ul>
+        </nav>
+      </div-->
+
+      <!--div id="updateForm_container_bar">
+      <form action="" id="updateForm">
+        <!--label for="update">Sign up to newsletter</label>
+        <input type="text" placeholder="enter your email address" id="update" name="update" style="color: rgb(204, 204, 204);">
+        <input type="submit" alt="send" title="send" class="siteSubmitBtn siteSubmitBtn_update" id="submitupdate" name="submitupdate">
+      </form>
+
+    </div-->
+   
+
+
+
+      <!-- footer navigation -->
+
+
+      <!--nav role="navigation" id="footerNav">
+        <ul class="clearfix">
+          <li>
+            <ul>
+              <li><a title="Woman" href="/content/category/woman.htm">Woman</a></li>
+              <li><a title="Man" href="/content/category/man.htm">Man</a></li>
+              <li><a title="Homeware" href="/content/category/homeware.htm">Homeware</a></li>
+              <li><a title="Students" href="/content/students/students.htm">Students</a></li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><a title="About Us" href="/content/marketing/fashion-is-our-business.htm">About Us</a></li>
+              <li><a title="Help" href="/content/help/how-to-order.htm">Help</a></li>
+              <li><a title="Contact Us" href="/contact+us.htm">Contact Us</a></li>
+              <li><a title="Delivery" href="/content/help/delivery.htm">Delivery</a></li>
+              <li><a title="Returns" href="/content/help/returns.htm">Returns</a></li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li><a title="Investor Relations" href="/content/investor-relations/index.htm">Investor Relations</a></li>
+              <li><a title="Press" href="/content/press/index.htm">Press</a></li>
+              <li><a title="Careers" href="/content/careers/retail+opportunities.htm">Careers</a></li>
+              <li><a title="Licensing" href="/content/marketing/licensed-products.htm">Licensing</a></li>
+            </ul>
+          </li>
+          <li style="border:0;" class="last">
+            <ul>
+              <li><a title="Privacy Policy" href="/content/legal/privacy+policy.htm">Privacy Policy</a></li>
+              <li><a title="Cookie Policy" href="/content/legal/cookie+policy.htm">Cookie Policy</a></li>
+              <li><a title="Terms &amp; Conditions" href="/content/legal/terms+and+conditions.htm">Terms &amp; Conditions</a></li>
+              <li><a title="Store Locator" href="/store+locator.htm">Store Locator</a></li>
+              <li><a title="Site Map" href="/content/sitemap/sitemap.htm">Site Map</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav-->
+
+
+
+    <!--div id="updateForm_container">
+
+      <div id="updateForm_message">
+        Enter your email address to receive regular style updates.
+      </div>
+
+
+    </div-->
+
+
+  <!--div class="container container_pad_10 container_24">
+    <!-- copyright information -->
+    <!--div role="contentinfo" id="copyright">
+      &copy; 2013 French Connection. All Rights Reserved
+    </div>
+  </div-->
+
+
+
+
+<script type="text/javascript">
+var footertoggle = 1;
+jQuery(document).ready(function($){	
+   
+   
+	$("#slidtoggle").hover(function(){        
+		$("#footslide").slideDown(function(){
+			 $("#footslide").stop();		 
+		});
+	},function(){
+		$("#footslide").slideUp();				 
+
+	});				
+	
+	/*$('.footer .socialLinks ul').hover(function(){
+		//alert('u r here');return false;
+		$("#footslide").slideUp().stop();	
+	},function(){
+		//alert('u r here');return false;
+		$("#footslide").slideDown();
+	
+	})*/
+	
+	
+	/*$("#footer_bar").click(function(){        
+	
+
+
+if(footertoggle==0){
+	 $('#footslide').slideUp('slow', function() {
+// Animation complete.
+});
+footertoggle=1;
+}else{
+	 $('#footslide').slideDown('slow', function() {
+// Animation complete.
+});
+footertoggle=0;
+}
+
+		
+	});	*/			
+	
+	
+
+}); 
+
+
+</script>   
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+
+  _gaq.push(['_setAccount', 'UA-40530386-1']);
+
+  _gaq.push(['_setDomainName', 'frenchconnection.in']);
+
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+
+'http://www') + '.google-analytics.com/ga.js';
+
+    var s = document.getElementsByTagName('script')[0];
+
+s.parentNode.insertBefore(ga, s);
+
+  })();
+</script>
+
+ 

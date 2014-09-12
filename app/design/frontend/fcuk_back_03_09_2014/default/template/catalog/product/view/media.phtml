@@ -1,0 +1,93 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+?>
+<?php
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+?>
+<?php if ($_product->getImage() != 'no_selection' && $_product->getImage()): ?>
+
+<div class="carousel-container">
+  <div id="carousel">
+    <?php if (count($this->getGalleryImages()) > 0): ?>
+    <?php foreach ($this->getGalleryImages() as $_image): ?>
+    <div class="carousel-feature"> <a href="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(900,1336); ?>"  class = 'cloud-zoom' id='zoom1' rel="adjustX: 0, adjustY:0"> <img class="carousel-image" src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(290,435); ?>"  alt="<?php echo $this->htmlEscape($_image->getLabel()); ?>" /> </a> </div>
+    <?php endforeach; ?>
+    <?php endif; ?>
+  </div>
+  <div id="carousel-left" class="arrowimg"></div>
+  <div id="carousel-right" class="arrowimg"></div>
+</div>
+<?php else: ?>
+<p class="product-image">
+  <?php
+        $_img = '<img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(265).'" alt="'.$this->htmlEscape($this->getImageLabel()).'" title="'.$this->htmlEscape($this->getImageLabel()).'" />';
+        echo $_helper->productAttribute($_product, $_img, 'image');
+    ?>
+</p>
+<?php endif; ?>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl() ?>css/feature-carousel.css" charset="utf-8" />
+<script src="<?php echo $this->getSkinUrl() ?>js/jquery.featureCarousel.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl() ?>css/cloud-zoom.css" charset="utf-8" />
+<script src="<?php echo $this->getSkinUrl() ?>js/cloud-zoom.1.0.3.min.js" type="text/javascript" charset="utf-8"></script> 
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+  
+	var carousel = $("#carousel").featureCarousel({
+	  // include options like this:
+	  // (use quotes only for string values, and no trailing comma after last option)
+	  // option: value,
+	  // option: value
+	  
+	  autoPlay: 0,
+	  trackerSummation: false,
+	  trackerIndividual: false,
+	  smallFeatureOffset: 155,
+	  smallFeatureWidth:0.3,
+	  smallFeatureHeight:0.3
+	  
+	});
+
+	$("#but_prev").click(function () {
+	  carousel.prev();
+	});
+	$("#but_pause").click(function () {
+	  carousel.pause();
+	});
+	$("#but_start").click(function () {
+	  carousel.start();
+	});
+	$("#but_next").click(function () {
+	  carousel.next();
+	});
+  });
+</script> 

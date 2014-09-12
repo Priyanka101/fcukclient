@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<config>
+	 
+    <modules>
+        <Addons_Storelocator>
+            <version>1.0.4</version>
+        </Addons_Storelocator>
+    </modules>
+    <global>
+		<models>
+            <storelocator>
+                <class>Addons_Storelocator_Model</class>
+                <resourceModel>storelocator_mysql4</resourceModel>
+         	</storelocator>
+			
+         	<storelocator_mysql4>
+         		<class>Addons_Storelocator_Model_Mysql4</class>
+         		<entities>
+         			<storelocator>
+         				<table>store_location</table>
+         			</storelocator>
+				</entities>	
+         	</storelocator_mysql4>
+     	</models>
+		<blocks>
+			<storelocator>
+				<class>Addons_Storelocator_Block</class>
+			</storelocator>
+			<storepickup>
+				<class>Addons_Storelocator_Storepickup</class>
+			</storepickup>
+		</blocks>
+		<resources>
+			<storelocator_setup>
+				<setup>
+					<module>Addons_Storelocator</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</storelocator_setup>
+			<storelocator_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</storelocator_write>
+			<storelocator_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</storelocator_read>
+	</resources>
+	<helpers>
+			<storelocator>
+				<class>Addons_Storelocator_Helper</class>
+			</storelocator>
+	</helpers>
+		
+	 </global>
+	 
+    
+    <frontend>
+    	<layout>
+        	<updates>
+				<storelocator>
+					<file>storelocator.xml</file>
+				</storelocator>
+			</updates>
+		</layout>	 
+        <routers>
+            <storelocator>
+                <use>standard</use>
+                <args>
+                    <module>Addons_Storelocator</module>
+                    <frontName>storelocator</frontName>
+                </args>
+            </storelocator>
+        </routers>
+	</frontend>
+	 <admin>
+        <routers>
+            <storelocator>
+                <use>admin</use>
+                <args>
+                    <module>Addons_Storelocator</module>
+                    <frontName>storelocator</frontName>
+                </args>
+            </storelocator>
+        </routers>
+      
+    </admin>
+    <adminhtml>
+    <layout>
+			<updates>
+				<storelocator>
+				    <file>storelocator.xml</file>
+				</storelocator>
+			</updates>
+		</layout>
+	</adminhtml>
+   
+</config>

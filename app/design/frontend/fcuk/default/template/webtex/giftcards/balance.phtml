@@ -1,0 +1,21 @@
+<div class="my-account">
+    <h1 class="headingacount"><?php echo Mage::helper('downloadable')->__('My Gift Cards') ?></h1>
+
+<form name="giftcardForm" action="<?php echo $this->getUrl('giftcards/customer/giftcardPost') ?>" method="post">
+<table border="0" cellpadding="1" cellspacing="1" class="redeem_tab">
+  <tr>
+    <td><strong>My Gift Card balance:</strong></td>
+    <td><?php echo Mage::helper('core')->currency($this->getCurrentBalance()); ?></td>
+  </tr>
+  <tr>
+    <td><strong>Enter the Gift Card code:</strong></td>
+    <td>&nbsp;&nbsp;<input class="input-text" id="giftcard_code" name="giftcard_code" value="" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><button type="button" title="<?php echo $this->__('Redeem') ?>" class="button redeem" onclick="document.forms['giftcardForm'].submit()" value="<?php echo $this->__('Redeem') ?>">
+    
+    </button></td>
+  </tr>
+</table>
+</form>
+</div>

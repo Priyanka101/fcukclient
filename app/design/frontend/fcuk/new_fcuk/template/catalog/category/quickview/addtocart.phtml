@@ -1,0 +1,182 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+ 
+ /*
+ <?php $buttonTitle = $this->__('Add to Cart'); ?>
+<?php if($_product->isSaleable()): ?>
+    <div class="add-to-cart">
+        <?php if(!$_product->isGrouped()): ?>
+        <label for="qty"><?php echo $this->__('Qty:') ?></label>
+        <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+        <?php endif; ?>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+        <?php echo $this->getChildHtml('', true, true) ?>
+    </div>
+<?php endif; ?>
+ */
+?>
+
+<?php $_product = $this->getProduct(); ?>
+<!-- <div class="quickview-qty-price">	 -->
+    <input type="hidden" name="qty" id="qty " value="1" class="input-text qty quick-qty" >	
+<!-- </div> -->
+<p class="tabheading pricetabn pricetab <?php echo $class?>"><?php /* echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); echo number_format($_price, 2);  */?>
+<?php echo Mage_Catalog_Block_Product::getPriceHtml($product, true) ?>
+<div class="noexchage"><?php if($_product->getSpecialPrice()!=''){echo '<b>No Exchange, No Return</b>';}?></div>
+</p>
+
+<?php echo $this->getChildHtml('quickview.configurable'); ?>
+
+<a href="/checkout/cart/" class="quick-checkout" ><img src="<?php echo $this->getSkinUrl(); ?>images/proceed_cart.jpg" alt="" style="border:none;"/></a>
+<div class="product_size_guide_link show_desktop">
+<!-- <a class="size_guide" onclick="popup('guide')">size guide</a> -->
+	<a onclick="window.parent.popup('guide') ; window.parent.newpopup(popup_html);" id="fullsize2" style="cursor:pointer;font-weight:bold;" class="size_guide">size guide</a>
+</div>
+
+<button class="add-to-cart" id="addtocart">Add to Bag</button>
+<div class="success_msg"></div>
+<div class="fail_msg">the item you have selected is Sold Out</div>
+<div class="sampletest"></div>
+<div class="product_description">
+	<h4>Description</h4>
+	<?php echo $_product->getDescription(); ?>
+</div>
+<div>
+	<a href="<?php echo $_product->getProductUrl();?>" class="quickview-full-details">View Full Details</a>
+</div>
+
+<script>
+var sizevaluenew = 0; 
+jQuery(document).ready(function($){
+	$(".quick-checkout").hide();
+	$('.fail_msg').hide();
+	var targeturl;
+	var color_id='<?php echo $_product->getResource()->getAttribute('color')->getAttributeId()?>';
+	var size_id='<?php echo $_product->getResource()->getAttribute('size')->getAttributeId()?>';
+	var sku ='<?php echo $_product->getId()?>';
+	var color_code;
+	var size_code;
+	// $('select[name=selectbox] option:first').remove();
+	var color_value = $("#attribute92").val();
+	$("#attribute92").change(function(){
+		color_value = $("#attribute92").val();
+	});
+	var size_value = $("#attribute136").val();
+	//$('#addtocart').attr("disabled", "disabled");
+
+	$("#attribute136").change(function(){
+		size_value = $("#attribute136").val();
+		//$('#addtocart').attr("disabled", "");
+	});
+
+	
+	$('#addtocart').live('click',function(e){
+		if(!size_value){
+			$('.sampletest').html("Please Select Size");
+			$('.sampletest').delay(4000).fadeOut();
+			return false;
+		}
+		var qty = 1;
+	
+		color_code = $('input:radio:checked').val();
+		<?php if($_product->isConfigurable()):?>
+		targeturl = '<?php echo $this->getUrl("checkout/cart")?>add?product='+sku+'&super_attribute['+size_id+']='+size_value+'&super_attribute['+color_id+']='+color_value+'&qty='+qty ;
+		<?php else: ?>
+		$('#addtocart').attr("disabled", "");
+		targeturl = '<?php echo $this->getUrl("checkout/cart")?>add?product='+sku+'&qty='+qty;
+		<?php endif;?>
+		//buutton css start
+		$(".add-to-cart").addClass('btn-cart-adding');
+        $(".add-to-cart").text("Adding..");
+        //button css end
+
+		$.post(targeturl , function(response){
+			 var errormsg = $(response).find(".error-msg ul li span").html();
+			if(response){
+			//buutton css start
+			jQuery('.add-to-cart').removeClass('btn-cart-adding');
+            jQuery('.add-to-cart').text("Add To Bag");
+            //button css end
+
+			 window.document.body.scrollTop = 0;
+			 window.document.documentElement.scrollTop = 0;
+			 var msg = $(response).find(".success-msg").html();
+			 var data = $(response).find(".cart-summary-top").html();
+			 var Count = $(response).find(".mybag-span").html();
+			 var errormsg = $(response).find(".error-msg ul li span").html();
+			 //alert(errormsg);
+			 //var mydiv = window.parent.document.getElementById('header-cart-box');
+			// mydiv.innerHTML=data;
+			//alert(Count);
+			$(".top-header .mybag-span",parent.document).html(Count);
+			$(".top-header .cart-summary-top",parent.document).html(data);
+
+			if(msg){
+			 //$('.em_qickviewimage .more-views').css('margin-top', '68px');
+			 
+			 $(".success_msg").show();
+			 $(".top-header .cart-summary-top",parent.document).show();
+			 
+			 
+			 $("html,body",parent.document).animate({ scrollTop: 0 }, "slow");
+			 $(".success_msg").html(msg);
+			 $('.success_msg').fadeOut(10000, function(){
+				 $(this).hide();
+				 $(".cart-summary-top",parent.document).hide();	
+			 });
+
+			 }else{
+
+				$(".success_msg").html(errormsg);
+				$(".success_msg").fadeOut(10000);
+
+			 }
+			  }
+			 
+		});
+		
+		e.stopImmediatePropagation();
+	});
+	
+	
+	
+})
+</script>
+<!--Script for Qty increse-dicrese-->   
+<script type="text/javascript" src="<?php echo $this->getSkinUrl() ?>js/incrementing.js"></script>
+
+<div id="blanket" style="display:none;" >
+<div id="guide" style="display:none;" >
+<div id="popup-close" onclick="popup('guide')" style="display:inline;" ></div>
+<?php if($parent!=5):?>
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('size-guide-center')->toHtml();?>
+		<?php endif?>
+		<?php if($parent == 5):?>
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('size-guide-underwear')->toHtml();?>
+		<?php endif?>
+<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('size-guide-center')->toHtml();?>
+</div>
+</div> 

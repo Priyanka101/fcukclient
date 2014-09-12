@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Mac_Whitelies>
+      <version>0.1.0</version>
+    </Mac_Whitelies>
+  </modules>
+  <global>
+    <helpers>
+      <whitelies>
+        <class>Mac_Whitelies_Helper</class>
+      </whitelies>
+    </helpers>
+	<blocks>
+	  <whitelies>
+		<class>Mac_Whitelies_Block</class>
+	  </whitelies>
+	</blocks>
+	<models>
+	  <whitelies>
+		<class>Mac_Whitelies_Model</class>
+		<resourceModel>whitelies_mysql4</resourceModel>
+	  </whitelies>
+	  <whitelies_mysql4>
+		<class>Mac_Whitelies_Model_Mysql4</class>
+		<entities>		  
+			  <whitelies>
+				<table>whitelies</table>
+			  </whitelies>
+        </entities>
+	  </whitelies_mysql4>
+	</models>
+	<resources>
+	  <whitelies_setup>
+		<setup>
+		  <module>Mac_Whitelies</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </whitelies_setup>
+	  <whitelies_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </whitelies_write>
+	  <whitelies_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </whitelies_read>
+	</resources>
+  </global>
+  <admin>
+	<routers>
+	  <whitelies>
+	    <use>admin</use>
+		<args>
+		  <module>Mac_Whitelies</module>
+		  <frontName>whitelies</frontName>
+		</args>
+	  </whitelies>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+<!-- 	  <whitelies module="whitelies">
+		<title>Whitelies</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <whitelies module="whitelies">
+		    <title>Manage Whitelies</title>
+			<sort_order>0</sort_order>
+			<action>whitelies/adminhtml_whitelies</action>
+		  </whitelies>
+		</children>
+	  </whitelies> -->
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<whitelies translate="title" module="whitelies">
+			  <title>Whitelies</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <whitelies translate="title">
+			<title>Manage Whitelies</title>
+			<sort_order>0</sort_order>
+		  </whitelies>
+			  </children>
+			</whitelies>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<whitelies>
+		  <file>whitelies.xml</file>
+		</whitelies>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

@@ -1,0 +1,219 @@
+<?php
+		/*$resource = Mage::getSingleton('core/resource');
+		$read = $resource->getConnection('core_read');
+		$query = "SELECT * FROM kittedout";
+		$result=$read->query($query);
+		$landingpage = $result->fetchAll();*/
+		$collection = Mage::getModel('custom/kittedout')->getCollection();
+		//print_r($collection->getData());
+		$mediaurl=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+		
+?>
+
+<style type="text/css">
+	body
+{
+	width:100%;
+	height:100%;
+	padding:0px;
+	margin:0px;
+}
+.breadcrumbs{padding:0px;}
+.kittedoutArea
+{
+	width:974px;
+	display:block;
+	background-color:#fff;
+	/*margin:30px 150px;*/
+	height:485px;
+	
+	z-index:1;
+}
+
+.kittedImgArea
+{
+	width:650px;
+	float:left;
+	position:relative;
+	height:460px;
+}
+
+.wholeWrapper
+{
+	position:absolute;
+	z-index:999;
+	background-image:url(kitted%20out/transp.png);
+	background-repeat:repeat;
+	width:100%;
+	height:100%;
+	cursor:pointer;
+	display:none;
+	left:0px;
+	top:0px;
+
+}
+
+
+
+.popOut1, .popOut2, .popOut3, .popOut4, .popOut5, .popOut6
+{
+	position:absolute;
+	z-index:1001;
+	display:none;
+	width:312px;
+}
+.popOut1
+{
+	margin-left:135px;
+	margin-top:14px;
+}
+
+.popOut2
+{
+	margin-left:198px;
+	margin-top:18px;
+}
+
+.popOut3
+{
+	margin-left:170px;
+	margin-top:14px;
+}
+
+.popOut4
+{
+	margin-left:163px;
+	margin-top:15px;
+}
+
+.popOut5
+{
+	margin-left:193px;
+	margin-top:15px;
+}
+
+.popOut6
+{
+	margin-left:160px;
+	margin-top:17px;
+}
+
+#popOut
+{
+	position:absolute;
+	left:0;
+	top:0;
+}
+
+#popOut div img
+{
+
+	border:0;
+
+	
+	
+}
+
+.close
+{
+	position:absolute;
+	top:0px;
+	right:0px;
+	border:0;
+	background-image:url(kitted%20out/CloseBTN.png);
+	background-repeat:no-repeat;
+	width:28px;
+	height:30px;
+	cursor:pointer;
+}
+
+
+
+.textContentSty
+{
+	width:300px;
+	float:left;
+	text-align:center;
+	color:#332f30;
+	margin-top:50px;
+	*margin-top:100px;
+}
+
+.textContentSty h1
+{
+	font-family:Gotham;
+	font-size:70px;
+	text-transform:uppercase;
+	font-weight:bolder;
+	line-height:60px;
+	letter-spacing:-2px;
+}
+
+.textContentSty p
+{
+	font-size:14px;
+	font-family:Gotham;	
+}
+.slideclass {margin-left:75px;}
+
+map > area, map > area:active, map > area:focus {*outline: none !important; *border:0 !important;cursor: pointer !important; }
+area { display: block;cursor: pointer;}
+.img1, .img2, .img3, .img4, .img5, .img6{cursor: pointer !important;}
+</style>
+
+<script src="images/jQueryRotate.js"></script>
+<script>
+		
+
+	jQuery(window).ready(function(){
+
+		<?php $i=1;
+
+		foreach($collection->getData() as $lookbookval) {?>
+
+			jQuery(".img<?php echo $i;?>").click(function(){				
+		
+			jQuery("#popOut div.hideDive, .wholeWrapper").stop(true,true).fadeOut();
+			//alert(jQuery.browser.msie);
+			jQuery(".popOut<?php echo $i;?>, .wholeWrapper").stop(true,true).fadeIn();
+		});
+		jQuery(".wholeWrapper").click(function(){	
+			jQuery("#popOut div.hideDive, .wholeWrapper").stop(true,true).fadeOut(); 
+		});
+		<?php $i=$i+1; }?>
+				
+	});
+
+</script>
+</head>
+
+<body>
+	
+	<div class="kittedoutArea">
+    <div class="kittedImgArea">
+	  <img class="slideclass" src="<?php echo $this->getSkinUrl() ?>images/slide_01.jpg" alt="" usemap="#Map" style="border:0"/>
+     
+	  <map name="Map" onmouseover="window.document.body.style.cursor='pointer';" onmouseout="window.document.body.style.cursor='default';">
+	    <area shape="poly" coords="59,7,262,9,268,51,208,242,230,250,80,262" class="img1">
+	    <area shape="poly" coords="279,5,462,59,394,294,211,242" class="img2">
+	    <area shape="poly" coords="432,48,434,10,625,23,607,271,420,259,420,211,462,58"  class="img3">
+	    <area shape="poly" coords="59,217,75,219,79,264,243,252,221,465,135,466,57,457" class="img4">
+	    <area shape="poly" coords="324,466,405,404,395,318,366,288,245,255,230,390,294,471" class="img5">
+	    <area shape="poly" coords="413,468,392,298,414,232,419,235,420,261,572,270,598,448,466,466" class="img6">
+      </map>
+
+                    <div id="popOut">
+			<?php $i=1;?>
+			<?php foreach($collection->getData() as $lookbookval) {?>					
+				<div class="popOut<?php echo $i;?> hideDive">
+						<a href="<?php echo $lookbookval['url']?>"><img src="<?php echo $mediaurl.''.$lookbookval['thumbnail']; ?>" alt=""/></a>
+				</div>
+			<?php $i=$i+1; }?>            
+        </div>
+        </div>
+    <!--     <div class="wholeWrapper"></div> -->
+     
+        
+</div>
+
+</body>

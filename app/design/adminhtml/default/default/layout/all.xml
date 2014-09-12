@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <all_adminhtml_allbackend_index>
+	<reference name="content">
+	  <block type="all/adminhtml_allbackend" name="allbackend" template="all/allbackend.phtml"/>
+	</reference>
+  </all_adminhtml_allbackend_index>
+</layout>

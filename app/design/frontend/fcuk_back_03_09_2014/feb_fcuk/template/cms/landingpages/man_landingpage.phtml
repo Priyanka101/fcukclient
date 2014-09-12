@@ -1,0 +1,60 @@
+<div class="container_24">
+	<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('cms/landingpages/social_media.phtml')->toHtml(); ?>
+	<div class="hp_slide_container hp_slide_container_man">
+      <!--div class="hp_slide" id="hp_slide_1" style="display: block;"></div-->
+      <div class="hp_slide" id="hp_slide_1" style="display: block;"></div>
+      <div class="hp_slide" id="hp_slide_2" style="display: none;"></div>
+    	<div class="left-banners">
+			<?php $cat_attributes = Mage::getSingleton('catalog/category')->load(4)->getData();
+				$bannerName1 = $cat_attributes['name1'];
+				$bannerName2 = $cat_attributes['name2'];
+				$bannerName3 = $cat_attributes['name3'];
+				
+				$bannerImage1 = $cat_attributes['image1'];
+				$bannerImage2 = $cat_attributes['image2'];
+				$bannerImage3 = $cat_attributes['image3'];
+				
+				$bannerUrl1 = $cat_attributes['url1'];
+				$bannerUrl2 = $cat_attributes['url2'];
+				$bannerUrl3 = $cat_attributes['url3'];
+			?>
+			<?php if($bannerName1){?>
+				<div class = "left-banner-item" id="left-banner-1">
+					<a href="<?php echo $bannerUrl1?>">
+						<img src="<?php echo $this->getBaseUrl().'media/catalog/category/'.$bannerImage1?>"/>
+						<div class="banner-text">
+							<?php echo $bannerName1;?>
+						</div>
+					</a>
+				</div>
+			<?php }?>
+			<?php if($bannerName2){?>
+				<div class = "left-banner-item" id="left-banner-2">
+					<a href="<?php echo $bannerUrl2?>">
+						<img src="<?php echo $this->getBaseUrl().'media/catalog/category/'.$bannerImage2?>"/>
+						<div class="banner-text">
+							<?php echo $bannerName2;?>
+						</div>
+					</a>
+				</div>
+			<?php }?>
+			<?php if($bannerName3){?>
+				<div class = "left-banner-item" id="left-banner-3">
+					<a href="<?php echo $bannerUrl3?>">
+						<img src="<?php echo $this->getBaseUrl().'media/catalog/category/'.$bannerImage3?>"/>
+						<div class="banner-text">
+							<?php echo $bannerName3;?>
+						</div>
+					</a>
+				</div>
+			<?php }?>
+		</div>
+    </div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+	var i = 1;
+	var max_slides = 2;
+	rotate(i,max_slides);
+});
+</script>

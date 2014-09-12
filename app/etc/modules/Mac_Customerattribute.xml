@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Mac_Customerattribute>
+      <active>true</active>
+      <codePool>local</codePool>
+      <version>0.1.0</version>
+    </Mac_Customerattribute>
+  </modules>
+</config>

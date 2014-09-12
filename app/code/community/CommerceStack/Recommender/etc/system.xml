@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <recommender translate="label" module="recommender">
+            <label>Related Products Manager</label>
+            <tab>catalog</tab>
+            <frontend_type>text</frontend_type>
+            <frontend_model>recommender/system_config_form</frontend_model>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>     
+            <groups>
+                <relatedproducts translate="label">
+                    <label>Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>  
+                    <fields>
+                        <update>
+                            <button_label>Update Related Products</button_label>
+                            <comment>Last updated </comment>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>recommender/system_config_form_updatebutton</frontend_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </update>
+                        <cancel>
+                            <button_label>Cancel</button_label>
+                            <comment>Analysis in progress</comment>
+                            <frontend_type>button</frontend_type>
+                            <frontend_model>recommender/system_config_form_cancelbutton</frontend_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </cancel>
+                        <numberofrelatedproducts>
+                            <label>Related Products to Show</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </numberofrelatedproducts>
+                        <numberofcrosssellproducts>
+                            <label>Cross-Sell Products to Show</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </numberofcrosssellproducts>
+                        <numberofupsellproducts>
+                            <label>Up-Sell Products to Show</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </numberofupsellproducts>
+                        <apikey>
+                            <frontend_type>hidden</frontend_type>
+                            <frontend_model>recommender/system_config_form_apikey</frontend_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </apikey>
+                        <apikeyurl>
+                            <frontend_type>hidden</frontend_type>
+                            <frontend_model>recommender/system_config_form_apikeyurl</frontend_model>
+                            <sort_order>101</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </apikeyurl>
+		    		</fields>  
+		    	</relatedproducts>
+		    	<relatedproductsadvanced translate="label">
+                    <label>Advanced</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>  
+                    <fields>   
+                    	<upsellsource>
+                            <label>Up-sell Source</label>
+                            <frontend_type>select</frontend_type>
+                            <comment>
+				                <![CDATA[<ul><li>Use <b>Cross-sell</b> if both related products and up-sells are displayed on product page</li>
+				                <li>Use <b>Related Products</b> if only up-sells (and not related products) are displayed on product page</li></ul>]]>
+				            </comment>
+                            <source_model>recommender/system_config_form_upsellsource</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                        </upsellsource>
+                    </fields>           
+                </relatedproductsadvanced>
+            </groups>
+           
+        </recommender>
+    </sections>    
+</config>

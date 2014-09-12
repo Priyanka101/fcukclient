@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <inwardregister_adminhtml_inwardregister_index>
+        <reference name="content">
+            <block type="inwardregister/adminhtml_inwardregister" name="inwardregister" />
+        </reference>
+    </inwardregister_adminhtml_inwardregister_index>
+</layout>

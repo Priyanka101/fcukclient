@@ -1,0 +1,304 @@
+<?php 
+/* $model = Mage::getModel('whitelies/whitelies');
+$data = $model->getCollection()->setOrder('bannerno', 'asc');
+$distinctdata= = $model->getCollection()->addAttributeToSelect('thumbnail');
+print_r($distinctdata->getData()); */
+/* echo '<pre>';
+print_r($data->getData()); */
+
+
+?>	
+<?php
+		$resource = Mage::getSingleton('core/resource');
+		$read = $resource->getConnection('core_read');
+		$query = "SELECT * FROM whitelies order by bannerno";
+		$result=$read->query($query);
+		$whitelies = $result->fetchAll();
+		$query2= "SELECT distinct(thumbnail) FROM whitelies";
+		$result2=$read->query($query2);
+		$whitelies2 = $result2->fetchAll();
+		$query3= "SELECT * FROM whitelies where bannertype=1";
+		$result3=$read->query($query3);
+		$whitelies3 = $result3->fetchAll();
+		
+		$mediaurl=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+		/*echo '<pre>';
+		print_r($whitelies);*/
+		//print_r($whitelies3);
+?>
+	<link rel="stylesheet" href="<?php echo $this->getSkinUrl(); ?>images/white lies/jquery.bxslider.css" type="text/css">
+	<link rel="stylesheet" href="<?php echo $this->getSkinUrl(); ?>images/white lies/styles.css" type="text/css">
+
+	
+	<script src="<?php echo $this->getSkinUrl(); ?>images/white lies/jquery.bxslider.js"></script>
+	<script src="<?php echo $this->getSkinUrl(); ?>images/white lies/scripts.js"></script>
+	<script type="text/javascript">
+	//jQuery.noConflict();
+		jQuery(document).ready(function(){    
+			jQuery('.bxslider').bxSlider({
+				pagerCustom: '#bx-pager'
+			});
+		});
+		jQuery.noConflict();
+    </script>
+    
+    <style>
+		.divPos
+		{
+			display:block;
+			width:908px;
+			height:514px;
+		}
+	<?php $i=1;
+		foreach($whitelies3 as $whiteliesval) {?>
+		
+			.divPos<?php echo $i;?>
+		{
+			background-image:url(<?php echo $mediaurl.''.$whiteliesval['smallimage'] ?>);
+			width:908px;
+			height:514px;
+			background-repeat:no-repeat;
+		}
+			
+		<?php $i=$i+1; }?>
+
+
+.slidePart1
+{
+	float:left;
+	position:relative;
+	margin-right:15px;
+	color:#fff;
+	font-family:sans-serif;
+	font-size:10px;
+	line-height:18px;
+}
+
+.slidePart2
+{
+	float:left;
+	position:relative;
+	color:#fff;
+	font-family:sans-serif;
+	font-size:10px;
+	line-height:18px;
+	
+}
+
+.linkArea1
+{
+	position:absolute;
+	width:250px;
+	*width:300px;
+	left:0px;
+	top:0px;
+	padding:15px 15px;
+	text-align:left;
+}
+
+
+.linkArea2
+{
+	position:absolute;
+	width:250px;
+	right:0px;
+	top:0px;
+	padding:15px 15px;
+	text-align:right;
+}
+
+.linkArea3
+{
+	position:absolute;
+	width:250px;
+	left:0px;
+	bottom:0px;
+	padding:15px 15px;
+	text-align:left;
+}
+
+.linkArea4
+{
+	position:absolute;
+	width:250px;
+	right:0px;
+	bottom:0px;
+	padding:15px 15px;
+	text-align:right;
+}
+
+a.slideLinks
+{
+	text-decoration:underline;
+	color:#fff;
+	display:block;
+	line-height:16px;
+	font-size:10px;
+	font-family:sans-serif;
+	display:block;
+}
+
+a:hover.slideLinks
+{
+	text-decoration:none;
+	color:#fff;
+	display:block;
+	line-height:16px;
+	font-size:10px;
+	font-family:sans-serif;
+	display:block;
+}
+
+.viewFeature
+{
+	position: absolute;
+	top: 170px;
+	left: 200px;
+	cursor: pointer;	
+	opacity:1;
+	filter:alpha(opacity=100); /* For IE8 and earlier */
+	border:0;
+}
+
+.viewFeature:hover
+{
+	cursor: pointer;	
+	opacity:0.7;
+	filter:alpha(opacity=70); /* For IE8 and earlier */
+}
+
+@-moz-document url-prefix() { 
+  .bx-wrapper .bx-controls-direction a
+{
+	margin-top:25%;
+	*margin-top:0%;
+}
+
+.bx-wrapper .bx-viewport .bx-wrapper .bx-viewport
+{
+	float:left;
+	
+}
+
+.example-item #bx-pager {
+    margin-top: -60px; 
+}
+
+}
+
+
+</style>
+
+</head>
+
+<body class="" screen_capture_injected="true">
+ 
+				<div class="example-item">
+                <div class="bx-wrapper">
+                    <div class="bx-viewport">
+                        <ul class="bxslider">
+						 <!--  slide 1  -->
+						<?php foreach($whitelies as $whiteliesval){ ?>
+						<?php if($whiteliesval['bannertype']==1){?>
+                          <li>
+                          	<div class="divPos divPos1">
+                            	<a href="#"><img src="<?php echo $this->getSkinUrl(); ?>images/white lies/big/feature_link.png" class="viewFeature"/></a>
+                            	<div class="videoArea">          
+									<?php if($whiteliesval['videourl']!=''){ ?>
+                                	<iframe width="455" height="277" src="<?php echo $whiteliesval['videourl'];?> " frameborder="0" allowfullscreen></iframe>
+									<?php } ?>
+							   </div>
+                          	</div>
+                          </li>
+						  <?php } ?>
+						  <!--  start of slide 2  -->
+						  <?php if($whiteliesval['bannertype']==2 && $whiteliesval['bannerposition']==1 ){ ?>
+						  
+                          <?php if($whiteliesval['bannertype']==2 && $whiteliesval['bannerposition']==1){ ?>
+						<li>
+							  <div class="divPos">
+							  <?php } ?>
+									
+										<div class="slidePart1">
+										<div class="linkArea<?php echo $whiteliesval['position'];?>">
+										<?php  
+										if($whiteliesval['productid']!=''){
+											$tags = explode(",", $whiteliesval['productid']);
+						
+											foreach ($tags as $tag) {
+								
+												$_product = Mage::getModel('catalog/product')->loadByAttribute('sku', $tag);
+												$productid=$_product->getData('entity_id');
+																				
+												$_product = Mage::getModel('catalog/product')->load($productid);
+												$parentIdArray = $_product->loadParentProductIds()
+																 ->getData('parent_product_ids');
+																 
+												$productname=$_product->getData('name');
+												$producturl=$_product->getData('url_path');
+												$productlink=$this->getBaseurl().''.$producturl;
+												
+										?>
+												
+                                        	<a href="<?php echo $productlink;?>" class="slideLinks"><?php echo $productname?></a>
+                                           <?php } }?>	
+										   </div>
+											<img src="<?php echo $mediaurl.''.$whiteliesval['smallimage'] ?>" alt="">
+										</div>
+								<?php }?>
+								  <?php if($whiteliesval['bannertype']==2 && $whiteliesval['bannerposition']==2 ){ ?>
+								  <div class="slidePart2">
+												<div class="linkArea<?php echo $whiteliesval['position'];?>">
+										<?php  
+										if($whiteliesval['productid']!=''){
+											$tags = explode(",", $whiteliesval['productid']);
+						
+											foreach ($tags as $tag) {
+								
+												$_product = Mage::getModel('catalog/product')->loadByAttribute('sku', $tag);
+												$productid=$_product->getData('entity_id');
+																				
+												$_product = Mage::getModel('catalog/product')->load($productid);
+												$parentIdArray = $_product->loadParentProductIds()
+																 ->getData('parent_product_ids');
+																 
+												$productname=$_product->getData('name');
+												$producturl=$_product->getData('url_path');
+												$productlink=$this->getBaseurl().''.$producturl;
+												
+										?>
+												
+                                        	<a href="<?php echo $productlink;?>" class="slideLinks"><?php echo $productname?></a>
+                                           <?php } }?>	
+										   </div>
+											<img src="<?php echo $mediaurl.''.$whiteliesval['smallimage'] ?>" alt=""/>
+								  </div>
+								 <?php }?>
+									
+							  <?php if($whiteliesval['bannertype']==2 && $whiteliesval['bannerposition']==2){?>
+							  </div>
+           				 </li>
+						  <?php } ?>
+						  <?php } ?>
+						   <!--  end of slide 2   -->
+						  
+                  
+                        </ul>
+                    </div>
+                </div>
+                <div id="bx-pager">
+					<?php $i=0;?>
+					<?php foreach($whitelies2 as $whiteliesdata) {
+					if($whiteliesdata['thumbnail']==''){}
+					else{ ?>	
+						   <a data-slide-index="<?php echo $i;?>" href=""><img src="<?php echo $mediaurl.''.$whiteliesdata['thumbnail'] ?>"></a>
+					 <?php $i=$i+1; }}?>           
+                </div>
+                </div>
+         
+</body>
+</html>
+	<script type="text/javascript">
+	//jQuery.noConflict();
+	//return false;
+    </script>

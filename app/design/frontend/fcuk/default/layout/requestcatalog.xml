@@ -1,0 +1,40 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">   
+  <requestcatalog_index_index>   
+    <reference name="root">   
+      <action method="setTemplate"><template>page/1column.phtml</template></action>   
+    </reference>   
+    <reference name="content">   
+      <block type="requestcatalog/index" name="requestcatalog_index" template="requestcatalog/index.phtml"/>   
+    </reference>   
+  </requestcatalog_index_index>
+  
+  <requestcatalog_index_address>   
+    <reference name="root">   
+      <action method="setTemplate"><template>page/1column.phtml</template></action>   
+    </reference>   
+    <reference name="content">   
+      <block type="requestcatalog/index" name="requestcatalog_index" template="requestcatalog/catalog_address.phtml"/>   
+    </reference>   
+  </requestcatalog_index_address>
+
+  <requestcatalog_index_automated>   
+    <reference name="root">   
+      <action method="setTemplate"><template>page/1column.phtml</template></action>   
+    </reference>   
+    <reference name="content">   
+      <block type="requestcatalog/index" name="requestcatalog_index" template="requestcatalog/automated.phtml"/>   
+    </reference>   
+  </requestcatalog_index_automated>  
+
+  <requestcatalog_index_store>   
+    <reference name="root">   
+      <action method="setTemplate"><template>page/1column.phtml</template></action>   
+    </reference>   
+    <reference name="content">   
+      <block type="requestcatalog/index" name="store" template="requestcatalog/store.phtml"/>   
+    </reference>   
+  </requestcatalog_index_store>   
+  
+</layout>   
+	

@@ -1,0 +1,164 @@
+
+<div class="footer">
+<div  class="footer_content_container close" style="height:200px; display:none;">
+	
+ 	<div class="footer_content">
+ 		<div id="siteFooter" class="show_desktop">
+ 			<div id="footer_bar">
+ 				<div class="container container_24">
+
+		              <div id="footerNav_container_bar">
+		                <ul class="clearfix">
+		                  <li><span class="footHdr">Shop Online</span></li>
+		                  <li class="footerNav_divide"><span class="footHdr">|</span></li>
+		                  <li><span class="footHdr">About FC</span></li>
+		                  <li class="footerNav_divide"><span class="footHdr">|</span></li>
+		                  <li><span class="footHdr">Company</span></li>
+		                  <li class="footerNav_divide"><span class="footHdr">|</span></li>
+		                  <li class="last" style="border:0;"><span class="footHdr">More</span></li>
+		                </ul>
+		              </div>
+
+		              <div id="socialNav_container">
+		                <nav id="socialNav">
+		                  <ul class="clearfix">
+		                    <li>
+		                    <span class="footHdr">Follow Us</span>
+		                      <ul class="clearfix">
+		                        <li><a href="https://www.facebook.com/frenchconnectionindia?ref=ts" target="_blank" class="facebook">Facebook</a></li>
+		                        <li><a href="https://twitter.com/fcuk_india" target="_blank" class="twitter">Twitter</a></li>
+		                        <?php //echo <li><a href="https://twitter.com/fcuk_india" target="_blank" class="google">Google</a></li>?>
+		                        <li><a href="http://www.pinterest.com/fcukindia/" target="_blank" class="pinterest">Pinterest</a></li>
+		                        <li><a href="http://www.youtube.com/user/frenchconnectionIN" target="_blank" class="youtube">Youtube</a></li>
+		                        <li><a href="http://www.instagram.com/frenchconnection_in" target="_blank" class="instagram">Instagram</a></li>
+		                        <li><a href="http://911fashion.frenchconnection.in" target="_blank" class="blog">Blog</a></li>		                     
+		                      </ul>
+		                    </li>
+		                  </ul>
+		                </nav>
+		              </div>
+		              <div class="clear"></div>
+
+	            </div>
+ 			</div>
+
+ 			<div class="container container_24">
+
+	            <div id="footerNav_container">
+	              <nav id="footerNav" role="navigation">
+	                <ul class="clearfix">
+	                  <li>
+	                    <ul>
+	                      <li><a href="<?php echo $this->getUrl('woman.html')?>" title="Woman">Woman</a></li>
+	                      <li><a href="<?php echo $this->getUrl('man.html')?>" title="Man">Man</a></li>
+	                 
+	                    </ul>
+	                  </li>
+	                  <li>
+	                    <ul>
+	                      <li><a href="<?php echo $this->getUrl('about_fcuk_india')?>" title="FC India">FC India</a></li>
+	                      <li><a href="<?php echo $this->getUrl().'fashion-is-our-business'?>" target="_blank" title="About French Connection">About FCUK</a></li>
+	                      <li><a href="<?php echo $this->getUrl('how-to-order')?>" title="Help">Help</a></li>
+	                      <li><a href="<?php echo $this->getUrl('contact-us')?>" title="Contact Us">Contact Us</a></li>
+	                      <li><a href="<?php echo $this->getUrl('shipping-delivery')?>" title="Delivery">Delivery</a></li>
+		 				 <li><a href="<?php echo $this->getUrl('cancellation-refund')?>" title="Cancellation Refund Policy">Cancellation Policy</a></li>
+	                    </ul>
+	                  </li>
+	                  <li>
+	                    <ul>
+	                      <li><a href="<?php echo $this->getBaseUrl()."press-home"?>" title="Press">Press</a></li>
+			  				<li><a href="<?php echo $this->getUrl('careers')?>" title="Careers">Careers</a></li>
+	                    </ul>
+	                  </li>
+	                  <li class="last" style="border:0;">
+	                    <ul>
+	                      <li><a href="<?php echo $this->getUrl('privacy-policy')?>" title="Privacy Policy">Privacy Policy</a></li>
+						  <li><a href="<?php echo $this->getUrl('termsconditions')?>" target="_blank" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
+						  <li><a href="<?php echo $this->getUrl('storelocator')?>" title="Store Locator">Store Locator</a></li>
+						  <li><a href="<?php echo $this->getBaseUrl().'sitemap'?>" title="sitemap">Site Map</a></li>	
+	                    </ul>
+	                  </li>
+	                </ul>
+	              </nav>
+	            </div>
+	            <div class="newsletter-container">
+	            	<a href="<?php echo $this->getUrl('about_you');?>" class="newsletter">
+	            		<span id="head">SIGN UP TO OUR NEWSLETTER</span>
+	            		<span id="text">Be the first to know the latest style news</span>
+	            		<span id="sign">sign up</span>
+	            	</a>
+	            </div>
+            <div class="clear"></div>
+
+          </div>
+		</div>
+	</div>
+	                     
+  </div>
+  <div class="logo_container">
+	  <div class="logo_footer">
+	  	<a class="footer_content_tab">more +</a>
+	    <a class="logo-content" href="/">
+	      <img class="svg_logo" src="<?php echo $this->getSkinUrl('images/kishan/french-connection-logo.png') ?>">
+	    </a>
+	  </div>
+
+  </div>
+</div>
+	
+      
+<script>
+jQuery(document).ready(function($){
+  	$(".footer_content_tab").click(function(){
+    if($(".footer_content_container").hasClass("open")){
+      hideFooter();
+    }
+    if($(".footer_content_container").hasClass("close")){     
+      showFooter();
+    }
+
+    /* code to create fancybox */
+    // $("a.fancybox").fancybox({
+    //   "padding":0,
+    //   "overlayColor": "#000",
+    //   "overlayOpacity": 0.7,
+    //   "hideOnOverlayClick": true,
+    //   "width": 800,
+    //   "height": 500,
+    //   "autoResize": true 
+    // });
+
+
+  });
+
+  function showFooter(){
+	 
+	 $(".footer_content_container").removeClass("close");
+	 $(".footer_content_container").addClass("open");
+	 $(".footer_content_tab").html("close -");
+	 $(".footer_content_container").stop(true, true).slideDown(300);
+	 $(".container_24").show();
+  }
+  function hideFooter(){
+	 
+   	 $(".footer_content_container").stop(true, true).slideUp(300, function(){
+   	 	$(".footer_content_container").removeClass("open");
+	 	$(".footer_content_container").addClass("close");	
+	 	$(".footer_content_tab").html("more +");
+   	 });
+	 
+	 
+  }
+// jQuery(document).mouseup(function (e){
+//     var container = jQuery(".footer_content_container");
+//     if (container.has(e.target).length === 0){
+//       hideFooter();
+//     }
+  // });
+
+
+});
+</script>
+
+
+ 

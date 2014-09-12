@@ -1,0 +1,103 @@
+<nav class="grid_6 clearfix" id="subNav">
+    <div class="clearfix" id="sub_ctrl_toggle">
+</div>
+<?php
+$url=$this->helper('core/url')->getCurrentUrl();
+$arr =  explode("/", $url);
+
+?>
+ <ul id="accordion">
+ 	  <li class="subnav_title">Help</li>
+  <li class="subnav_title_divide"></li>
+	<li class="reveal">
+		<a href="#">How to Order</a>
+		<ul id="revealchild" <?php if($arr[3]=='how-to-order' ||$arr[3]=='new-existing-customer' ||$arr[3]=='checkout-payment' ||$arr[3]=='order-final-check' || $arr[3]=='order-confirmation'){echo 'style="display:block"';}?>>
+			<li><a href="<?php echo $this->getBaseUrl().'how-to-order'?>"  rel="tab" >How to Order</a></li>
+			<li><a href="<?php echo $this->getBaseUrl().'new-existing-customer'?>"  rel="tab" >New / Existing Customers</a></li>
+			<li><a href="<?php echo $this->getBaseUrl().'checkout-payment'?>"  rel="tab" >Checkout Payment</a></li>
+			<li><a href="<?php echo $this->getBaseUrl().'order-final-check'?>"  rel="tab" >Order Final Check</a></li>
+			<li><a href="<?php echo $this->getBaseUrl().'order-confirmation'?>"  rel="tab">Order Confirmation</a></li>
+		</ul>
+	</li>
+	<li class="reveal">
+		<a href="#">Credit Card Authorisation</a>
+		<ul id="revealchild" <?php if($arr[3]=='credit-card-authorisation'){echo 'style="display:block"';}?>>
+			<li><a href="<?php echo $this->getBaseUrl().'credit-card-authorisation'?>">Credit Card Authorisation</a></li>
+		</ul>
+	</li>
+	<li class="reveal">
+		<a href="#">Delivery</a>
+		<ul id="revealchild" <?php if($arr[3]=='shipping-delivery' ||$arr[3]=='cancellation-refund'){echo 'style="display:block"';}?>>
+			<li><a href="<?php echo $this->getBaseUrl().'shipping-delivery'?>">Shipping and Delivery Policy</a></li>
+			<!-- <li><a href="<?php echo $this->getBaseUrl().''?>">International Delivery</a></li> -->
+			<!-- <li><a href="<?php echo $this->getBaseUrl().''?>">Click &amp; Collect</a></li> -->
+			<li><a href="<?php echo $this->getBaseUrl().'cancellation-refund'?>">Cancellation & Refund Policy</a></li>
+		<!-- 	<li><a href="<?php echo $this->getBaseUrl().'how-to-order'?>">Returns</a></li> -->
+		</ul>
+	</li>
+	<li class="reveal"> <a href="#">Sizing</a>
+		<ul id="revealchild" <?php if($arr[3]=='woman-size-guide' ||$arr[3]=='man-size-guide'){echo 'style="display:block"';}?>>
+			<li><a href="<?php echo $this->getBaseUrl().'woman-size-guide'?>">Womenswear</a></li>
+			<li><a href="<?php echo $this->getBaseUrl().'man-size-guide'?>">Menswear</a></li>
+		</ul>
+	</li>
+	<li class="reveal"> <a href="#">VAT</a>
+		<ul id="revealchild" <?php if($arr[3]=='vat'){echo 'style="display:block"';}?>>
+			<li><a href="<?php echo $this->getBaseUrl().'vat'?>">VAT</a></li>
+		</ul>
+	</li>
+</ul>
+
+
+     </nav>
+	<style>
+.cms-cancellation-refund .grid_12 h1 {margin: 0 0 20px 0; padding: 0; font-weight: bold; font-size: 2.7em; color: #363536; text-transform: uppercase; line-height: 1; }
+.cms-page-view .sidebar .reveal a{font-size:12px;}
+.cms-page-view .sidebar .subNav{font-size:12px !important;}
+.cms-page-view .sidebar .subnav_title{color: #2F3130;font-size: 1.2em;text-transform: uppercase;font-weight:bold}
+.cms-page-view .sidebar .subnav_title1{color: #2F3130;font-size: 1em;text-transform: uppercase;font-weight:bold}
+.cms-page-view .subnav_title_divide{border-top: 1px solid #DDDDDD;margin: 5px 0 10px;width: 120px;}
+.cms-page-view .sidebar .open ul li{margin:10px 0 10px 10px;}
+.cms-page-view .sidebar .open ul li a{text-decoration:none;color:#666666;}
+.cms-page-view .sidebar .subNav .open ul li a:hover{text-decoration:none;color:#666666;}
+.cms-page-view .sidebar .grid_6{border-right: 1px solid #DDDDDD;margin-right: 29px;min-height: 300px;width: 211px;}
+.cms-page-view .sidebar nav#subNav ul ul { display: none; }
+.cms-page-view .sidebar .active a {color:#CCC;}
+.cms-page-view .sidebar nav#subNav ul li a:link, nav#subNav ul li a:visited {font-weight: bold; text-transform: uppercase; color: #2F3130; padding: 0px 0px 0px 0px; text-decoration: none; font-weight: bold; display: block; }
+.cms-page-view .sidebar nav#subNav ul #revealchild li a{font-size:11px;text-decoration: none ;font-weight: normal;text-transform: none !important;color: #666666 !important;padding:0px 0px 4px 5px; }
+.cms-page-view .sidebar nav#subNav ul #revealchild{padding:8px 10px;}
+.cms-page-view .sidebar #subNav {display: block;}
+
+
+	</style>
+
+	<script type="text/javascript">
+	jQuery(function () {
+		
+		jQuery('#accordion > li').click(function () {
+		//jQuery('#accordion > li a').addClass('current');
+	    jQuery(this).addClass('active').siblings('li').removeClass('active');
+	    jQuery(this).siblings('li').find('ul').slideUp('fast');
+	    jQuery('> ul', this).slideDown('fast');
+		});
+	});
+jQuery(function(){
+/*  jQuery("a[rel='tab']").click(function(e){
+    
+    pageurl = jQuery(this).attr('href');
+ 
+    //to get the ajax content and display in div with id 'content'
+    jQuery.ajax({url:pageurl+'?rel=tab',success: function(data){
+    //	alert(data);
+     // jQuery('#content').html(data);
+    }});
+ 
+    //to change the browser URL to the given link location
+    if(pageurl!=window.location){
+      window.history.pushState({path:pageurl},'',pageurl);
+    }
+    //stop refreshing to the page given in
+    return false;
+  });*/
+});
+	</script>

@@ -1,0 +1,247 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+ 
+ 
+?>
+
+
+<?php $_product = $this->getProduct(); ?>
+<?php /*if($_product->getData('comingsoon')=='1'): ?>
+          <div class="outof-stock-container commingsoon-list"><?php echo $this->__('Coming Soon')?></div>
+<?php else: */ ?>
+<div class="qty-price">
+		<?php //$_price = $_product->getPrice();?>
+		<?php $_price = $_product->getFinalPrice();?>
+		<strong class="tabheading pricetab pricespecial"><?php  echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); echo number_format($_price, 2);  ?>
+			
+		<?php //echo Mage_Catalog_Block_Product::getPriceHtml($_product, true) ?>
+		
+		</strong>
+		<?php if(!$_product->isGrouped()): ?>
+        <div class='qty_dockright'>
+		<label for="qty"><?php echo $this->__('Qty:') ?></label>
+        <input type="text" name="qty" id="qty" min="0" max="7" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+		<button onclick="return false" class='product_qty_incrementer'></button>
+		<button onclick="return false" class='product_qty_decrementer'></button>
+		</div>
+        <?php endif; ?>
+</div>
+
+<div>
+	<?php if($_product->isConfigurable()):?>
+	<div class="success_msg"></div><div class="fail_msg">select your size</div>
+	<?php endif;?>
+	
+    <a class="size_guide" onclick="popup('guide')">size guide</a>
+   
+     <?php if (!$_product->isSaleable())
+     {  ?>
+            <p><a class="request-product-view" href="<?php echo $this->getUrl(); ?>requestproduct/index/getrequestForm?productid=<?php echo $_product->getId() ?>" value="<?php echo $_product->getSku(); ?>"><?php echo $this->__('Check availability');?></a></p>
+           
+            <?php if($_product->getData('comingsoon')): ?>
+            <p class="commingsoon-view">Coming Soon</p>
+            <?php endif; ?>                        
+    <?php  }
+     ?>
+</div>
+
+<div class="noexchage" style="clear:both;"><?php if($_product->getSpecialPrice()!=''){echo '<b>No Exchange, No Refund</b>';}?></div>
+<span class="add-to-cart" id="addtocart">Add to bag</span>
+
+<?php //endif;?> 
+<script>
+jQuery(document).ready(function($){
+	$(".fail_msg").hide();
+	$('.attribute').attr('checked',false);
+	var value = new Array();
+	var targeturl;
+	var color_id='<?php echo $_product->getResource()->getAttribute('color')->getAttributeId()?>';
+	var size_id='<?php echo $_product->getResource()->getAttribute('size')->getAttributeId()?>';
+	var sku ='<?php echo $_product->getId()?>';
+	var radioval;
+	$('.attribute').click(function(){
+
+		var old_value = $('input:radio:checked').val();
+		var valuenew = old_value.split(',');	
+		var targeturl = '<?php echo $this->getBaseUrl().'check/index/superprice';?>'
+		jQuery.post(targeturl, { productid: sku,size:valuenew[0],color:valuenew[1],size_code:size_id ,color_code:color_id },function(data){ 
+	
+			if(data!=''){
+
+				var finval='<?php echo $_price;?>';
+				var addup=data;
+				var finalPrice =parseInt(finval)+parseInt(addup);
+				jQuery('.pricespecial').html('Rs. '+finalPrice);
+				jQuery('.special-price').html('Rs. '+finalPrice);
+
+			}
+			else
+			{
+				var finalPrice='<?php echo $_price;?>';
+				jQuery('.special-price').html('Rs. '+finalPrice);
+				jQuery('.pricespecial').html('Rs. '+finalPrice);
+			}
+
+		});
+
+
+		 $('.fail_msg').fadeOut(1000, function(){ $(this).hide();});
+		if($(this).val()== radioval){
+			$(this).attr('checked',false)
+			radioval="";
+		}
+		else{
+			$(this).attr('checked',true)
+			radioval=$(this).val();
+		}
+		
+	});
+	$('#addtocart').click(function(){
+		//alert($("#attribute92").val());
+		var old_value = $('input:radio:checked').val();
+		var sizeValue = $('#attribute136').val();
+		var colorValue = $('#attribute92').val();
+		//alert(sizeValue+' '+colorValue);return false;
+		var qty = parseInt($('#qty').val());
+		if(qty == 0){
+			alert('Please select the quantity');
+			return false;
+		}
+		<?php if($_product->isConfigurable()):?>
+		if(!sizeValue){
+			$(".fail_msg").show();
+			return false;
+		}
+		//value = old_value.split(',');	
+		targeturl = '<?php echo $this->getUrl("checkout/cart")?>add?product='+sku+'&super_attribute['+size_id+']='+sizeValue+'&super_attribute['+color_id+']='+colorValue+'&qty='+qty ;
+		<?php else: ?>
+		targeturl = '<?php echo $this->getUrl("checkout/cart")?>add?product='+sku+'&qty='+qty;
+		<?php endif;?>
+		
+		//buutton css start
+		$(".add-to-cart").addClass('btn-cart-adding');
+        $(".add-to-cart").text("Adding..");
+        //button css end
+		$.post(targeturl , function(response){
+			//alert(response);
+			if(response){
+			//buutton css start
+			jQuery('.add-to-cart').removeClass('btn-cart-adding');
+            jQuery('.add-to-cart').text("Add To Bag");
+            //button css end
+			 window.document.body.scrollTop = 0;
+			 window.document.documentElement.scrollTop = 0;
+			 var msg = $(response).find(".success-msg").html();
+			 var data = $(response).find(".cart-summary-top").html();
+			 var Count = $(response).find(".mybag-span").html();
+			 var errormsg = $(response).find(".error-msg").html();
+			 if(errormsg){
+			 $("#messages_product_view").addClass("error-msg");
+			 $("#messages_product_view").css('margin-bottom','10px');
+			 $("#messages_product_view").css('width','100%');
+			 $("#messages_product_view").css('float','left');
+			 $("#messages_product_view").html(errormsg);
+			 // $("#errormsgqty").show();
+			 setTimeout(function() {
+				$("#messages_product_view").hide();
+			 }, 10000);
+				 $('#addtocart').css('background','url(<?php echo $this->getSkinUrl("images/activebt.jpg")?>) no-repeat');
+				return false;
+			 }
+			// alert(Count);
+			 $(".top-header .mybag-span").html(Count);
+			 $(".top-header .cart-summary-top").html(data);
+			 if(msg){
+			 $(".success_msg").html(msg);
+			 $('.success_msg').fadeOut(5000, function(){ $(this).hide();});
+			// $('.cart-summary-top').fadeIn(2000);
+			 }else{
+			 $(".fail_msg").html('There was some problem please try again');
+			 }
+			$('.cart-summary-top').show();	 
+			$('.cart-summary').hide();
+				 jQuery('.cart-summary').slideDown('slow');
+				 $(".top-header .mybag-span").css('background-color', '#FFFFFF');
+		 		setTimeout(function(){
+		 			if($('p.special-price').length == 0){
+			 			alert("To avail any offers kindly click on View Basket");
+			 		}
+		 		}, 1000);
+				 //slideToggle()
+				 setTimeout(function() {
+				     jQuery('.cart-summary').slideUp('slow');
+						 $(".top-header .mybag-span").css('background', 'none');
+					}, 5000);
+			 	 }
+		 
+		});
+	$('.top-header .block-cart .block-title .mybag-span').mouseover(function(){
+		$(".cart-summary-top").css("display", "block");
+	});
+	$('.top-header .block-cart .block-title .mybag-span').mouseout(function(){
+		$(".cart-summary-top").css("display", "none");
+	});
+		return false;
+	});
+	
+	// custom code
+	jQuery('.product_qty_incrementer').click(function() {
+		//alert('increment');
+		var myquantity = parseInt(jQuery('input.qty', '.qty-price').val());
+		myquantity = myquantity + 1;
+		jQuery('input.qty', '.qty-price').val(myquantity);
+		// alert(myquantity);
+	});
+	jQuery('.product_qty_decrementer').click(function() {
+		var myquantity = parseInt(jQuery('input.qty', '.qty-price').val());
+		if(myquantity > 1) myquantity = myquantity - 1;
+		jQuery('input.qty', '.qty-price').val(myquantity);
+	});
+
+
+	// $(".size_guide").click(function(){
+	// 	var left_val = Math.round(($(window).width() - 650)/2);
+	// 	//$(".guide").css("left",left_val+"px !important");
+	// 	alert (left_val);
+	// });
+	
+})
+</script>
+<!--Script for Qty increse-dicrese-->   
+<script type="text/javascript" src="<?php echo $this->getSkinUrl() ?>js/incrementing.js"></script>
+
+<div id="blanket" style="display:none;" >
+<div id="guide" style="display:none;" >
+<div id="popup-close" onclick="popup('guide')" style="display:inline;" ></div>
+<?php if($parent!=5):?>
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('size-guide-center')->toHtml();?>
+		<?php endif?>
+		<?php if($parent == 5):?>
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('size-guide-underwear')->toHtml();?>
+		<?php endif?>
+<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('size-guide-center')->toHtml();?>
+</div>
+</div> 

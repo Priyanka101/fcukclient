@@ -1,0 +1,125 @@
+<?php 
+$_product = Mage::getModel('catalog/product')->loadByAttribute('sku', '71AH9');
+//print_r($_product->getData());
+$this->setSku('71AH9');
+		
+		//$this->getProduct();exit;
+	 	$_product = $this->getProduct();
+		//echo '<pre>';print_r($_product);exit;
+		$source= $_product->getImageUrl();
+		?>
+		
+		<div class="productinfo">
+			<div class="productimage">
+			<?php echo "<img class='ingredientimg' src=".$source.' style="width:260px;height:280px;">';?>
+			</div> 
+			<div class="product-shop">
+			
+				<div class="product-name">
+					<h1><?php echo $_product->getName();?></h1>
+									
+				</div>
+				<div class="strength">
+					<?php echo $_product->getStrength() ?>
+				</div>
+				
+				<div class="product-description">  
+					<?php echo $_product->getDescription();	?>		
+				</div>	
+				
+				<div class="peoductsku product-sku-bottom">
+					<?php echo $_product->getSku() ?>
+				</div>
+				
+				<div class="product-price-bottom"><p><?php echo $this->getPriceHtml($_product,true);?></p></div>
+				<?php if ($_product->getShortDescription()):?>
+					<div class="short-description">
+						<h2><?php //echo $this->__('Quick Overview') ?></h2>
+						<div class="std"><?php echo $_product->getShortDescription(); ?></div>
+					</div>
+					<div class="product-name-bottom"><p><?php if ($_product->isAvailable()):  echo $this->__('In stock'); else: echo $this->__('Out of stock'); endif; ?></p>
+					</div>
+				<?php endif;?>
+				
+				
+				
+				
+				
+				
+				<?php //print_r(get_class($this));exit;?>
+				<?php if (!$this->hasOptions()):?>
+				<form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+					<div class="product-qty-bottom"><p><label>Quantity : </label><input type="text" name="qty" id="qty" maxlength="12" value="<?php echo 1 * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" /></p></div>
+					<div class="add-to-box">
+						
+						<div class="add-to-cart">
+							<?php if($_product->isSaleable()): ?>
+								<?php //echo 1234;?>
+								<button class="addtocart" onclick="location.href ='{{config path="web/unsecure/base_url"}}/checkout/cart/add?product=1&qty=1'">Add To Cart</button>
+								 <button type="button" title="<?php echo $buttonTitle ?>" id="addtocart" class="button btn-cart addtocart" onclick="product_addtocart_form.submit(this)"></button>
+							<?php endif; ?>
+						</div>
+					</div>					
+				</form>
+				
+				<?php endif?>
+			</div>
+		</div>
+		
+    <script type="text/javascript">
+	
+
+        var productAddToCartForm = new VarienForm('product_addtocart_form');
+        productAddToCartForm.submit = function(button, url) {
+            if (this.validator.validate()) {
+                var form = this.form;
+                var oldUrl = form.action;
+				//alert(url);
+                if (url) {
+                   form.action = url;
+                }
+                var e = null;
+                try {
+                    this.form.submit();
+                } catch (e) {
+                }
+                this.form.action = oldUrl;
+                if (e) {
+                    throw e;
+                }
+
+                if (button && button != 'undefined') {
+                    button.disabled = true;
+                }
+            }
+        }.bind(productAddToCartForm);
+
+        productAddToCartForm.submitLight = function(button, url){
+            if(this.validator) {
+                var nv = Validation.methods;
+                delete Validation.methods['required-entry'];
+                delete Validation.methods['validate-one-required'];
+                delete Validation.methods['validate-one-required-by-name'];
+                // Remove custom datetime validators
+                for (var methodName in Validation.methods) {
+                    if (methodName.match(/^validate-datetime-.*/i)) {
+                        delete Validation.methods[methodName];
+                    }
+                }
+
+                if (this.validator.validate()) {
+                    if (url) {
+                        this.form.action = url;
+                    }
+                    this.form.submit();
+                }
+                Object.extend(Validation.methods, nv);
+            }
+        }.bind(productAddToCartForm);
+   
+    </script>
+    </div>
+     
+
+    
+</div>

@@ -1,0 +1,523 @@
+<?php 
+		 //$productlist="SSAL9,71AH9,71GG9,71DE9,71GV9"; 
+//take the list of products from url
+$productlist=$idval=$this->getRequest()->getParam('productlist'); 
+		//if($productlist==''){echo 'no product';}
+
+$productlistArr = explode(",", $productlist); //explode productlist to array
+		//print_r($productlistArr);
+if(count($productlistArr)==1)	{
+	/* if it contain only one product navigate to product page  */
+	$_product = Mage::getModel('catalog/product')->loadByAttribute('sku', $productlistArr[0]);
+	$producturl=$_product->getData('url_path'); ?>
+	<script>
+	//window.location.href = '<?php echo $this->getBaseUrl().''.$producturl ;?> ';
+	</script>
+	<?php	}
+
+		//print_r($productlistArr);	
+	$hidden=1;		
+	foreach ($productlistArr as $productlistArrVal) {
+		$j=0;
+		$_product = Mage::getModel('catalog/product')->loadByAttribute('sku', $productlistArrVal);
+		$entityid=$_product->getData('entity_id');
+		$source= $_product->getData('thumbnail');
+		$productId = Mage::getModel("catalog/product")->getIdBySku($productlistArrVal);
+			//$productId   = $this->getRequest()->getParam('productid');
+		$product =  Mage::getModel('catalog/product')->load($productId);
+		$sku         = $product->getsku();
+		$productName = $product->getName();
+		$productType=$product->getTypeID();
+		?>
+		<div class="productinfo product-view" style="float:left;display:block;width:900px;padding-bottom:30px;">
+			<div class="productimage" style="float:left; width:200px !important;">
+				<?php echo "<img class='ingredientimg' src=".$this->getBaseUrl().'media/catalog/product'.$source.' style="width:113px;">';?>
+			</div> 
+			<div class="product-shop product-cart-shop" id="productshop-<?php echo $productId; ?>" style="float:left; width:500px;">
+				<div class="product-collateral">
+					<?php //echo $this->getChildHtml('product_additional_data') ?>
+					<ul id="tabs<?php echo $productlistArrVal;?>" class="tabs">
+						<li><a href="#" title="tab<?php echo $productlistArrVal;?>1">DESCRIPTION</a></li>
+						<li><a href="#" title="tab<?php echo $productlistArrVal;?>2">DELIVERY</a></li>
+
+
+					</ul>
+					<div class="content padder" id="content<?php echo $productlistArrVal;?>"> 
+						<div id="tab<?php echo $productlistArrVal;?>1" class="tab paddercontent">
+							<h4 class="tabheading"><?php echo $_product->getData('name');?></h4>
+							<p>Style Code : <?php echo $_product->getData('stylecode');?></p>
+							<p><?php echo $_product->getData('short_description');?></p>
+							<p><?php echo $_product->getData('short_description');?></p>
+
+							<p class="old-price"><?php if($_product->getData('special_price')!=''){?>
+								<span class="price"><?php echo sprintf('%.2f', $_product->getData('price'));?>
+
+								</span>			
+								<span class="special_price"><?php echo sprintf('%.2f', $_product->getData('special_price'));?>
+
+								</span>
+								<?php }
+								else{ ?>
+								<span class="original_price"><?php echo sprintf('%.2f', $_product->getData('price'));?></span>	
+
+								<?php } ?>
+							</p>
+
+						</div>
+						<div id="tab<?php echo $productlistArrVal;?>2" class="paddercontent">
+							<h4>Delivery Option</h4>
+						</div>
+					</div>
+				</div>
+				<?php
+
+				$eavAttribute = new Mage_Eav_Model_Mysql4_Entity_Attribute();
+				$code = $eavAttribute->getIdByCode('catalog_product', 'size');
+				$optioncode=array();
+				$productcode=array();
+				$colorcode=array();
+				$childProducts = Mage::getModel('catalog/product_type_configurable')
+				->getUsedProducts(null,$product); 
+
+				$i=0;
+				foreach($childProducts as $option)
+				{
+					$optioncode[$i]=(array)$option->getSize(); //get all option code of sizes
+					$productcode[$i]=(array)$option->getId();  //get all associated product id of current sku
+					$colorcode[$i]=(array)$option->getColor(); //get all option code of color
+					$i=$i+1;
+				} 
+
+				$result = array_unique(call_user_func_array('array_merge', $productcode));
+				$result1= array_unique(call_user_func_array('array_merge', $optioncode)) ;
+				$result2= array_unique(call_user_func_array('array_merge', $colorcode)) ;
+						//print_r($result);
+						//$merge = array_merge_recursive($result, $result1);
+
+				?>
+
+				<!-- <p class="size-guide-popup-link">
+					
+					<a id="fullsize2" class="tip7">Please click for size info</a>
+					<a class="various" data-fancybox-type="iframe" href="http://fancyapps.com/demo/iframe.html">Iframe</a>
+
+				</p> -->
+				
+				<ul class="list">
+
+					<li>
+						<p class="size-guide-popup-link">
+							<a  id="fullsize2" class="various" href="<?php echo $this->getBaseUrl().'lookbook/index/sizeguide'?>">SWF</a>
+						</p>
+					</li>
+				</ul>
+
+
+				
+
+				<script type="text/javascript">
+				jQuery(".various").fancybox();
+			/*	jQuery(".various").fancybox({
+					maxWidth	: 500,
+					maxHeight	: 900,
+					width		: '70%',
+					height		: '90%',
+					autoSize	: true,
+					closeClick	: false,
+					openEffect	: 'none',
+					closeEffect	: 'none'
+				});*/
+					/*jQuery('#fullsize2').click(function() {
+							//alert('dcccc');
+						jQuery(".various").fancybox();
+					});*/
+
+</script>
+
+<div id="product-options-wrapper">
+	<p class="sizeandcolor">SELECT YOUR COLOUR AND SIZE</p>
+	<table width="100%" cellspacing="5" cellpadding="2" border="1">
+		<tbody><tr><th>&nbsp;</th>
+			<?php	foreach($result1 as $val3){
+				$productModel = Mage::getModel('catalog/product');
+				$attr = $productModel->getResource()->getAttribute("size");
+				$size_label = $attr->getSource()->getOptionText($val3);
+				?> 
+
+				<span><th style="text-align:center" ><?php echo $size_label;?></th></span></td>
+
+				<?php }?>
+				<?php $i=0;?>
+				<?php	foreach($result2 as $val1){
+
+					?>
+					<?php $productModel = Mage::getModel('catalog/product');
+					$attr = $productModel->getResource()->getAttribute("color");?>
+					<?php $s_label = $attr->getSource()->getOptionText($val1); ?> 
+
+					<tr>
+						<td style="width:130px;text-align:center">
+							<div style="width:34px;float:left; height:34px; margin-right:5px;">
+								<img width="15px" style="padding-top:10px;" src="<?php echo $this->getBaseUrl(); ?>media/amconf/images/<?php echo strtolower($productlistArrVal);?>_<?php echo str_replace(' ','',$s_label);?>.gif">
+							</div>
+							<div style="padding-top:10px;" ><?php echo $s_label;?></div>
+
+								<?php //$i=0;
+								foreach($result1 as $val2){
+									$productModel = Mage::getModel('catalog/product');
+									$attr = $productModel->getResource()->getAttribute("size");
+									$sizelabel = $attr->getSource()->getOptionId($val2); 
+
+									?> 
+
+
+									<td style="text-align:center">
+										<div class="custom-radio">
+											<?php 
+											$model = Mage::getModel('catalog/product'); 
+										//print_r($productcode[$i]);
+											$_product1 = $model->load($productcode[$i]); 
+											$stocklevel = (int)Mage::getModel('cataloginventory/stock_item')
+											->loadByProduct($_product1)->getQty();
+											if($stocklevel!='0' && $_product1->isSaleable()){ ?>
+
+											<input type="radio" value="<?php echo $sizelabel ?>,<?php echo $val1; ?>,<?php echo $productId ?>" class="attribute sampletest-<?php echo $_product->getData('entity_id');?> sampletest-<?php echo $sizelabel ?>-<?php echo $_product->getData('entity_id');?>" name="attribute-<?php echo $productlistArrVal?>" id="<?php echo $hidden ?>-radio-<?php echo $i ?>-<?php echo $val1; ?>">
+
+											<label class="radio-<?php echo $sizelabel ?> attributelabel" id="sampletest-<?php echo $_product->getData('entity_id');?>" for="radio-<?php echo $sizelabel ?>-<?php echo $productcode[0][$i] ?>"></label>
+											<?php	}else{
+												?>
+												<img style="padding-top:9px;" border="0" title="out of stock" alt="out of stock" src="<?php echo  $this->getSkinUrl('images/swatch_out_of_stock.gif');?>">
+												<?php	}
+
+												?>
+												<?php //if($stocklevel!=0){?>
+												<!--input type="radio" value="<?php echo $sizelabel ?>,<?php echo $val1; ?>,<?php echo $productId ?>" class="attribute sampletest-<?php echo $_product->getData('entity_id');?> sampletest-<?php echo $sizelabel ?>-<?php echo $_product->getData('entity_id');?>" name="attribute-<?php echo $productlistArrVal?>" id="<?php echo $hidden ?>-radio-<?php echo $i ?>"-->
+												<!--label class="radio-<?php echo $sizelabel ?>" for="radio-<?php echo $sizelabel ?>-<?php echo $productcode[0][$i] ?>"></label-->
+												<?php //}else{ ?>
+									<!--img style="padding-top:6px;" border="0" title="the Nude/White in 36 is out of stock" alt="the Nude/White in 36 is out of stock" src="
+									https://www.frenchconnection.com/stormsites/fcuk/images/site/swatch_out_of_stock.gif"-->
+									<?php //}	?>
+								</div>
+							</td>
+
+							<?php $i=$i+1; }?>
+						</tr>
+						<?php   }?>
+					</tbody>
+				</table>
+			</div>
+			
+			
+			<?php //print_r(get_class($this));exit;?>
+			<?php if (!$this->hasOptions()):?>
+			<br/>
+
+			<form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+				<div class="product-options-bottom">
+					<?php	if($_product->isSaleable()){ ?>
+					<div class="price-box">
+
+						<p class="old-price">
+							<span class="price-label"></span>
+							<span id="old-price-1253_clone" class="price">
+								<p><?php //echo $_product->getData('price');?>
+									<?php echo sprintf('%.2f', $_product->getData('price'));?>
+								</p></span>
+							</p>
+
+							<p class="special-price">
+								<span class="price-label"></span>
+								<span id="product-price-1253_clone" class="price">
+									<p>
+										<?php //echo $_product->getData('special_price');?>
+										<?php echo sprintf('%.2f', $_product->getData('special_price'));?>
+									</p>
+								</span>
+							</p>
+
+						</div>
+
+						<div class="qty-price" id="qty-price-<?php echo $_product->getData('entity_id');?>" style="display: none;">
+							<strong class="tabheading pricetab">
+								<p>
+									<p class="old-price"><?php if($_product->getData('special_price')!=''){?>
+										<span class="special_price"><?php echo sprintf('%.2f', $_product->getData('special_price'));?></span>
+										<?php }
+										else{ ?>
+										<span class="original_price"><?php echo sprintf('%.2f', $_product->getData('price'));?></span>	
+										<?php } ?>
+									</p>
+								</p>			
+
+							</strong>
+							<div class="qty_dockright">
+								<label for="qty">Qty:</label>
+								<input type="text" class="input-text qty" title="Qty" value="1" max="10" min="1" id="qty-<?php echo $hidden;?>" name="qty">
+								<button class="product_qty_incrementer" id="product_qty_incrementer-<?php echo $hidden;?>" onclick="return false"></button>
+								<button class="product_qty_decrementer" id="product_qty_decrementer-<?php echo $hidden;?>" onclick="return false"></button>
+							</div>
+							<div class="inc button product_qty_incrementer" id="inc-<?php echo $hidden;?>">+</div>
+							<div class="dec button product_qty_decrementer" id="dec-<?php echo $hidden;?>">-</div>
+
+						</div>
+						<input type="hidden" value="" id="hidden-<?php echo $hidden; ?>" class="hidden-<?php echo $hidden?>">
+						<input type="hidden" value="" id="xhidden-<?php echo $hidden; ?>" class="xhidden-<?php echo $hidden?>">
+
+						<span title="<?php echo $productId; ?>" id="addtocart-<?php echo $hidden; ?>" value="" class="addtocart addtocart-<?php echo $hidden;?>">
+							<?php }?>
+							<div class="show_error" style="display:none"></div>
+						</span>
+						<div class="success_msg"></div>
+						<div class="fail_msg" style="display: none;">select your colour and size</div>
+						<div class="fail_msg fail_msg_custom-<?php echo $hidden; ?>" style="display: none;">Please select the quantity</div>
+						<div class="fail_msg fail_msg_size_color-<?php echo $hidden; ?>" style="display: none;">Please select size and color</div>
+
+
+					</div>
+					<div class="product-qty-bottom" style="padding-bottom:30px;"></div>
+					<div class="add-to-box">
+						
+						<div class="add-to-cart">
+							<?php if($_product->isSaleable()): ?>
+							<?php //echo 1234;?>
+
+							<!--button type="button" title="<?php echo $buttonTitle ?>" id="addtocart" class="button btn-cart addtocart" onclick="product_addtocart_form.submit(this)"></button-->
+						<?php endif; ?>
+					</div>
+				</div>					
+			</form>
+
+		<?php endif?>
+	</div>
+</div>
+
+
+<script>
+jQuery(document).ready(function($) {				
+
+		/* 		jQuery('.sampletest-<?php echo $_product->getData('entity_id');?>').click(function(){
+				jQuery('#qty-price-<?php echo $_product->getData('entity_id');?>').toggle("slow"); 				   
+			});	
+			
+			$(".custom-radio label").click(function(){		
+			$(".custom-radio label").removeClass("checked");
+				$(this).addClass("checked");
+				
+			});	 */
+
+});
+</script>
+
+<script type="text/javascript">
+
+jQuery(document).ready(function($) {
+
+	jQuery('.sampletest-<?php echo $_product->getData('entity_id');?>').click(function(){
+
+		if(jQuery('#qty-price-<?php echo $_product->getData('entity_id');?>').css('display')=="block")
+		{
+			jQuery('#qty-price-<?php echo $_product->getData('entity_id');?>').css('display','none'); 
+			jQuery('#qty-price-<?php echo $_product->getData('entity_id');?>').show("slow");
+
+		}
+		else
+			{	jQuery('#qty-price-<?php echo $_product->getData('entity_id');?>').toggle("slow"); 
+	}
+
+	jQuery(".custom-radio label").click(function(){	
+
+						//alert('amit');
+						//jQuery(".custom-radio label").removeClass("checked");
+						//jQuery(this).addClass("checked");
+						
+					});	
+
+
+}); 
+
+
+});
+
+</script>
+<?php $hidden=$hidden+1;?>
+<?php } ?>
+<ul class="checkout-types">
+	<li>
+		<button onclick="window.location='<?php echo $this->getBaseUrl().'checkout/onepage/'?>';" class="button btn-proceed-checkout btn-checkout btn-checkout-lookbook" title="Go to Checkout" type="button">
+			<img style="float:left" title="Go to Checkout" alt="Go to Checkout" src="<?php echo $this->getSkinUrl("images/goToCheckout.gif")?>">
+		</button>   
+
+	</li>
+</ul>
+<script>
+jQuery(document).ready(function($) {
+	jQuery(".attribute").click(function(){
+		var str = this.id;
+		//alert(str);
+		//alert(jQuery("#"+str).val());
+		
+		var arrayy = str.split("-");
+		var idd = arrayy[0];
+		jQuery("#xhidden-"+idd).val(jQuery("#"+this.id).val());
+	});
+	
+
+	jQuery(".addtocart").click(function(){
+		
+		var str = this.id;
+		var arrayy = str.split("-");
+		var idd = arrayy[1];
+		
+		var value = jQuery("#hidden-"+idd).val();
+		var hiddenval=jQuery('#hidden-'+idd).val(jQuery('#xhidden-'+idd).val()+","+parseInt(jQuery('#qty-'+idd).val()));
+		var splittedval = hiddenval.val().split(",");
+		var valuecheck = jQuery("#xhidden-"+idd).val();
+		
+		if(valuecheck==''){
+			/* alert(valuecheck); */
+			jQuery('.fail_msg_size_color-'+idd).css('display','block');
+			jQuery('.fail_msg_size_color-'+idd).delay(2000).fadeOut(1000);
+			return false;
+		}
+		if(splittedval[3]==0 || splittedval[3]=='' || splittedval[3]<=0 )
+		{
+			//alert('Please select the qunatity');
+			jQuery('.fail_msg_custom-'+idd).css('display','block');
+			jQuery('.fail_msg_custom-'+idd).delay(200).fadeOut(1000);
+			return false;
+		} 
+		else
+		{
+			var hiddenval = jQuery("#hidden-"+idd).val();
+			jQuery('.addtocart-'+idd).css('background','url(<?php echo $this->getSkinUrl("images/unactivebt.jpg")?>) no-repeat');
+		}
+
+		
+		var targeturl = '<?php echo $this->getBaseUrl().'lookbook/index/shopbylook';?>'
+		jQuery.post(targeturl, { email: hiddenval}, function(data){ 
+									// alert(data);
+									returnurl=data; 
+
+									jQuery.post(returnurl,function(response){ 
+			//alert(response); 		
+			if(response){
+			 //alert(response); 
+			 window.document.body.scrollTop = 0;
+			 window.document.documentElement.scrollTop = 0;
+			 var msg = $(response).find(".success-msg").html();
+			 var data = $(response).find(".cart-summary-top").html();
+			 var Count = $(response).find(".mybag-span").html();
+			 var errormsg = $(response).find(".error-msg ul li span").html();
+
+
+
+
+			 if(errormsg)
+			 {		
+			 	jQuery('.addtocart-'+idd).css('background','url(<?php echo $this->getSkinUrl("images/activebt.jpg")?>) no-repeat');
+			 	alert(errormsg);
+			 	$("#messages_product_view").addClass("error-msg");
+			 	$("#messages_product_view").css('margin-bottom','10px');
+			 	$("#messages_product_view").css('width','100%');
+			 	$("#messages_product_view").css('float','left');
+			 	$("#messages_product_view").html(errormsg);
+				 // $("#errormsgqty").show();
+				 jQuery('.show-error').css('display','block');
+				 setTimeout(function() {
+				 	$("#messages_product_view").hide();}, 10000);
+				 jQuery('.addtocart-'+idd).css('background','url(<?php echo $this->getSkinUrl("images/activebt.jpg")?>) no-repeat');
+				 return false;
+				}
+
+				$(".top-header .mybag-span").html(Count);
+				$(".top-header .cart-summary-top").html(data);
+				if(msg){
+					$(".success_msg").html(msg);
+					$('.success_msg').fadeOut(8000, function(){ $(this).hide();});
+
+				}else{
+					$(".fail_msg").html('There was some problem please try again');
+				}
+				$('.cart-summary-top').show();	 
+				$('.cart-summary').hide();
+				jQuery('.cart-summary').slideDown('slow');
+				$(".top-header .mybag-span").css('background-color', '#FFFFFF');
+
+				setTimeout(function() {
+					jQuery('.cart-summary').slideUp('slow');
+					$(".top-header .mybag-span").css('background', 'none');}, 5000);
+
+				$('.addtocart-'+idd).css('background','url(<?php echo $this->getSkinUrl("images/activebt.jpg")?>) no-repeat');
+			}
+			
+		}); 
+});	
+});
+
+jQuery('.product_qty_incrementer').click(function() {
+	var str = this.id;
+	var arrayy = str.split("-");
+	var idd = arrayy[1];
+	var inc = parseInt(jQuery('#qty-'+idd).val()) + 1;
+	jQuery('#qty-'+idd).val(inc);
+});
+jQuery('.product_qty_decrementer').click(function() {
+	var str = this.id;
+	var arrayy = str.split("-");
+	var idd = arrayy[1];
+	var des = parseInt(jQuery('#qty-'+idd).val()) - 1;
+	jQuery('#qty-'+idd).val(des);
+	if(des==0 ||des<0)
+	{
+		alert('Please select the qunatity');
+		jQuery('.fail_msg_custom-'+idd).css('display','block');
+		jQuery('.fail_msg_custom-'+idd).delay(2000).fadeOut(1000);
+		return false; }
+		//jQuery('#hidden-'+idd).val(jQuery('#xhidden-'+idd).val()+","-des);
+	}); 
+
+<?php foreach ($productlistArr as $productlistArrVal) {?>
+	$("#content<?php echo $productlistArrVal;?> div").hide(); // Initially hide all content
+	$("#tabs<?php echo $productlistArrVal;?> li:first").attr("id","current"); // Activate first tab
+	$("#content<?php echo $productlistArrVal;?> div:first").fadeIn(); // Show first tab content
+
+	$('#tabs<?php echo $productlistArrVal;?> a').click(function(e) {
+		e.preventDefault();        
+        $("#content<?php echo $productlistArrVal;?> div").hide(); //Hide all content
+        $("#tabs<?php echo $productlistArrVal;?> li").attr("id",""); //Reset id's
+        $(this).parent().attr("id","current"); // Activate this
+        $('#' + $(this).attr('title')).fadeIn(); // Show content for current tab
+    });
+	<?php }?>
+})();
+</script>
+<style>
+
+<?php foreach ($productlistArr as $productlistArrVal) {?>
+
+	#tabs<?php echo $productlistArrVal;?>
+	{
+		overflow: auto;
+		width: 100%;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	#tabs<?php echo $productlistArrVal;?> li
+	{
+
+		float: left; 
+	}
+
+	#tabs<?php echo $productlistArrVal;?> #current a
+	{
+
+		background: none repeat scroll 0 0 #FFFFFF;
+		font-weight: normal !important;
+	}
+
+	<?php }?>
+
+	</style>
+

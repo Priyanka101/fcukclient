@@ -1,0 +1,80 @@
+<div class="billing_address_content">
+	
+	<h1 class="acountTitle">ADD NEW DELIVERY ADDRESS</h1>
+    <p class="accountpara">Enter your house name or number and postcode and we will find your address</p>
+    <p>Please highlight the correct address below and click 'continue'.</p>
+
+    <div class="addressForm">
+    	<div class="addressDiv">
+		<?php $userinfo=Mage::getSingleton('customer/session')->getCustomer(); 
+				//echo '<pre>';print_r($userinfo->getData());
+				?>
+		<?php
+			$pincode=$this->getRequest()->getParam('postcode'); 
+			$country=$this->getRequest()->getParam('country_id'); 
+						
+			$resource = Mage::getSingleton('core/resource');
+			$read = $resource->getConnection('core_read');
+		
+			$query = "SELECT * FROM findaddress where postcode=$pincode and country_id='$country'";
+			//echo $query;
+			$result=$read->query($query);
+			$findaddresspages = $result->fetchAll();
+			//print_r($findaddresspages);
+			
+		?>
+        	<select size="4" id="selectinput" class="textareaSty selectinput">			
+				<?php 
+				
+				foreach($findaddresspages as $findaddresspage)
+				{
+					$finaladdress=$findaddresspage['street'].' '.$findaddresspage['city'].' '.$findaddresspage['postcode'].' '.$findaddresspage['state'].' '.$findaddresspage['country_id'];
+					//$finaladdressoption=$findaddresspage['street'].' '.$findaddresspage['city'].' '.$findaddresspage['postcode'].' '.$findaddresspage['state'].' '.$findaddresspage['country_id'];
+					$finaladdressoption=$findaddresspage['id'];
+					echo '<option value="'.$finaladdressoption.'">'.$finaladdress.'</option>';
+				
+				}
+				?>
+			</select>          
+        </div>
+		 <?php $userid=$userinfo->getData('default_shipping'); ?>
+        <div class="addressDiv" style="*margin-bottom:20px;">
+        <span class="back-link">
+		<a href="<?php echo $this->escapeUrl($this->getBaseUrl().'customer/address/edit/id/'.$userid)?>">
+		<span class="goBackBtn">Go Back</span>
+		</a>
+		</span>
+			<?php $count=count($findaddresspages);
+			if($count>0){
+			?>
+			
+            <input type="submit" class="continueBtn" value="Continue"/>
+			<?php }?>
+        </div> 
+                
+    </div>
+  
+    	
+</div>
+
+<script>
+jQuery(".continueBtn").click(function(){
+
+  //  var postcode = jQuery('input[id=postcode]').val();
+		//alert(bla);
+	var YourParam = jQuery("select option:selected").val();
+	//alert(YourParam);
+	//var deliveryaddress='<?php echo $this->getRequest()->getParams('delivery'); ?>';
+	//alert(deliveryaddress);
+		var deliveryaddress='<?php echo Mage::getSingleton('core/session')->getDelivery()?>';
+		<?php Mage::getSingleton('core/session')->unsDelivery();?>
+	//alert(deliveryaddress);
+	if(deliveryaddress!=''){
+	window.location.href='<?php echo $this->getBaseUrl().'customer/address/shippingaddressbook'?>'+"?id="+YourParam+"&country_id="+'<?php echo $this->getRequest()->getParam('country_id');?>';
+	}
+	else{
+	window.location.href='<?php echo $this->getBaseUrl().'customer/address/addressbook'?>'+"?id="+YourParam+"&country_id="+'<?php echo $this->getRequest()->getParam('country_id');?>';
+	}
+
+    });
+</script>

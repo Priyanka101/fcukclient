@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Mac_Customerattribute>
+      <version>0.1.1</version>
+    </Mac_Customerattribute>
+  </modules>
+  <global>
+    <helpers>
+      <customerattribute>
+        <class>Mac_Customerattribute_Helper</class>
+      </customerattribute>
+    </helpers>
+	<models>
+	  <customerattribute>
+		<class>Mac_Customerattribute_Model</class>
+		<resourceModel>customerattribute_mysql4</resourceModel>
+	  </customerattribute>
+	</models>
+	<resources>
+	  <customerattribute1369289819_setup>
+		<setup>
+		  <module>Mac_Customerattribute</module>
+		  <class>Mage_Customer_Model_Entity_Setup</class>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </customerattribute1369289819_setup>
+	  <customerattribute1369289819_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </customerattribute1369289819_write>
+	  <customerattribute1369289819_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </customerattribute1369289819_read>
+	</resources>
+  </global>
+	
+	<frontend>
+		<routers>
+			<customer>
+				<args>
+					<modules>
+						<Mac_Customerattribute before="Mage_Customer">Mac_Customerattribute</Mac_Customerattribute>
+					</modules>
+				</args>
+			</customer>
+		</routers>
+	</frontend>
+	
+</config> 

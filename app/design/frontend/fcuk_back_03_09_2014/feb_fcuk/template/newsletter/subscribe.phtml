@@ -1,0 +1,70 @@
+
+<div class="block block-subscribe">
+    <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
+        <div class="block-content">
+          <h1>Email Sign up</h1>
+            Be the first to know about exclusive offers, collection previews, the latest style news and more.
+          <table>
+            <tr>
+              <td class="subs_label">Email*</td>
+              <td>
+                <input type="text" name="email" id="newsletter email" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry validate-email" />
+              </td>
+            </tr>
+            <tr>
+              <td class="subs_label">First Name*</td>
+              <td>
+                <input type="text" name="firstname" id="newsletter name" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry" />
+              </td>
+            </tr>
+            <tr>
+              <td class="subs_label">Last Name*</td>
+              <td>
+                <input type="text" name="lastname" id="newsletter lastname" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry" />
+              </td>
+            </tr>
+            <tr>
+              <td class="subs_label">Gender*</td>
+              <td>
+                <label for="rdoGenderMale" style="padding-right: 5px;">Male</label><input id="genderMale" type="radio" name="gender" value="male">
+                <label for="rdoGenderFemale" style="padding-right: 5px;">Female</label><input id="genderFemale" type="radio" name="gender" value="female" checked="checked">
+              </td>
+            </tr>
+            <tr>
+              <td class="subs_label">Country*</td>
+              <td>
+                <input type="text" name="country" id="newsletter country" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry" />
+              </td>
+            </tr>
+            <tr>
+              <td class="subs_label">Postcode*</td>
+              <td>
+                <input type="text" name="postcode" id="newsletter postcode" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry"/>
+              </td>
+            </tr>
+            <tr>
+              <td class="subs_label">Mobile Number</td>
+              <td>
+                <input type="text" name="mobileno" id="newsletter mobileno" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="form_note">Get invited to exclusive events and receive texts about flash sales.</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="actions">
+                  <button type="submit" title="<?php echo $this->__('Submit') ?>" class="button subscrb-button"><span><span><?php echo $this->__('Submit') ?></span></span></button>
+                </div>
+              </td>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+    var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+//]]>
+</script>

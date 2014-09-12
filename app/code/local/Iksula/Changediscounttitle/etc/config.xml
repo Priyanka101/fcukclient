@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Iksula_Changediscounttitle>
+      <version>0.1.0</version>
+    </Iksula_Changediscounttitle>
+  </modules>
+  <global>
+    <helpers>
+      <changediscounttitle>
+        <class>Iksula_Changediscounttitle_Helper</class>
+      </changediscounttitle>
+    </helpers>
+  <models>
+    <changediscounttitle>
+    <class>Iksula_Changediscounttitle_Model</class>
+    <resourceModel>changediscounttitle_mysql4</resourceModel>
+    </changediscounttitle>
+  </models>
+    <events>
+    <salesrule_validator_process> <!-- identifier of the event we want to catch -->
+        <observers>
+          <catalogrule_after_apply_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>changediscounttitle/observer</class> <!-- observers class alias -->
+            <method>changeDiscountTitle</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </catalogrule_after_apply_handler>
+        </observers>
+      </salesrule_validator_process>
+    </events>
+  </global>
+</config> 

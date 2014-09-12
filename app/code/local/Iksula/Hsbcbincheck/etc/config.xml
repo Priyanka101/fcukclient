@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<config>
+<modules>
+	<Iksula_Hsbcbincheck>
+		<version>0.1.0</version>
+	</Iksula_Hsbcbincheck>
+</modules>
+<frontend>
+	<routers>
+		<hsbcbincheck>
+			<use>standard</use>
+			<args>
+				<module>Iksula_Hsbcbincheck</module>
+				<frontName>hsbcbincheck</frontName>
+			</args>
+		</hsbcbincheck>
+	</routers>
+	<layout>
+		<updates>
+			<hsbcbincheck>
+				<file>hsbcbincheck.xml</file>
+			</hsbcbincheck>
+		</updates>
+	</layout>
+</frontend>
+<global>
+	<helpers>
+		<hsbcbincheck>
+			<class>Iksula_Hsbcbincheck_Helper</class>
+		</hsbcbincheck>
+	</helpers>
+	<blocks>
+		<hsbcbincheck>
+			<class>Iksula_Hsbcbincheck_Block</class>
+		</hsbcbincheck>
+	</blocks>
+	<models>
+		<hsbcbincheck>
+			<class>Iksula_Hsbcbincheck_Model</class>
+			<resourceModel>hsbcbincheck_mysql4</resourceModel>
+		</hsbcbincheck>
+		<hsbcbincheck_mysql4>
+			<class>Iksula_Hsbcbincheck_Model_Mysql4</class>
+			<entities>		  
+				<creditbinnumbers>
+					<table>credit_bin_numbers</table>
+				</creditbinnumbers>		  
+				<debitbinnumbers>
+					<table>debit_bin_numbers</table>
+				</debitbinnumbers>
+			</entities>
+		</hsbcbincheck_mysql4>
+	</models>
+	<resources>
+		<hsbcbincheck_setup>
+			<setup>
+				<module>Iksula_Hsbcbincheck</module>
+			</setup>
+			<connection>
+				<use>core_setup</use>
+			</connection>
+		</hsbcbincheck_setup>
+		<hsbcbincheck_write>
+			<connection>
+				<use>core_write</use>
+			</connection>
+		</hsbcbincheck_write>
+		<hsbcbincheck_read>
+			<connection>
+				<use>core_read</use>
+			</connection>
+		</hsbcbincheck_read>
+	</resources>
+</global>
+</config> 

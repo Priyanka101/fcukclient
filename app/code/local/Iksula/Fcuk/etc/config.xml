@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Iksula_Fcuk>
+      <version>0.1.0</version>
+    </Iksula_Fcuk>
+  </modules>
+
+  <global>
+    <models>
+      <sales>
+        <rewrite>
+          <order_pdf_invoice>Iksula_Fcuk_Model_Sales_Order_Pdf_Invoice</order_pdf_invoice>
+          <order_pdf_shipment>Iksula_Fcuk_Model_Sales_Order_Pdf_Shipment</order_pdf_shipment>
+        </rewrite>
+      </sales>
+    </models>
+	<helpers>
+      <geraldonline> <class>Iksula_Geraldonline_Helper</class> </geraldonline>
+    </helpers>
+  </global>
+  
+
+</config>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <superman_adminhtml_superman_index>
+	<reference name="content">
+	  <block type="superman/adminhtml_superman" name="superman" />
+	</reference>
+  </superman_adminhtml_superman_index>
+</layout>

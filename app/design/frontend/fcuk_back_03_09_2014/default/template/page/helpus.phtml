@@ -1,0 +1,197 @@
+<style type="text/css">
+    /* body{height:1000px;} */
+    .mask
+    {
+        /*background-color:#000;
+        -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+        filter: alpha(opacity=40);
+        -moz-opacity:0.4;
+        -khtml-opacity: 0.4;
+        opacity:0.4;  */      
+        background: url(<?php echo $this->getSkinUrl('images/mask_bg.png'); ?>) ;
+        background-repeat: repeat;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        z-index:1000;
+        display:none;
+    }
+
+    .popUpWin
+    {
+        width:383px;
+        height:230px;
+        background-image:url(<?php echo $this->getSkinUrl('images/popUpHelp.png'); ?>);
+        color:#000;
+        font-family:sans-serif !important;
+        position:fixed;
+        z-index:1001;
+        margin:auto;
+        padding:50px 50px 40px 37px;
+        display:block;
+        margin-left:251px;
+    }
+    .closeHelp
+    {
+        display:block;
+        margin:0px;
+        padding:0px;
+        margin-left:389px;
+        margin-top:-27px;
+        width:30px;
+        height:30px;
+        position:absolute;
+        cursor:pointer;
+        border-radius:50%;
+    }
+
+    .contentpopUp
+    {
+        width:100%;
+        float:left;
+        font-family:sans-serif !important;
+        font-size:12px;
+        line-height:20px;
+    }
+    .textareaSty
+    {
+        width:95%;
+        border:1px solid #cccccc;
+        height:80px;
+        line-height:16px;
+        color:#888;
+        resize:none;
+        margin:10px 0;
+        float:left;
+        border-radius:5px;
+        padding:2%;
+    }
+
+    .helpbtn
+    {
+        display:block;
+        background:none;
+        border:none;
+        background-image:url(<?php echo $this->getSkinUrl('images/helpSubmit.png'); ?>);
+        width:83px;
+        height:33px;
+        cursor:pointer;
+        background-repeat:no-repeat;
+        float:right;
+    }
+
+    h2
+    {
+        margin:0px;
+        padding:0px;
+        font-size:1.8em;
+        line-height:36px;
+        font-weight:bold;
+        font-family:sans-serif !important;
+    }
+
+    p
+    {
+        margin:0px;
+        padding:0px;
+    }
+
+    form
+    {
+        margin:0px;
+        padding:0px;
+    }
+</style>
+<script>
+    jQuery(document).ready(function() {
+        //jQuery("#div").delay(1000);
+        var winHt = Math.round((jQuery(window).height() - 360) / 2);
+        var winWt = Math.round((jQuery(window).width() - 480) / 2);
+        jQuery(".mask").fadeIn(1000);
+        jQuery("#helWin").show(1000);
+        jQuery(".popUpWin").css("margin-top", winHt + "px");
+        //jQuery(".popUpWin").css("margin-left","251px");		
+        jQuery(".mask, .closeHelp").click(function() {
+            jQuery(".popUpWin,.mask").fadeOut();
+        });
+    });
+</script>
+</head>
+
+
+<div class="mask"></div>
+
+<div class="popUpWin" id="helWin">
+
+    <div class="closeHelp">&nbsp;</div>
+    <div class="contentpopUp">
+        <h2>Help us improve</h2>
+        <p>We value your opinion<br/>
+            What do you like about site and what can we improve on?</p>
+    </div>
+    <form>
+        <textarea class="textareaSty" id="textareasty1">Click here to type...</textarea>
+        <div class="contentpopUp">
+            <img src="<?php echo $this->getSkinUrl('images/help_fc.png'); ?>" style="float:left;"/>
+            <input class="helpbtn" value="&nbsp;"/>
+        </div>
+    </form>
+</div>
+
+
+
+<script type="text/javascript">
+    jQuery('textarea#textareasty1').focus(function() {
+         jQuery('.helpbtn').css('background-image','url(<?php echo $this->getSkinUrl('images/helpSubmit_click.png'); ?>)');
+        //alert('Handler for .focus() called.');
+        if (jQuery(this).val() == 'Click here to type...')
+        {
+            jQuery(this).val('');
+        }
+    });
+    jQuery('textarea#textareasty1').blur(function() {
+        //alert('Handler for .focus() called.');
+        if (jQuery(this).val() == '')
+        {
+            jQuery(this).val('Click here to type...');
+             jQuery('.helpbtn').css('background-image','url(<?php echo $this->getSkinUrl('images/helpSubmit.png'); ?>)');
+        }
+    });
+    jQuery('.helpbtn').click(function() {
+
+        var subval = jQuery('.textareaSty').val();
+        if(subval=='' || subval=='Click here to type...')
+        {
+            alert('please provide your suggestion');
+            return false;
+        }
+
+        var link = '<?php echo $this->getBaseUrl() . 'subscription/index/store'; ?>';
+
+        jQuery.post(link, {email: subval}, function(data) {
+            jQuery(".popUpWin,.mask").fadeOut();
+
+        });
+
+    });
+
+
+
+</script>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        if ($.browser.msie && parseInt($.browser.version, 10) === 6) {
+            alert('This Site is Best Viewed in IE Version above 7..');
+        }
+        var check_cookie = $.cookie('helpus');
+        if (check_cookie != '1')
+        {
+            //alert('not set');
+            $.cookie('helpus', '1', {expires: 1});
+        }
+
+    });
+
+</script>

@@ -1,0 +1,168 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+	
+	
+<script src="<?php echo $this->getSkinUrl('js/cufon-yui.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/Gotham_700.font.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/Helvetica_Neue_400.font.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/HelveticaNeue_LT_55_Roman_400-HelveticaNeue_LT_55_Roman_700.font.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/cufon_main.js') ?>"></script>
+
+<script type="text/javascript">
+jQuery(document).ready(function($){
+	if ($.browser.msie  && parseInt($.browser.version, 10) === 6) {
+	  alert('This Site is Best Viewed in IE Version above 7..'); 
+	}
+	var check_cookie = $.cookie('example2');
+	if(check_cookie !='1' )
+	{
+		//alert('not set');
+		$.cookie('example2', '1',{ expires: 1 });
+		<?php //echo $this->getChildHtml('helpus'); ?>
+	}
+	
+});
+
+</script>
+<?php 
+ //echo $this->getChildHtml('helpus'); 
+$myValue = '';
+$helpusval=Mage::getSingleton('core/session')->getMyValue();
+
+if($helpusval=='helpustoimprove')
+{
+	 //echo $this->getChildHtml('helpus');
+}
+else
+{
+	$myValue = 'helpustoimprove';
+	$helpusval=Mage::getSingleton('core/session')->setMyValue($myValue);
+	/* Mage::getSingleton('core/session')->unSet($myValue); */
+	//echo $this->getChildHtml('helpus');
+	/* echo 'hi';  */
+}
+
+?>
+<div class="top-header">
+
+	<span class="storelocater"><a href="/storelocator/"><?php echo $this->__('Store Locator');?></a></span>
+    <div class="fc-country">
+                <div id="country-select">
+                  <ul>
+                    <li class="fc-country-india"><a href="<?php echo $this->getUrl();?>">INDIA</a>
+                      <ul class="fc-country-pad" title="select your country" id="selectcountrylist">
+                        <!--li><a style="cursor:default;" id="maincountry" href="javascript:void(0);">
+						<div style="height:4px;"></div></a></li-->
+                        <li><a id="maincountry" href="http://www.frenchconnection.com/index.htm?countryselect=fcuk">UK and Europe</a></li>
+                        <li><a id="international" href="http://www.frenchconnection.com/index.htm?countryselect=fcus">USA</a></li>
+                        <li><a id="international" href="http://www.frenchconnection.com/index.htm?countryselect=fcca">Canada</a></li>
+                        <li><a id="international" href="http://www.frenchconnection.com.au">Australia</a></li>
+                        
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+    </div>
+	<span class="tollfree">Call Toll Free: 1800 - 22 - 8288</span>
+
+	
+	<div class="f-left">
+ 	<!--<p class="subscription"><span><?php //echo $this->__('Subscribe')?></span></p> -->
+	<div class="subscription-newsletter" style="display:none">
+	
+		<?php echo $this->getChildHtml('subscribe_header') ?>
+	
+	
+	</div>
+	
+	<?php echo $this->getChildHtml('topLinks') ?>
+       
+	<?php echo $this->getChildHtml('header_cart_sidebar') ?>
+	
+	</div>
+	
+
+  
+	</div>
+	
+<div class="header-container">
+	
+    <div class="header">
+		<div class="offer-btn-div">
+			<a href="<?php echo $this->getBaseUrl()."shipping-delivery-policy";?>" title="Delivery and returns information">
+				<img class="offer-btn-img" src="<?php echo $this->getSkinUrl('images/free_shipping_ad.png');?>" alt="Delivery and returns information"/>
+			</a>
+		</div>
+        <?php if ($this->getIsHomePage()):?>
+        <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo">
+<center><img class="logo_image" src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></center></a></h1>
+        <?php else:?>
+         <h1 class="logo">
+        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img class="logo_image" src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
+        <?php endif?>
+		
+        <!---div class="quick-access">
+            <!--p class="welcome-msg"><?php //echo $this->getWelcome() ?> <?php //echo $this->getAdditionalHtml() ?></p-->
+           
+            
+        <!--/div-->
+        <?php echo $this->getChildHtml('topContainer'); ?>
+    </div>
+	<div class="updates">
+	<!--div class="updates1"><?php //echo $this->getChildHtml('footer.newsletter') ?>  </div-->
+	<div class="search">  <?php echo $this->getChildHtml('topSearch') ?></div>
+	</div>
+
+</div>
+
+<?php echo $this->getChildHtml('topMenu') ?>
+<script type="text/javascript">
+	 jQuery(document).ready(function($) {
+	 
+		  jQuery('.subscription').mouseover(function(){
+			  jQuery('.subscription-newsletter').show();
+			  jQuery('.subscription').addClass('active');
+		  }); 
+	 jQuery('.subscription').mouseleave(function(){
+		 jQuery('.subscription-newsletter').hide();
+		 jQuery('.subscription').removeClass('active');
+	  });  
+		jQuery('.subscription-newsletter').mouseenter(function() {
+				$(this).show();			
+				jQuery('.subscription').addClass('active');
+		});
+		
+		jQuery('.subscription-newsletter').mouseleave(function() {
+			$(this).hide();
+			jQuery('.subscription').removeClass('active');
+		});
+		
+	 });
+	 </script>

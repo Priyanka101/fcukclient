@@ -1,0 +1,55 @@
+/********************** Tabs */
+.product-view .tabs {
+	margin:0;
+	overflow:hidden;
+	position:relative;
+	z-index:999;
+}
+
+.product-view .tabs li {
+	float:left;
+	border-color: #E2E2E2;
+	border-style: solid;
+	border-width: 2px 2px 0;
+	margin-right:1px;
+	
+}
+.product-view .tabs a {
+	background:#E2E2E2;
+	color: #737373;
+	display: block;
+	font-size:10px;
+	padding:7px 18px;
+		
+	text-decoration:none;
+	text-transform:uppercase;
+}
+.product-view .tabs li.active a, .product-view .tabs li.active a:hover {
+	background:#FFFFFF;
+	font-weight:normal !important;
+}
+#product_tabs_tags_tabbed_contents.input-box input {
+	width: 300px;
+}
+#product_tabs_tags_tabbed_contents .input-box {
+	width: 300px;
+	float:left;
+	margin-right: 10px;
+}
+#product_tabs_related_tabbed_contents li {
+	float:left;
+	margin-right: 10px;
+}
+#product_tabs_related_tabbed_contents ol {
+	clear: both;
+}
+.product-collateral:after {
+	content:".";
+	display:block;
+	clear:both;
+	font-size:0;
+	line-height:0;
+	height:0;
+	overflow:hidden;
+	zoom: 1
+}

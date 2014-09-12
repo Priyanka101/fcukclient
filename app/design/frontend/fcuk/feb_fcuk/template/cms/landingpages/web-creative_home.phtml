@@ -1,0 +1,324 @@
+<?php 
+$_womencategories = Mage::helper('all')->getBannerCategories(3);
+$_mencategories = Mage::helper('all')->getBannerCategories(4);
+
+$womanUrl = Mage::getUrl('woman/category2/woman-dresses.html');
+$manUrl = Mage::getUrl('man/category3/man-tshirts.html');
+?>
+
+<div class="section" id="section0">
+
+<div id="homepage_wrapper" class="clearfix">
+
+    <div class="banner_awlaunch">
+
+    <div id="campaign_banner_container_gateway" class="clearfix banner_100_height campaign_banner_container">
+        <div id="banner_container_gateway" class="banner_100_height hp_banner_container"></div>
+        <div class="banner_message banner_message_white">
+            <div class="banner_message_title">Never Miss<br>A Trick</div>
+            <div class="banner_message_text">Fill in the missing pieces to your AW14 wardrobe</div>
+            <a href="<?php echo $womanUrl;?>" class="banner_cta">Woman</a>
+            <div class="banner_cta_divide">|</div>
+            <a href="<?php echo $manUrl;?>" class="banner_cta">Man</a>
+            <div class="banner_cta_divide">|</div>
+            <a href="/category/homeware/homeware.htm" class="banner_cta">Homeware</a>
+            <br>
+
+            <a href="#" class="banner_cta watch-video watch-video-desktop"><span>Watch The Video</span></a>
+
+        </div>
+    </div>
+
+    </div>
+
+
+   <div id="video-controls" class="video_element hidethis">
+        <a class="mute btn-off" title="sound on/off" onclick='jwplayer().setMute()'>mute</a>
+        <a class="play" onclick='jwplayer().play()'>play</a>
+        <a class="skip">skip</a>
+    </div>
+    <div id="video-close" class="video_element hidethis">
+        <a class="skip">
+            <img src="http://www.frenchconnection.com/stormsites/fcuk/images/aw13/gateway/big_vid_close.svg" class="svg_image" />
+            <br />
+            <img src="<?php echo $this->getSkinUrl('images/big_vid_close_text.png');?>" class="cross_image" />
+        </a>
+    </div>
+
+    <div id="video-container" class="video_element hidethis">
+		<div id="jw-video"></div>
+    </div>
+
+
+
+</div>
+
+</div>
+<script>
+function blink(selector){
+	jQuery(selector).fadeOut(2000, function(){
+	    jQuery(this).fadeIn(2000, function(){
+	        blink(this);
+	    });
+	});
+}
+    
+blink('.watch-video-desktop');
+
+    jQuery(function(){
+
+      var lastScroll = 0;
+
+      jQuery(window).scroll(function(event){
+
+          var st = jQuery(this).scrollTop();
+
+          if (st > lastScroll){
+
+		   	 jQuery('.page .main-navigation').css('margin-top','-8px');
+
+		   	 jQuery('.input-wrapper').css('margin-top','-30px');
+
+			 jQuery('.top-header').stop().animate({	
+			         height:'0px'
+			     },400);
+          }
+          else {
+
+          	jQuery('.header-wrap').removeClass('open');
+
+		      jQuery('.top-header').stop().animate({
+		     	height:'22px'
+		    },400);
+
+          }
+          lastScroll = st;
+      });
+    });
+</script>
+
+<style type="text/css">
+
+.std div#section0 {
+background-image: url("<?php echo $this->getSkinUrl('images/zaid/AW14_slide_gateway_slide_02.jpg');?>");
+background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.banner_message.banner_message_white {
+color: #FFF;
+}
+
+.cms-index-index #custommenu div.wp-custom-menu-popup { min-height: 0; background-color: #fff !important;top:auto !important;}
+
+.banner_message {
+position: absolute;
+top: 20%;
+width: 500px;
+color: #000000;
+text-align: left;
+/*z-index: 50;*/
+overflow: hidden;
+-webkit-transition: all 0.4s ease-in-out;
+-moz-transition: all 0.4s ease-in-out;
+-o-transition: all 0.4s ease-in-out;
+transition: all 0.4s ease-in-out;
+display: block;
+padding: 0 0 0 70px;
+}
+
+.banner_message_title {
+font-family: "SuperGroteskWeb-Medium",Arial,sans-serif;
+text-rendering: optimizeLegibility;
+letter-spacing: 1px;
+font-weight: normal;
+color: #333;
+font-size: 60px;
+letter-spacing: 0px;
+line-height: 60px;
+padding: 10px 0 0px 0px;
+-webkit-transition: all 0.2s ease-in-out;
+-moz-transition: all 0.2s ease-in-out;
+-o-transition: all 0.2s ease-in-out;
+transition: all 0.2s ease-in-out;
+text-align: left;
+text-transform: uppercase;
+letter-spacing: 8px;
+}
+
+.banner_message.banner_message_white .banner_message_title, .banner_message.banner_message_white .banner_message_subtitle {
+color: #FFF;
+}
+
+.banner_message_subtitle {
+font-family: "SuperGroteskWeb-Medium",Arial,sans-serif;
+text-rendering: optimizeLegibility;
+letter-spacing: 1px;
+font-weight: normal;
+color: #333;
+font-size: 25px;
+letter-spacing: 0px;
+line-height: 30px;
+padding: 10px 0 0px 0px;
+-webkit-transition: all 0.2s ease-in-out;
+-moz-transition: all 0.2s ease-in-out;
+-o-transition: all 0.2s ease-in-out;
+transition: all 0.2s ease-in-out;
+text-align: left;
+text-transform: uppercase;
+letter-spacing: 2px;
+}
+
+#campaign_banner_container_gateway .banner_cta {
+margin-top: 35px;
+font-size: 1.4em;
+text-transform: uppercase;
+padding: 0;
+letter-spacing: 3px;
+font-weight: normal;
+}
+
+a.banner_cta {
+display: inline-block;
+padding: 5px 10px 5px 10px;
+font-family: "HelveticaNeueW01-75Bold",Arial,sans-serif;
+text-decoration: none;
+color: #000;
+background: rgba(255,255,255,0.2);
+border: 1px solid #000;
+font-size: 16px;
+text-transform: lowercase;
+-webkit-transition: all 0.3s ease-in-out;
+-moz-transition: all 0.3s ease-in-out;
+-o-transition: all 0.3s ease-in-out;
+transition: all 0.3s ease-in-out;
+line-height: 20px;
+text-indent: 0;
+overflow: hidden;
+height: auto;
+border-radius: 0;
+-webkit-appearance: none;
+border: 0;
+background: transparent;
+padding: 0;
+margin-top: 10px;
+}
+
+#campaign_banner_container_gateway .banner_cta_divide {
+font-size: 1.6em;
+display: inline-block;
+padding: 0 10px 0 10px;
+position: relative;
+top: -2px;
+}
+
+.banner_message.banner_message_white a.banner_cta {
+color: #FFF;
+}
+
+a.banner_cta:hover {
+filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+opacity: 0.6;
+}
+
+#video-controls {
+position: absolute;
+top: 65px;
+left: 15px;
+z-index: 10;
+color: #FFF;
+width: 92px;
+height: 127px;
+}
+
+.hidethis {
+display: none;
+}
+
+.header-wrap {
+position: fixed;
+z-index: 2000;
+top: 0;
+left: 0;
+width: 100%;
+-webkit-transition: all 0.5s ease-in-out;
+-moz-transition: all 0.5s ease-in-out;
+-o-transition: all 0.5s ease-in-out;
+transition: all 0.5s ease-in-out;
+}
+
+
+#campaign_banner_container_gateway a.banner_cta.watch-video.watch-video-desktop {
+    display: block;
+}
+
+#campaign_banner_container_gateway a.banner_cta.watch-video {
+    background-image: url("<?php echo $this->getSkinUrl('images/PlayVid_Button.png');?>");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    display: block;
+    height: 107px;
+    margin: 20px 0 0;
+    transition: all 0.5s linear 0s;
+    width: 107px;
+}
+
+a.watch-video span {display:none;}
+
+
+#video-controls .skip {
+width: 78px;
+height: 27px;
+top: 96px;
+left: 7px;
+background: url("<?php echo $this->getSkinUrl('images/skip_btn.png');?>") no-repeat 0 0;
+}
+
+#video-controls a {
+position: absolute;
+text-indent: -9999em;
+overflow: hidden;
+}
+
+#video-controls .mute {
+width: 48px;
+height: 27px;
+top: 15px;
+left: 30px;
+background: url("<?php echo $this->getSkinUrl('images/sound_mute_btn.png');?>") no-repeat center bottom;
+}
+
+#video-controls .mute.btn-off {
+background-position: center top;
+}
+
+#video-controls .play {
+width: 50px;
+height: 41px;
+top: 51px;
+left: 17px;
+background: url("<?php echo $this->getSkinUrl('images/play_pause_btn.png');?>") no-repeat 0 0;
+}
+
+#video-controls .play.btn-off {
+background-position: bottom;
+}
+
+#video-close .skip img {
+margin-bottom: 3px;
+}
+
+#video-close .skip {
+cursor: pointer;
+text-align: center;
+}
+
+#video-close {
+position: absolute;
+top: 75px;
+right: 20px;
+z-index: 10;
+}
+
+</style>

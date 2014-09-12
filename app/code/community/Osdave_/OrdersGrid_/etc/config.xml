@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Osdave_OrdersGrid>
+            <version>0.2.0</version>
+        </Osdave_OrdersGrid>
+    </modules>
+
+	<global>
+        <resources>
+            <!-- initialize sql upgrade setup -->
+            <ordersgrid_setup>
+                <setup>
+                    <module>Osdave_OrdersGrid</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+            </ordersgrid_setup>
+        </resources>
+        
+		<blocks>
+			<ordersgrid>
+				<class>Osdave_OrdersGrid_Block</class>
+			</ordersgrid>
+		</blocks>
+		
+        <helpers>
+            <ordersgrid>
+                <class>Osdave_OrdersGrid_Helper</class>
+            </ordersgrid>
+        </helpers>
+        
+        <models>
+            <ordersgrid>
+                <class>Osdave_OrdersGrid_Model</class>
+            </ordersgrid>
+        </models>
+        
+        <events>
+            <!-- Add observer configuration -->
+            <sales_order_resource_init_virtual_grid_columns>
+                <observers>
+                    <osdave_ordersgrid>
+                        <model>ordersgrid/observer</model>
+                        <method>addColumnToResource</method>
+                    </osdave_ordersgrid>
+                </observers>
+            </sales_order_resource_init_virtual_grid_columns>
+        </events>
+	</global>
+	
+    <adminhtml>
+        <layout>
+             <!-- layout upgrade configuration -->
+            <updates>
+                <osdave_ordersgrid>
+                    <file>osdave/ordersgrid.xml</file>
+                </osdave_ordersgrid>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

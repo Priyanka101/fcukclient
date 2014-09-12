@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Iksula_Customgridexport>
+            <version>0.1.0</version> <!-- define version for sql upgrade -->
+        </Iksula_Customgridexport>
+    </modules>
+    <global>
+        <models>
+            <iksula_customgridexport>
+                <class>Iksula_Customgridexport_Model</class>
+            </iksula_customgridexport>
+        </models>
+        <events>
+            <!-- Add observer configuration -->
+            <sales_order_resource_init_virtual_grid_columns>
+                <observers>
+                    <iksula_customgridexport>
+                        <model>iksula_customgridexport/observer</model>
+                        <method>addColumnToResource</method>
+                    </iksula_customgridexport>
+                </observers>
+            </sales_order_resource_init_virtual_grid_columns>
+        </events>
+        <resources>
+            <!-- initialize sql upgrade setup -->
+            <customgridexport_setup>
+                <setup>
+                    <module>Iksula_Customgridexport</module>
+                    <class>Mage_Sales_Model_Mysql4_Setup</class>
+                </setup>
+            </customgridexport_setup>
+        </resources>
+    </global>
+    <adminhtml>
+        <layout>
+             <!-- layout upgrade configuration -->
+            <updates>
+                <iksula_customgridexport>
+                    <file>iksula/customgridexport.xml</file>
+                </iksula_customgridexport>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

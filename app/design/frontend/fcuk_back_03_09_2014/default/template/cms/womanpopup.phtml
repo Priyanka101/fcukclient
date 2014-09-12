@@ -1,0 +1,41 @@
+<script type="text/javascript">
+jQuery(document).ready(function($){
+
+	$.fancybox({'overlayColor'     : '#000',  
+        'overlayOpacity'    : 0.7,  
+        'titleShow'         : false,  
+        'hideOnOverlayClick': false,  
+        'autoScale'         : false,  
+        'scrolling'         : 'no',  
+        'transitionIn'      : 'elastic',  
+                'transitionOut'     : 'elastic'  ,
+                'type'                         : 'image',  
+                'href'                          : '<?php echo $this->getUrl('media').'woman.jpg';?>'}  
+		); 
+	if ($.browser.msie  && parseInt($.browser.version, 10) === 6) {
+	  alert('This Site is Best Viewed in IE Version above 7..'); 
+	}
+	
+		
+		
+/* 	var check_cookie = $.cookie('example');
+	if(check_cookie !='1' )
+	{
+		//alert('not set');
+		$.cookie('example', '1',{ expires: 1 });
+		$.fancybox({'overlayColor'     : '#000',  
+        'overlayOpacity'    : 0.7,  
+        'titleShow'         : false,  
+        'hideOnOverlayClick': false,  
+        'autoScale'         : false,  
+        'scrolling'         : 'no',  
+        'transitionIn'      : 'elastic',  
+                'transitionOut'     : 'elastic'  ,
+                'type'                         : 'image',  
+                'href'                          : '<?php echo $this->getUrl('media').'light_box.jpg'?>'}  
+		);   
+	} */
+	
+});
+
+</script>

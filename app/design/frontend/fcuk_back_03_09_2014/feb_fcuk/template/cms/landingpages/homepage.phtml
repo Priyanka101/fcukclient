@@ -1,0 +1,75 @@
+<style type="text/css">
+  .flowplayer { background-color: #000; }  
+</style>
+<script>
+  jQuery(document).ready(function($){        
+    /*removed video*/
+    $(".cms-home .main-container").height(720);
+   
+
+    if ($.browser.msie  && parseInt($.browser.version, 10) === 7){
+      
+      $(".flowplayer, #video-close, #vid_bg").hide();
+      $(".cms-home .main-container").height(720);
+      $(".container_24").fadeIn();
+    }
+
+   
+
+  });
+</script>
+<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl('js/flowplayer/skin/minimalist.css')?>">
+
+<div class="container_24">
+  <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('cms/landingpages/social_media.phtml')->toHtml(); ?>
+    <div class="hp_slider_wrapper">
+      <div class="hp_slide_container_home">
+      </div>
+      <div class="hp_static_image"></div>
+      <div class="gw_from_sketch">
+        <img src="http://www.frenchconnection.in/skin/frontend/fcuk/new_fcuk/images/kishan/from_sketch_big.png" style="width: 444px;height: 55px;">
+      </div>
+      <div class="gw_to_store"> <img src="http://www.frenchconnection.in/skin/frontend/fcuk/new_fcuk/images/kishan/to_store.png" style="width: 312px;height: 55px;"></div>
+      <div class="homepage_banner_links">
+           <a class="highlight_gateway highlight_gateway_woman" href="<?php echo $this->getUrl().'woman.html'?>">Woman</a>
+           <a class="highlight_gateway highlight_gateway_man" href="<?php echo $this->getUrl().'man.html'?>">Man</a>
+           <a class="highlight_gateway highlight_gateway_home" href="<?php echo $this->getUrl().'underwear.html'?>">underwear</a>
+
+           
+      </div>
+     
+  </div>
+</div>
+<?php 
+
+$my_product_sku = Mage::getStoreConfig('configuration/configuration/product_sku');
+
+$product_model = Mage::getModel('catalog/product');
+$my_product_id  = $product_model->getIdBySku($my_product_sku);
+
+$my_product = $product_model->load($my_product_id);
+
+$stocklevel = (int)Mage::getModel('cataloginventory/stock_item')
+                ->loadByProduct($my_product)->getQty();
+
+?>
+<style type="text/css">
+.gw_image_box_area {
+display: inline-block;
+position: absolute;
+margin-top: 205px;
+}
+.image_box{display: block;position: absolute;}
+
+</style>
+
+<script type="text/javascript">
+
+jQuery(document).ready(function($){
+  var i = 1;
+  var max_slides = 2;
+  rotate_imagbox(i,max_slides);
+  stocklevel = <?php echo $stocklevel?>;
+});
+
+</script>

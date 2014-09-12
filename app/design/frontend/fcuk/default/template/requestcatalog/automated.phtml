@@ -1,0 +1,91 @@
+<div class="billing_address_content">
+	
+	<h1 class="acountTitle">REQUEST A CATALOGUE</h1>
+	<p>Check out our latest lookbook by having it send over to you! Don’t miss a single book.</p>
+
+    <p class="messagepara">Please highlight the correct address below and click 'continue'.</p>
+
+    <div class="addressForm">
+    	<div class="addressDiv">
+		<?php $userinfo=Mage::getSingleton('customer/session')->getCustomer(); 
+				//echo '<pre>';print_r($userinfo->getData());
+				?>
+		<?php
+			$pincode=$this->getRequest()->getParam('postcode'); 
+			$country=$this->getRequest()->getParam('country_id'); 
+			//echo $delivery=$this->getRequest()->getParam('delivery'); 
+			
+			$resource = Mage::getSingleton('core/resource');
+			$read = $resource->getConnection('core_read');
+		
+			$query = "SELECT * FROM findaddress where postcode=$pincode";
+			$result=$read->query($query);
+			$landingpages = $result->fetchAll();
+			//print_r($landingpages);
+			//$finaladdress=$landingpage['country_id'].''.$landingpage['postcode'].''.$landingpage['street'].''.$landingpage['state'].''.$landingpage['city'];
+
+			//print_r($mediaurl);
+			
+		?>
+        	<select size="4" id="selectinput" class="textareaSty selectinput">			
+				<?php 
+				//$breakvalue='<br />';
+				foreach($landingpages as $landingpage)
+				{
+					$finaladdress=$landingpage['street'].' '.$landingpage['city'].' '.$landingpage['postcode'].' '.$landingpage['state'].' '.$landingpage['country_id'];
+					//$finaladdressoption=$landingpage['street'].' '.$landingpage['city'].' '.$landingpage['postcode'].' '.$landingpage['state'].' '.$landingpage['country_id'];
+					$finaladdressoption=$landingpage['id'];
+					echo '<option value="'.$finaladdressoption.'">'.$finaladdress.'</option>';
+				
+				}
+				?>
+			</select>          
+        </div>
+        <div class="addressDiv" style="*margin-bottom:20px;">
+        <?php $userid=$userinfo->getData('default_billing'); ?>
+		<span class="back-link">
+		<a href="/requestcatalog/index/">
+		<span class="goBackBtn"></span>
+		</a>
+		</span>
+            <input type="submit" class="continueBtn" value="&nbsp;"/>
+        </div> 
+                
+    </div>
+  
+    	
+</div>
+<div id="catalogue_address_form">
+</div>
+<style>
+#catalogue_address_form {
+    background-image: url(<?php echo $this->getSkinUrl('/images/bg_catalogue.jpg') ?>);
+    background-position: right top;
+    background-repeat: no-repeat;
+    height: auto !important;
+    margin-top: 2px;
+    min-height: 595px;
+
+}
+.billing_address_content {
+float: left;
+width: 440px;
+margin: 0px 5px 10px 10px;
+background: #F0EFEF;
+padding: 20px;
+color: #666666;
+font-family: sans-serif;
+}
+</style>
+<script>
+	jQuery(".continueBtn").click(function(){
+	var YourParam = jQuery("select option:selected").val();
+	//alert(YourParam);
+	//return false;
+	if(YourParam==undefined){alert('please select address');return false;}
+	var country_id='<?php echo $country ?>';
+	
+	window.location.href='<?php echo $this->getBaseUrl().'requestcatalog/index/address'?>'+"?id="+YourParam+"&country_id="+country_id;
+	
+	});
+</script>

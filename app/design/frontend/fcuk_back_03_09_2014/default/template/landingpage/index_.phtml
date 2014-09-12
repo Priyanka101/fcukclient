@@ -1,0 +1,45 @@
+<?php 
+$abc="71AH9,71GG9,71DE9,71GV9,71HR9";
+$tags = explode(",", $abc);
+//print_r($tags);						
+foreach ($tags as $tag) {
+$_product = Mage::getModel('catalog/product')->loadByAttribute('sku', $tag);
+//print_r($_product->getData());
+
+		//echo '<pre>';print_r($_product);exit;
+		$source= $_product->getImageUrl();
+		?>
+		
+		<div class="productinfo" style="float:left;display:block;width:900px;padding-bottom:30px;">
+			<div class="productimage" style="float:left; width:400px;">
+			<?php echo "<img class='ingredientimg' src=".$source.' style="width:260px;height:280px;">';?>
+			</div> 
+			<div class="product-shop" style="float:left; width:500px;">
+			           <div class="product-collateral">
+				       <?php //echo $this->getChildHtml('product_additional_data') ?>
+                		</div>
+						
+			
+			
+				<?php //print_r(get_class($this));exit;?>
+				<?php if (!$this->hasOptions()):?>
+				<form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+					<div class="product-qty-bottom" style="padding-bottom:30px;"></div>
+					<div class="add-to-box">
+						
+						<div class="add-to-cart">
+							<?php if($_product->isSaleable()): ?>
+								<?php //echo 1234;?>
+								
+								 <button type="button" title="<?php echo $buttonTitle ?>" id="addtocart" class="button btn-cart addtocart" onclick="product_addtocart_form.submit(this)"></button>
+							<?php endif; ?>
+						</div>
+					</div>					
+				</form>
+				
+				<?php endif?>
+			</div>
+		</div>
+		
+		
+<?php } ?>

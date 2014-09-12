@@ -1,0 +1,126 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Category view template
+ *
+ * @see Mage_Catalog_Block_Category_View
+ */
+?>
+<?php
+    $_helper    = $this->helper('catalog/output');
+    $_category  = $this->getCurrentCategory();
+    $_imgHtml   = '';
+    if ($_imgUrl = $_category->getImageUrl()) {
+        $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->htmlEscape($_category->getName()).'" title="'.$this->htmlEscape($_category->getName()).'" /></p>';
+        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+    }
+?>
+<script type="text/javascript">
+function updateCart(count,html){
+	
+}
+
+jQuery(document).ready(function($){    
+    var find_block = $(".main").find(".category-description").html();
+    if(!find_block)
+    {
+        $(".catalog-category-view .sidebar .block-layered-nav").addClass("marg-top");
+    }
+});
+
+</script>
+<div class="page-title category-title">
+    <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
+        <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
+    <?php endif; ?>
+    <h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
+</div>
+
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<!-- 
+<?php if($_imgUrl): ?>
+    <?php echo $_imgHtml ?>
+<?php endif; ?> -->
+<?php //
+    $url_path = $_category->getData('url_path');
+    $url_path = explode("/", $url_path);
+
+?>
+<?php if($_description=$this->getCurrentCategory()->getDescription()){ ?>
+    <div class="category-description std <?php if($url_path[0] == "sale"){?>salecolor<?php }?>">
+        <div id="category_banner_top"><div id="category_banner_top_left"></div><div id="category_banner_top_right"></div></div>
+		<h1 id="category_banner">
+        <?php if($url_path[0] == "sale"){
+            if($url_path[1] == "woman.html"|| $url_path[1] == "man.html" || $url_path[1] == "underwear.html" ){
+                echo 'Sale';
+            }else{
+                echo 'Sale '.$_category->getName();
+            }
+        }else{
+            echo $_category->getName();
+        } ?>
+        </h1>
+        <div class="description"><?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?></div>
+         <?php if($url_path[0] != "sale" && $url_path[2] != "woman-accessories.html"){?>
+        <div class="sub-categories"><?php $_subcategories = $_category->getChildrenCategories();?>
+            <ul>
+                <?php foreach($_subcategories as $_subcategory): ?>
+                    <li>
+                        <a href="<?php echo $this->getUrl().''.$_subcategory->getData('request_path')?>" title="<?php echo $_subcategory->getName() ?>">
+                            <?php echo $_subcategory->getName() ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+         </div>
+         <?php }?>
+        <div id="category_banner_top" class="banner_bottom"><div id="category_banner_top_left"></div><div id="category_banner_top_right"></div></div>
+    </div>
+    <style type="text/css">
+    
+    .catalog-category-view .category-products {margin-top:203px;}
+    .category-bags .block-layered-nav{margin-top:203px;}
+    
+</style>
+<?php }else{ ?>
+<style type="text/css">
+    .category-products .toolbar{margin-top:10px\9;} 
+    .catalog-category-view .category-products {margin-top:1px\9;}
+</style>
+
+<?php }?>
+<?php if($this->isContentMode()): ?>
+    <?php echo $this->getCmsBlockHtml() ?>
+
+<?php elseif($this->isMixedMode()): ?>
+    <?php echo $this->getCmsBlockHtml() ?>
+    <?php echo $this->getProductListHtml() ?>
+
+<?php else: ?>
+    <?php echo $this->getProductListHtml() ?>
+<?php endif; ?>

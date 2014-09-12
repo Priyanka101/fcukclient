@@ -1,0 +1,194 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+ 
+ /*
+ <?php $buttonTitle = $this->__('Add to Cart'); ?>
+<?php if($_product->isSaleable()): ?>
+    <div class="add-to-cart">
+        <?php if(!$_product->isGrouped()): ?>
+        <label for="qty"><?php echo $this->__('Qty:') ?></label>
+        <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+        <?php endif; ?>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+        <?php echo $this->getChildHtml('', true, true) ?>
+    </div>
+<?php endif; ?>
+ */
+?>
+<?php 
+$current_date = time();
+$_product = $this->getProduct();
+$_id = $_product->getId();
+$_newProduct = Mage::getModel('catalog/product')->load($_id)->getData();
+$spclprice_2_from_date = strtotime($_newProduct['from_date_for_spcl_price_2']);
+$spclprice_2_to_date = strtotime($_newProduct['to_date_spcl_price_2']);
+$special_price_2 = $_newProduct['special_price_2'];
+
+$_price = $_product->getFinalPrice();
+?>
+<?php if($special_price_2):?>
+	<?php if($current_date > $spclprice_2_from_date && $current_date < $spclprice_2_to_date):?>
+		<?php $_price = $special_price_2;?>
+	<?php endif?>
+<?php endif?>
+<div class="qty-price">
+		
+		<strong class="tabheading pricetab"><?php  echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); echo number_format($_price, 2);  ?>
+			
+		<?php //echo Mage_Catalog_Block_Product::getPriceHtml($_product, true) ?>
+		
+		</strong>
+		<?php if(!$_product->isGrouped()): ?>
+        <div class='qty_dockright'>
+		<label for="qty"><?php echo $this->__('Qty:') ?></label>
+        <input type="text" name="qty" id="qty" min="0" max="7" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+		<button onclick="return false" class='product_qty_incrementer'></button>
+		<button onclick="return false" class='product_qty_decrementer'></button>
+		</div>
+        <?php endif; ?>
+</div>
+<span class="addtocart" id="addtocart"></span>
+ <?php if($_product->isConfigurable()):?>
+ <div class="success_msg"></div><div class="fail_msg">select your colour and size</div>
+ <?php endif;?>
+ 
+<script>
+jQuery(document).ready(function($){
+	$(".fail_msg").hide();
+	$('.attribute').attr('checked',false);
+	var value = new Array();
+	var targeturl;
+	var color_id='<?php echo $_product->getResource()->getAttribute('color')->getAttributeId()?>';
+	var size_id='<?php echo $_product->getResource()->getAttribute('size')->getAttributeId()?>';
+	var sku ='<?php echo $_product->getId()?>';
+	var radioval;
+	$('.attribute').click(function(){
+		 $('.fail_msg').fadeOut(1000, function(){ $(this).hide();});
+		if($(this).val()== radioval){
+			$(this).attr('checked',false)
+			radioval="";
+		}
+		else{
+			$(this).attr('checked',true)
+			radioval=$(this).val();
+		}
+		
+	});
+	$('#addtocart').click(function(){
+	
+		var old_value = $('input:radio:checked').val();
+		var qty = parseInt($('#qty').val());
+		if(qty == 0){
+			alert('Please select the quantity');
+			return false;
+		}
+		<?php if($_product->isConfigurable()):?>
+		if(!old_value){
+			$(".fail_msg").show();
+			return false;
+		}
+		value = old_value.split(',');	
+		targeturl = '<?php echo $this->getUrl("checkout/cart")?>add?product='+sku+'&super_attribute['+size_id+']='+value[0]+'&super_attribute['+color_id+']='+value[1]+'&qty='+qty ;
+		<?php else: ?>
+		targeturl = '<?php echo $this->getUrl("checkout/cart")?>add?product='+sku+'&qty='+qty;
+		<?php endif;?>
+		$('#addtocart').css('background','url(<?php echo $this->getSkinUrl("images/unactivebt.jpg")?>) no-repeat');
+		//alert(targeturl);return false;
+		$.post(targeturl , function(response){
+			//alert(response);return false;
+			if(response){
+			 window.document.body.scrollTop = 0;
+			 window.document.documentElement.scrollTop = 0;
+			 var msg = $(response).find(".success-msg").html();
+			 var data = $(response).find(".cart-summary-top").html();
+			 var Count = $(response).find(".mybag-span").html();
+			 var errormsg = $(response).find(".error-msg").html();
+			 if(errormsg){
+			 $("#messages_product_view").addClass("error-msg");
+			 $("#messages_product_view").css('margin-bottom','10px');
+			 $("#messages_product_view").css('width','100%');
+			 $("#messages_product_view").css('float','left');
+			 $("#messages_product_view").html(errormsg);
+			 // $("#errormsgqty").show();
+			 setTimeout(function() {
+      $("#messages_product_view").hide();
+}, 10000);
+ $('#addtocart').css('background','url(<?php echo $this->getSkinUrl("images/activebt.jpg")?>) no-repeat');
+return false;
+			 }
+			// alert(Count);
+			 $(".top-header .mybag-span").html(Count);
+			 $(".top-header .cart-summary-top").html(data);
+			 if(msg){
+			 $(".success_msg").html(msg);
+			 $('.success_msg').fadeOut(5000, function(){ $(this).hide();});
+			// $('.cart-summary-top').fadeIn(2000);
+			 }else{
+			 $(".fail_msg").html('There was some problem please try again');
+			 }
+		$('.cart-summary-top').show();	 
+		$('.cart-summary').hide();
+			 jQuery('.cart-summary').slideDown('slow');
+			 $(".top-header .mybag-span").css('background-color', '#FFFFFF');
+			 //slideToggle()
+			 setTimeout(function() {
+     jQuery('.cart-summary').slideUp('slow');
+	 $(".top-header .mybag-span").css('background', 'none');
+}, 5000);
+			 
+			 
+			//setTimeout(function() {$('.cart-summary-top').hide();}, 5000); 
+			  $('#addtocart').css('background','url(<?php echo $this->getSkinUrl("images/activebt.jpg")?>) no-repeat');
+			  }
+		 
+		});
+	$('.top-header .block-cart .block-title .mybag-span').mouseover(function(){
+		$(".cart-summary-top").css("display", "block");
+	});
+	$('.top-header .block-cart .block-title .mybag-span').mouseout(function(){
+		$(".cart-summary-top").css("display", "none");
+	});
+		return false;
+	});
+	
+	// custom code
+	jQuery('.product_qty_incrementer').click(function() {
+		//alert('increment');
+		var myquantity = parseInt(jQuery('input.qty', '.qty-price').val());
+		myquantity = myquantity + 1;
+		jQuery('input.qty', '.qty-price').val(myquantity);
+		// alert(myquantity);
+	});
+	jQuery('.product_qty_decrementer').click(function() {
+		//alert('decrement');
+		var myquantity = parseInt(jQuery('input.qty', '.qty-price').val());
+		if(myquantity > 1) myquantity = myquantity - 1;
+		jQuery('input.qty', '.qty-price').val(myquantity);
+	});
+	
+})
+</script>
+

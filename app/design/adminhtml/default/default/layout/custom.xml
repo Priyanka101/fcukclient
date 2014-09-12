@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <custom_adminhtml_kittedout_index>
+	<reference name="content">
+	  <block type="custom/adminhtml_kittedout" name="kittedout" />
+	</reference>
+  </custom_adminhtml_kittedout_index>
+</layout>

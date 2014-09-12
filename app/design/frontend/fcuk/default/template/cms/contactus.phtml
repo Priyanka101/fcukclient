@@ -1,0 +1,86 @@
+<div class="billing_address_content">
+	<h2 class="needHelp">SEND US A MESSAGE</h2>
+	<p>Send us your thoughts, comments and questions using the form below.</p>
+	<form method="GET" id="request-form" name="request-form" >
+		<div class="addressForm">
+			<div class="addressDiv">
+				<div class="addressName">Choose Your Topic<sup>*</sup></div>
+				<div class="addressinputArea">
+					<select class="selectSty required-entry" name="mailtitle">
+						<option value="My order">My order</option>
+						<option value="My delivery">My delivery</option>
+						<option value="My return">My return</option>
+						<option value="Product question">Product question</option> 
+						<option value="Suggestion">Suggestion</option>
+						<option value="Problem">Problem</option>
+						<option value="Change of address">Change of address</option> 
+						<option value="Shop Question">Shop Question</option>
+						<option value="Any other topic">Any other topic</option>
+					</select>
+				</div>
+			</div>
+			<div class="addressDiv">
+				<div class="addressName">Order Number</div>
+				<div class="addressinputArea"><input class="inputSty" type="text" name="ordernumber" value="" /></div>
+			</div>
+			<div class="addressDiv">
+				<div class="addressName">Your Comments*</div>
+				<div class="addressinputArea"><textarea class="inputSty  required-entry" name="yourcomment"></textarea></div>
+			</div>
+			<div class="addressDiv">
+				<h2 class="needHelp">Your Details</h2>
+			</div>
+			<div class="addressDiv">
+				<div class="addressName">Title<sup>*</sup></div>
+				<div class="addressinputArea">
+					<select class="selectSty required-entry" name="title">
+						<option value="Mr">Mr</option>
+						<option value="Mrs">Mrs</option>
+						<option value="Miss">Miss</option> 
+						<option value="Ms">Ms</option> 
+						<option value="Dr">Dr</option>
+					</select>
+				</div>
+			</div>
+			<div class="addressDiv">
+				<div class="addressName">First name<sup>*</sup></div>
+				<div class="addressinputArea"><input class="inputSty required-entry" type="text" name="firstname" value="" /></div>
+			</div>
+			<div class="addressDiv">
+				<div class="addressName">Last name<sup>*</sup></div>
+				<div class="addressinputArea"><input class="inputSty required-entry" type="text" name="lastname" value="" /></div>
+			</div>
+			<div class="addressDiv">
+				<div class="addressName">Address</div>
+				<div class="addressinputArea"><input class="inputSty" type="text" name="address" value="" /></div>
+			</div>
+			<div class="addressDiv">
+				<div class="addressName">Telephone*</div>
+				<div class="addressinputArea"><input class="inputSty required-entry" type="text" name="telephone" value="" /></div>
+			</div>
+			<div class="addressDiv" style="*margin-bottom: 20px;">
+				<input class="consubmitbtn" onclick="callBackAction()" value="&nbsp;" />
+			</div>
+		</div>
+		</form>
+	</div>
+	<script type="text/javascript">			
+	function callBackAction(){
+		//alert('request');return false;
+		var valid = new Validation('request-form', true);
+		if(valid.validate()){
+		//alert('request');
+		var form_data = jQuery('#request-form').serializeArray();
+			//alert(form_data);
+
+			var url = "<?php echo $this->getUrl('requestproduct/index/contactus');?>";
+			//alert(url);
+			jQuery.post(url, {user_data:form_data}, function(data){
+			 alert('Your inquiry was submitted and will be responded to as soon as possible. Thank you for contacting us.');
+			 window.location.reload();  
+
+		});
+		}
+	}
+	
+	</script>

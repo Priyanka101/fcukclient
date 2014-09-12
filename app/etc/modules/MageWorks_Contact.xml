@@ -1,0 +1,8 @@
+<config>
+<modules>
+<mageworks_contact>
+<active>true</active>
+<codepool>local</codepool>
+</mageworks_contact>
+</modules>
+</config>

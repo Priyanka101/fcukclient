@@ -1,0 +1,75 @@
+<?php
+class Fcuk_All_Model_Observer
+{
+	  public function refundCreditmenoInventory($observer)
+    {
+	
+        /* @var $creditmemo Mage_Sales_Model_Order_Creditmemo */
+  //       $creditmemo = $observer->getEvent()->getCreditmemo();
+  //       $items = array();
+	 //    $return = false;
+				
+  //       foreach ($creditmemo->getAllItems() as $item) {
+            
+  //           if ($item->hasBackToStock()) {
+  //               if ($item->getBackToStock() && $item->getQty()) {
+  //                   $return = true;
+  //               }
+  //           } elseif (Mage::helper('cataloginventory')->isAutoReturnEnabled()) {
+  //               $return = true;
+  //           }
+  //            $stockno = $_productCollection->getData('stockno');
+              
+  //           if ($return) {
+		//         $parentOrderId = $item->getOrderItem()->getParentItemId();
+  //               /* @var $parentItem Mage_Sales_Model_Order_Creditmemo_Item */
+  //               $parentItem = $parentOrderId ? $creditmemo->getItemByOrderId($parentOrderId) : false;
+  //               $qty = $parentItem ? ($parentItem->getQty() * $item->getQty()) : $item->getQty();
+                 
+  //               if(!is_numeric($item->getData('sku'))){
+
+		// 			 $_productCollection = Mage::getModel('catalog/product')->load($item->getData('product_id'));
+                  
+  //                   if($stockno){
+  //                       $_productCollectionNewSku = Mage::getModel('catalog/product')->loadByAttribute('sku',$stockno);
+  //                     //  print_r( $_productCollectionNewSku->getData());
+  //                       $newsku=$_productCollectionNewSku->getData('entity_id');
+  //                       if($_productCollection->getData('stockno')){
+  //                           $items[$newsku]['qty'] += $qty;
+  //                       }                        
+  //                   }
+  //               }
+  //           }
+			
+  //       }
+  //       Mage::getSingleton('cataloginventory/stock')->revertProductsSale($items);
+        
+  //       /* Added By Shaily For IsinStock Status Starts */
+  //       foreach ($creditmemo->getAllItems() as $item) {
+		// 	$productId = $item->getProductId();
+		// 	$product = Mage::getModel('catalog/product')->load($productId);
+
+		// 	if(!$product->isConfigurable()){
+
+		// 		$stockItem = $product->getStockItem();
+
+		// 		//$stockItem->setQty($item->getQty());
+		// 		$stockItem->setIsInStock(1);
+		// 		$stockItem->save();
+
+		// 		$product->setStockItem($stockItem);
+		// 		$product->save();
+		// 	}
+		// }
+
+        /* Added By Shaily For IsinStock Status Ends */
+
+    }
+		
+//	}		
+     public function checkobserver($observer)
+    {
+          echo 'manoj';
+          exit;
+    }
+}

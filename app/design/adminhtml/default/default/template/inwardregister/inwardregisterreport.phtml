@@ -1,0 +1,155 @@
+<div  style="width:100%; float:left; margin-bottom:18px;">
+<form action="<?php echo $this->getUrl('*/adminhtml_inwardregister/pdfinward');?>" method="post" >
+<input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" /> 
+<div class="range-line date"  style="float:left;">
+		<span class="label">Doc From:</span>
+		<input type="text" name="from" id="from" class="input-text no-changes">
+    </div>
+ <div class="range-line date"  style="float:left;margin-left:15px;">
+		<span class="label">Doc To:</span>
+		<input type="text" name="to" id="to" class="input-text no-changes">
+    </div>
+    <input type="button" style="float:left;margin-left:15px;" id="doc" name="report" value="Report review"/>
+   <button class="print" style="float:left;margin-left:15px; display:none;" id="print" type="submit" > Export to CSV </button>
+   <img id="imagedoc" style="display:none;" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>adminhtml/default/default/images/report-loading.gif" width="20" height="20" />
+</form>
+</div>
+<div style="width:100%; float:left; margin-bottom:18px;">
+<form action="<?php echo $this->getUrl('*/adminhtml_inwardregister/pdfinwardnumber');?>" method="post" >
+<input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" /> 
+<div class="range-line date"  style="float:left;">
+		<span class="label">Doc Number From:</span>
+		<input type="text" name="fromno" id="fromno" class="input-text no-changes">
+    </div>
+ <div class="range-line date"  style="float:left;margin-left:15px;">
+		<span class="label">Doc Number To:</span>
+		<input type="text" name="tono" id="tono" class="input-text no-changes">
+    </div>
+    <input type="button" style="float:left;margin-left:15px;" id="docno" name="report" value="Report number wise review"/>
+   <button class="print" style="float:left;margin-left:15px; display:none;" id="printno" type="submit" > Export to CSV </button>
+   <img id="imagenumber" style="display:none" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>adminhtml/default/default/images/report-loading.gif" width="20" height="20" />
+</form>
+</div>
+
+<!--div style="width:100%; float:left; margin-bottom:18px;">
+<form action="<?php //echo $this->getUrl('*/adminhtml_inwardregister/csvupcinwardnumber');?>" method="post" >
+<input name="form_key" type="hidden" value="<?php //echo Mage::getSingleton('core/session')->getFormKey() ?>" /> 
+<div class="range-line date"  style="float:left;">
+		<span class="label">Upc Number From:</span>
+		<input type="text" name="upcfromno" id="upcfromno" class="input-text no-changes">
+    </div>
+ <div class="range-line date"  style="float:left;margin-left:15px;">
+		<span class="label">Upc Number To:</span>
+		<input type="text" name="upctono" id="upctono" class="input-text no-changes">
+    </div>
+    <input type="button" style="float:left;margin-left:15px;" id="upcno" name="report" value="Report UPC wise review"/>
+   <button class="print" style="float:left;margin-left:15px; display:none;" id="printupcno" type="submit" > Print </button>
+   <img id="imageupcnumber" style="display:none" src="<?php //echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN); ?>adminhtml/default/default/images/report-loading.gif" width="20" height="20" />
+</form>
+</div-->
+
+<div style="width:100%; float:left; margin-bottom:18px;">
+<form action="<?php echo $this->getUrl('*/adminhtml_inwardregister/reportstockstatement');?>" method="post" >
+<input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" /> 
+   <button class="print" style="float:left;margin-left:15px;" id="stockstatement" type="submit" > Export to CSV Stock Statement </button>
+   
+</form>
+</div>
+
+
+    
+   <div class="result" style="width:100%; float:left; margin:10px;">
+   	
+   </div>
+<script type="text/javascript">
+//<![CDATA[
+Calendar.setup({
+	inputField:"from",
+	ifFormat: "%Y-%m-%e",
+	showTime: false,
+	button:"frombt",
+	align: "B1",
+	singleClick : true
+});
+Calendar.setup({
+	inputField:"to",
+	ifFormat: "%Y-%m-%e",
+	showTime: false,
+	button:"tobt",
+	align: "B1",
+	singleClick : true
+});
+ 
+ jQuery("#doc").click(function($){
+	 var url = "<?php echo Mage::getUrl('inwardregister/index/reportinward');?>";
+	 var from =jQuery("#from").val() ;
+	 var to = jQuery("#to").val();
+	 jQuery("#print").hide();
+	jQuery("#imagedoc").show();
+	 jQuery.post(url,{ from:from , to:to}, function(data) {
+	jQuery('.result').html(data);
+	jQuery("#print").show();
+	jQuery("#imagedoc").hide();
+});
+	
+
+	 });
+	 
+jQuery("#docno").click(function($){
+	 var url = "<?php echo Mage::getUrl('inwardregister/index/reportinwardnumber');?>";
+	 var fromno =jQuery("#upcfromno").val() ;
+	 var tono = jQuery("#upctono").val();
+	 jQuery("#printno").hide();
+	 jQuery("#imagenumber").show();
+	
+	 jQuery.post(url,{ fromno:fromno , tono:tono}, function(data) {
+	jQuery('.result').html(data);
+	jQuery("#printno").show();
+	jQuery("#imagenumber").hide();
+});
+	
+
+	 });
+	 
+/*	 
+	 jQuery("#upcno").click(function($){
+	 var url = "<?php //echo Mage::getUrl('inwardregister/index/reportupcinwardnumber');?>";
+	 var fromno =jQuery("#fromno").val() ;
+	 var tono = jQuery("#tono").val();
+	 jQuery("#printupcno").hide();
+	 jQuery("#imageupcnumber").show();
+	
+	 jQuery.post(url,{ fromno:fromno , tono:tono}, function(data) {
+	jQuery('.result').html(data);
+	jQuery("#printupcno").show();
+	jQuery("#imageupcnumber").hide();
+});
+	
+
+	 });
+	 
+*/
+	 	 
+	 
+	
+function printdoc(){
+
+ var url = "<?php echo Mage::getUrl('inwardregister/index/pdfinward');?>";
+	 var from =jQuery("#from").val() ;
+	 var to = jQuery("#to").val();
+	 jQuery("#print").hide();
+	 jQuery.post(url,{ from:from , to:to}, function(data) {
+		 
+		  var WinId = window.open('', 'newwin', 'width=400,height=500');
+            WinId.document.open();
+            WinId.document.write(data);
+            WinId.document.close(); 
+	
+});
+	
+}
+
+
+//]]>
+</script>
+

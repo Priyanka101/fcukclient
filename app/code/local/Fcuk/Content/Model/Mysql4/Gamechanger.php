@@ -1,0 +1,8 @@
+<?php
+class Fcuk_Content_Model_Mysql4_Gamechanger extends Mage_Core_Model_Mysql4_Abstract
+{
+    protected function _construct()
+    {
+        $this->_init("content/gamechanger", "gamechangerid");
+    }
+}

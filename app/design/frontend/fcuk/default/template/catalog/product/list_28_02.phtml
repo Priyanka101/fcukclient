@@ -1,0 +1,225 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ *///
+?>
+
+<?php
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+	$helper = Mage::helper('all');
+?>
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+<div class="category-products">
+    <?php echo $this->getToolbarHtml() ?>
+    <?php $_collectionSize = $_productCollection->count() ?>
+    <?php $_columnCount = $this->getColumnCount(); ?>
+    <?php $i=0; foreach ($_productCollection as $_product): ?>
+        <?php if ($i++%$_columnCount==0): ?>
+        <ul class="products-grid">
+        <?php endif ?>
+            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+                <?php if($_product->isSaleable()): ?>
+					<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(210,319); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+				<?php else: ?>
+					<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img style="opacity:0.3; margin-bottom:30px;" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(210,319); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+				<?php endif; ?>
+				<div class="actions">
+					<?php if(Mage::registry('current_category')){
+						$cat = Mage::registry('current_category')->getId();
+					} ?>
+                    <?php if($_product->isSaleable()): ?>
+						<div class="stock-container">In Stock</div>
+						<div class="quick-btn"><a class="quick_view" href="<?php echo $this->getUrl('quickshop/index/view').'path/'.$_product->getUrlKey().'.html'; ?>"><img src="<?php echo $this->getSkinUrl('images/quickview.jpg')?>"></a></div> 
+                    <?php else: ?>
+                        <!--p class="availability out-of-stock"><span><?php //echo $this->__('Out of stock') ?></span></p-->
+											
+						<div class="outof-stock-container">Out of stock</div>
+						<div class="quick_view2"><a class="request-product" href='<?php echo $this->getUrl(); ?>requestproduct/index/getrequestForm?productid=<?php echo $_product->getSku() ?>' value="<?php echo $_product->getSku(); ?>" onclick="showOverlay(this, '<?php echo $_product->getSku();?>')">Request
+						</a>
+						<!--img src="<?php //echo $this->getSkinUrl('images/request.jpg')?>"></a-->
+						<?php //echo $productid=$_product->getSku();?>
+						
+									
+                    <?php endif; ?>
+					<input type="hidden" name="productid" value="<?php echo $productid;?>">
+						</div>
+                <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
+                
+                <?php if($_product->getRatingSummary()): ?>
+                <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                <?php endif; ?>
+                <?php echo $this->getPriceHtml($_product, true) ?>
+               
+				<?php $helper->getColorCount($_product);?>
+				<!--</div>-->
+            </li>
+        <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+        </ul>
+        <?php endif ?>
+        <?php endforeach ?>
+        <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+    
+
+    <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+    </div>
+</div>
+<?php endif; ?>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+
+// $(".request-product").click(function(){
+// $(".request-product").hide();
+// });
+
+	// check if cookie is set
+	var perform_check = $.cookie('service_area_check');
+	if (perform_check != 'no')
+	{	
+		// show service area popup
+		var timeout = setTimeout(function() {
+			//$('#service_area_popup').show();
+			$("#service_area_trigger").fancybox({
+				'autoDimensions': false,
+				'height': 180,
+				'width': 270
+			}).trigger('click');
+		}, 2000);
+		
+		// set the cookie
+		$.cookie('service_area_check', 'no');
+	}
+		
+	$('.products-grid li.item').hover(function(e){
+		e.stopImmediatePropagation();
+		$(this).find('.stock-container').show();
+		//$(this).find('.outof-stock-container').show();
+		$(this).find('.quick-btn a').stop().animate({
+		left:'0px'
+		},'fast')
+	},function(e){
+		e.stopImmediatePropagation();
+		$(this).find('.stock-container').hide();
+		//$(this).find('.outof-stock-container').hide();
+		$(this).find('.quick-btn a').stop().animate({
+		left:'-154px'
+		},'fast')
+
+		});
+		
+	$('.quick_view').fancybox({
+		'height': 480,
+        'width': 540,
+		'type'				: 'iframe',
+		onComplete: function() { 
+			$.fancybox.showActivity();
+			$('#fancybox-frame').unbind('load');
+			$('#fancybox-frame').bind('load', function() {
+					$.fancybox.hideActivity();
+			});
+		}
+	});
+	
+	
+	/*
+	$('.quick_view2').fancybox({
+		'frameWidth': 0,
+		'type'				: 'iframe',
+		onComplete: function() { 
+			$.fancybox.showActivity();
+			//var ac=$('.request-product').val();
+			//alert(ac);
+			$('#fancybox-frame').unbind('load');
+			$('#fancybox-frame').bind('load', function() {
+					$.fancybox.hideActivity();
+			});
+		}
+	});*/
+	
+
+	
+	 $('.request-product').fancybox({
+				'height': 270,
+        'width': 550,
+				'type'		 : 'iframe',
+
+		onComplete: function() { 
+		//alert("i m here");
+			$.fancybox.showActivity();
+			$('#fancybox-frame').unbind('load');
+			$('#fancybox-frame').bind('load', 
+			function() {
+					$.fancybox.hideActivity();
+			});
+		}
+	});	
+	
+});
+function showOverlay(obj, sku){
+  
+			//var abc=jQuery('.request-product').val();
+	var abc=jQuery('.productid').val();
+	//	var abc=sku;
+	
+		
+				
+		
+	
+			}
+function newpopup(data){
+	jQuery('.popup_final_slider').html(data);
+}
+/*
+ jQuery('.request-product').fancybox(function($) 
+ {
+	jQuery.fancybox();
+ });
+*/
+</script>
+<div id="blanket" style="display:none;" >
+<div id="popUpDiv" style="display:none;" >
+<div id="popup-close" onclick="popup('popUpDiv')" style="display:inline;" ></div>
+<div id="slider-next"><a class="next_a" onclick="getNext()"><img src="<?php echo $this->getSkinUrl('images/next-arrow.png')?>"></a></div>
+<div id="slider-prev"><a class="prev_a" onclick="getPrev()" ><img src="<?php echo $this->getSkinUrl('images/prev-arrow.png')?>"></a></div>
+<div class="popup_final_slider">
+</div>
+</div>
+</div> 
+
+<div class='service_area_hidden'>
+	<a id='service_area_trigger' href='#service_area_popup'></a>
+	<div id='service_area_popup'>
+		<?php echo $this->getChildHtml('area_serviceable'); ?>
+	</div>
+</div>

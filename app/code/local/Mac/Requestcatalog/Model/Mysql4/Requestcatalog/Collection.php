@@ -1,0 +1,12 @@
+<?php
+    class Mac_Requestcatalog_Model_Mysql4_Requestcatalog_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
+    {
+
+		public function _construct(){
+			$this->_init("requestcatalog/requestcatalog");
+		}
+
+		
+
+    }
+	 

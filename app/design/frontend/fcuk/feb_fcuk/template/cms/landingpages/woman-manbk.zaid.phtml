@@ -1,0 +1,133 @@
+<div class="custom-category-container">
+	<div class="custom-category-container-wrap">
+	<?php $model= Mage::getModel("catalog/category") ?>
+	<div class="link-container">
+		<?php 
+		/**************Start of Subcategories from category id**************/ 
+		// 			$cat = Mage::getModel('catalog/category')->load(3);
+		// 			$subcats = $cat->getChildren();
+		// 			//print_r($subcats);exit;
+		// 			foreach(explode(',',$subcats) as $subCatid)
+		// {
+		//   $_category = Mage::getModel('catalog/category')->load($subCatid);
+		//   if($_category->getIsActive()) {
+		//     echo '<ul><!--a href="'.$_category->getURL().'" title="View the products for the "'.$_category->getName().'" category">'.$_category->getName().'</a-->';
+		//     $sub_cat = Mage::getModel('catalog/category')->load($_category->getId());
+		//     $sub_subcats = $sub_cat->getChildren();
+		//     foreach(explode(',',$sub_subcats) as $sub_subCatid)
+		//     {
+		//           $_sub_category = Mage::getModel('catalog/category')->load($sub_subCatid);
+		//           if($_sub_category->getIsActive()) {
+		//               echo '<li class="sub_cat"><a href="'.$_sub_category->getURL().'" title="View the products for the "'.$_sub_category->getName().'" category">'.$_sub_category->getName().'</a></li>';
+
+		//  }
+		//      }
+		//      echo '</ul>';
+		//   }
+		// }exit;
+ 
+		// 		/**************End of Subcategories from category id**************/?>
+		<a href="<?php echo $model->load(3)->getUrl() ?>" id="woman" rel="wom_cat">WOMAN</a>
+		<a href="<?php echo $model->load(4)->getUrl() ?>" id="man" rel="man_cat">MAN</a>
+	</div>
+	<div class="woman-category wom_cat cat_toggle">
+		<div class="links-content">
+			<div class="grid first ">
+				<a href="<?php echo $model->load(47)->getUrl() ?>" id="woman">New Arrivals</a>
+				<a href="<?php echo $model->load(143)->getUrl() ?>" id="woman">FC Favourites</a>
+				<a href="<?php echo $model->load(12)->getUrl() ?>" id="woman">Accessories</a>
+			</div>
+			<div class="grid">
+				<a href="<?php echo $model->load(15)->getUrl() ?>" id="woman">Dresses</a>
+				<a href="<?php echo $model->load(14)->getUrl() ?>" id="woman">Coats & Jackets</a>
+				<a href="<?php echo $model->load(17)->getUrl() ?>" id="woman">Knitwear</a>
+			</div>
+			<div class="grid">
+				<a href="<?php echo $model->load(18)->getUrl() ?>" id="woman">Tops</a>
+				<a href="<?php echo $model->load(16)->getUrl() ?>" id="woman">Jeans</a>
+				<a href="<?php echo $model->load(60)->getUrl() ?>" id="woman">Bags</a>
+			</div>
+		</div>
+	</div>	
+	<div class="man-category man_cat cat_toggle">
+		<div class="links-content">
+			<div class="grid first">
+				<a href="<?php echo $model->load(49)->getUrl() ?>" id="woman">New Arrivals</a>
+				<a href="<?php echo $model->load(144)->getUrl() ?>" id="woman">FC Favourites</a>
+				<a href="<?php echo $model->load(21)->getUrl() ?>" id="woman">Accessories</a>
+			</div>
+			<div class="grid">
+				<a href="<?php echo $model->load(27)->getUrl() ?>" id="woman">Shirts</a>
+				<a href="<?php echo $model->load(23)->getUrl() ?>" id="woman">Jackets & Coats</a>
+				<a href="<?php echo $model->load(25)->getUrl() ?>" id="woman">Knitwear</a>
+			</div>
+			<div class="grid">
+				<a href="<?php echo $model->load(28)->getUrl() ?>" id="woman">Sweats</a>
+				<a href="<?php echo $model->load(24)->getUrl() ?>" id="woman">Jeans</a>
+				<a href="<?php echo $model->load(29)->getUrl() ?>" id="woman">Trousers</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	jQuery(document).ready(function($){
+
+		$(".link-container a").mouseenter(function(){
+			$(".custom-category-container").stop(true,true).addClass("active");
+			$(".custom-category-container-wrap").stop(true,true).addClass("active");
+			$(".link-container a").stop(true,true).removeClass("active_open");
+			$(this).stop(true,true).addClass("active_open");
+			var rel_value =  $(this).attr("rel");
+			$(".cat_toggle").stop(true,true).hide();			
+			$("."+rel_value).delay(600).stop(true,true).fadeIn(300);
+
+
+
+			
+
+		})
+
+		$(".custom-category-container").mouseleave(function(){
+			$(".custom-category-container").stop(true,true).removeClass("active");		
+			$(".cat_toggle").stop(true,true).hide();					
+			$(".link-container a").stop(true,true).removeClass("active_open");
+			$(".link-container a").stop(true,true).removeClass("active_open");
+			$(".custom-category-container-wrap").stop(true,true).removeClass("active");		
+		})
+
+
+
+
+		// $(".link-container > #woman").mouseenter(function(){
+		// 	$(".custom-category-container").addClass("active");
+		// 	$(".link-container > #man").css("color", "#AEB0B0");
+		// 	$(".woman-category").fadeIn();
+		// 	$(".man-category").fadeOut();
+		// });
+		// $(".link-container > #woman").mouseleave(function(){
+		// 	$(".link-container > #man").css("color", "#000");
+		// });
+
+		// $(".link-container > #man").mouseenter(function(){
+		// 	$(".custom-category-container").addClass("active");
+		// 	$(".link-container > #woman").css("color", "#AEB0B0");
+		// 	$(".man-category").fadeIn();
+		// 	$(".woman-category").fadeOut();
+		// });
+		// $(".link-container > #man").mouseleave(function(){
+		// 	$(".link-container > #woman").css("color", "#000");
+		// });
+
+		// $(".custom-category-container").mouseleave(function(){
+		// 	$(".custom-category-container").removeClass("active");
+		// 	$(".link-container > #man").css("color", "#000");
+		// 	$(".link-container > #woman").css("color", "#000");
+		// 	$(".woman-category").hide();
+		// 	$(".man-category").hide();
+		// });
+
+
+	});
+</script>
+</div>

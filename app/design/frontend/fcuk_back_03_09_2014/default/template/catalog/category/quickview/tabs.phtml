@@ -1,0 +1,72 @@
+<!-- <div id="guide" style="display:none;" >
+<div id="popup-close" onclick="popup('guide')" style="display:inline;" ></div>
+<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('size-guide-center')->toHtml();?>
+</div> -->
+
+<div id="tabs">
+    <ul>
+        <li><a href="#tabs-1">PRODUCT INFORMATION</a></li>
+        <!--li><a href="#tabs-2">DELIVERY</a></li-->
+        <!--li><a href="#tabs-3">SIZE AND FIT</a></li-->
+    </ul>
+    <div id="tabs-1">
+        <?php $_product = $this->getProduct(); ?>
+		<div>Stylecode : <?php echo $_product->getData('stylecode');?></div>
+		<?php echo $_product->getDescription(); ?>
+    </div>
+    <!--div id="tabs-2">
+        <table class="delivery" id="delivery-details" cellpadding="0" cellspacing="0">
+       <thead>
+      <tr>
+            <th> </th>
+            <th>Standard</th>
+            <th>Express</th>
+        </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+            <th>UK (incl. Northern Ireland)</th>
+            <td>£3.95 per order (regardless of how many items) - 3-5-5-7 working days</td>
+        <td>£7 per order (regardless of how many items) - next working day if ordered by 2pm 12 noon</td>
+        </tr>
+
+        <tr>
+            <th>European</th>
+            <td>£8 for 1+ items</td>
+      <td>not available</td>
+        </tr>
+  
+        <tr class="tr_4">
+            <th>Rest of World zone 1</th>
+            <td>£20 1-4 items<br>£30 for 5+ items</td>
+      <td>not available</td>
+        </tr>
+  
+        <tr>
+            <th>Rest of World zone 2</th>
+            <td>£35</td>
+            <td>not available</td>
+        </tr>
+  
+    </tbody>    
+</table>
+    </div-->
+    <!--div id="tabs-3">
+       <a onclick="window.parent.popup('guide') ; window.parent.newpopup(popup_html);" id="fullsize2" style="cursor:pointer;">Please click for size info</a>
+    </div-->
+</div>
+
+<div class="size-guide-container" style="text-align:left;width:100%;"><a onclick="window.parent.popup('guide') ; window.parent.newpopup(popup_html);" id="fullsize2" style="cursor:pointer;color:#000000;font-weight:bold;" class="popup-size-guide-text">CHECK THE SIZE GUIDE >></a></div>
+<script>
+jQuery(document).ready(function($){
+$(function() {
+	$( "#tabs" ).tabs();
+});
+})
+
+</script>
+<style type="text/css">
+.size-guide-container #fullsize2a:hover{color:#05C;}
+
+</style>

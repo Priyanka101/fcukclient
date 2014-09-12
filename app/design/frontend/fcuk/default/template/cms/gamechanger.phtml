@@ -1,0 +1,376 @@
+<?php
+
+		$resource = Mage::getSingleton('core/resource');
+		$read = $resource->getConnection('core_read');
+	
+		$query = "SELECT * FROM gamechanger";
+		$result=$read->query($query);
+		$gamechanger = $result->fetchAll();
+		//print_r($gamechanger);
+		$query2 = "SELECT * FROM gamechanger where bannertype in (1,2,3,4)";
+		$result2=$read->query($query2);
+		$gamechanger2 = $result2->fetchAll(); 
+		//print_r($gamechanger2);
+		$mediaurl=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+		//print_r($mediaurl);
+?>
+
+	<link rel="stylesheet" type="text/css" href="<?php echo $this->getSkinUrl(); ?>images/images/styles1.css" />
+	
+
+	<script src="<?php echo $this->getSkinUrl(); ?>images/images/jquery.bxslider2.min.js" type="text/javascript"></script>
+	<!--script src="<?php //echo $this->getSkinUrl(); ?>images/images/scripts.js" type="text/javascript"></script-->
+	
+	<script type="text/javascript" charset="utf-8">
+		SyntaxHighlighter.all();
+	</script>
+	<style>
+	<style>
+	
+		<?php
+		foreach($gamechanger2 as $gamechanger1) {?>
+		<?php if($gamechanger1['bannerposition']==1):?>
+		.game_changer_img<?php echo $gamechanger1['bannerno'].''.$gamechanger1['bannerposition']?>
+		{
+			background:url(<?php echo $mediaurl.''.$gamechanger1['image'] ?>);
+			width:224px;
+			height:248px;
+			background-repeat:no-repeat;
+			background-position:0 0;
+			display:block;
+			text-decoration:none;
+			text-indent:-9999em;
+			margin:5px;
+		}
+		.game_changer_img<?php echo $gamechanger1['bannerno'].''.$gamechanger1['bannerposition']?>:hover
+		{
+			background:url(<?php echo $mediaurl.''.$gamechanger1['image'] ?>);
+			width:224px;
+			height:248px;
+			background-repeat:no-repeat;
+			background-position:0 -248px;
+			display:block;
+			text-decoration:none;
+			text-indent:-9999em;
+		}	
+		.game_changer_imgnew<?php echo $gamechanger1['bannerno'].''.$gamechanger1['bannerposition']?>
+		{
+			background:url(<?php echo $mediaurl.''.$gamechanger1['image'] ?>);
+			width:224px;
+			height:248px;
+			background-repeat:no-repeat;
+			background-position:0 0;
+			display:block;
+			text-decoration:none;
+			text-indent:-9999em;
+			margin:5px;
+		}
+		.game_changer_imgnew<?php echo $gamechanger1['bannerno'].''.$gamechanger1['bannerposition']?>:hover
+		{
+			background:url(<?php echo $mediaurl.''.$gamechanger1['image'] ?>);
+			width:224px;
+			height:248px;
+			background-repeat:no-repeat;
+			background-position:0 -248px;
+			display:block;
+			text-decoration:none;
+			text-indent:-9999em;
+		}
+		<?php endif;?>
+			<?php if($gamechanger1['bannerposition']==2):?>
+		.game_changer_img<?php echo $gamechanger1['bannerno'].''.$gamechanger1['bannerposition']?>
+		{
+			background:url(<?php echo $mediaurl.''.$gamechanger1['image'] ?>);
+			width:224px;
+			height:255px;
+			background-repeat:no-repeat;
+			background-position:0 0;
+			display:block;
+			text-decoration:none;
+			text-indent:-9999em;
+			margin:5px;
+		}
+		.game_changer_img<?php echo $gamechanger1['bannerno'].''.$gamechanger1['bannerposition']?>:hover
+		{
+			background:url(<?php echo $mediaurl.''.$gamechanger1['image'] ?>);
+			width:224px;
+			height:255px;
+			background-repeat:no-repeat;
+			background-position:0 -255px;
+			display:block;
+			text-decoration:none;
+			text-indent:-9999em;
+		}
+		<?php endif;?>
+			<?php if($gamechanger1['bannerposition']==3):?>
+		.game_changer_img<?php echo $gamechanger1['bannerno'].''.$gamechanger1['bannerposition']?>
+		{
+			background:url(<?php echo $mediaurl.''.$gamechanger1['image'] ?>);
+			width:224px;
+			height:514px;
+			background-repeat:no-repeat;
+			background-position:0 0;
+			display:block;
+			text-decoration:none;
+			text-indent:-9999em;
+			margin:5px;
+				
+		}
+		.game_changer_img<?php echo $gamechanger1['bannerno'].''.$gamechanger1['bannerposition']?>:hover
+		{
+			background:url(<?php echo $mediaurl.''.$gamechanger1['image'] ?>);
+			width:224px;
+			height:514px;
+			background-repeat:no-repeat;
+			background-position:0 -514px;
+			display:block;
+			text-decoration:none;
+			text-indent:-9999em;
+		
+		}
+		<?php endif;?>
+			<?php if($gamechanger1['bannerposition']==4):?>
+		.game_changer_img<?php echo $gamechanger1['bannerno'].''.$gamechanger1['bannerposition']?>
+		{
+			background:url(<?php echo $mediaurl.''.$gamechanger1['image'] ?>);
+			width:458px;
+			height:248px;
+			background-repeat:no-repeat;
+			background-position:0 0;
+			display:block;
+			text-decoration:none;
+			text-indent:-9999em;
+			margin:5px;
+			float:left;
+		}
+
+		.game_changer_img<?php echo $gamechanger1['bannerno'].''.$gamechanger1['bannerposition']?>:hover
+		{
+			background:url(<?php echo $mediaurl.''.$gamechanger1['image'] ?>);
+			width:458px;
+			height:248px;
+			background-repeat:no-repeat;
+			background-position:0 -248px;
+			display:block;
+			text-decoration:none;
+			text-indent:-9999em;
+		}
+		<?php endif;?>
+			<?php if($gamechanger1['bannerposition']==5):?>
+		.game_changer_img<?php echo $gamechanger1['bannerno'].''.$gamechanger1['bannerposition']?>
+		{
+			background:url(<?php echo $mediaurl.''.$gamechanger1['image'] ?>);
+			width:224px;
+			height:255px;
+			background-repeat:no-repeat;
+			background-position:0 0;
+			display:block;
+			text-decoration:none;
+			text-indent:-9999em;
+			margin:5px;
+			float:left;
+		}
+		.game_changer_img<?php echo $gamechanger1['bannerno'].''.$gamechanger1['bannerposition']?>:hover
+		{
+			background:url(<?php echo $mediaurl.''.$gamechanger1['image'] ?>);
+			width:224px;
+			height:255px;
+			background-repeat:no-repeat;
+			background-position:0 -255px;
+			display:block;
+			text-decoration:none;
+			text-indent:-9999em;
+		}
+		<?php endif;?>
+			<?php if($gamechanger1['bannerposition']==6):?>
+		.game_changer_img<?php echo $gamechanger1['bannerno'].''.$gamechanger1['bannerposition']?>
+		{
+			background:url(<?php echo $mediaurl.''.$gamechanger1['image'] ?>);
+			width:224px;
+			height:255px;
+			background-repeat:no-repeat;
+			background-position:0 0;
+			display:block;
+			text-decoration:none;
+			text-indent:-9999em;
+			margin:5px;
+			float:left;
+			
+		}
+		.game_changer_img<?php echo $gamechanger1['bannerno'].''.$gamechanger1['bannerposition']?>:hover
+		{
+			background:url(<?php echo $mediaurl.''.$gamechanger1['image'] ?>);
+			width:224px;
+			height:255px;
+			background-repeat:no-repeat;
+			background-position:0 -255px;
+			display:block;
+			text-decoration:none;
+			text-indent:-9999em;
+		}
+		<?php endif;?>
+		
+		<?php } ?>
+
+
+	</style>
+	<script>
+	jQuery(function(){
+	jQuery('#slides1').bxSlider({
+		prev_image: '<?php echo $this->getSkinUrl();?>images/images/btn_arrow_left.png',
+		next_image: '<?php echo $this->getSkinUrl();?>images/images/btn_arrow_right.png',
+		wrapper_class: 'slides1_wrap',
+		margin: 70,
+		auto: false,
+		auto_controls: true
+	});
+});
+</script>
+	<!--title>bxSlider | jQuery Content Slider Plugin</title-->
+	
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+
+<body>
+<!-- end header_inner, header -->
+<div class="lookArea">
+<div id="content_inner">
+  <!-- end intro -->
+  <!-- end sidebar_right -->
+  <ul id="slides1">
+			
+			<?php
+
+		$resource = Mage::getSingleton('core/resource');
+		$read = $resource->getConnection('core_read');
+	
+		$query = "SELECT * FROM gamechanger order by bannerno,bannerposition";
+		$result=$read->query($query);
+		$gamechanger1 = $result->fetchAll();
+		$mediaurl=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+?>
+<?php foreach($gamechanger1 as $gamechanger){ ?>
+
+	<?php if($gamechanger['bannertype']=='0') {?>
+			<li>
+				<img src="<?php echo $mediaurl.''.$gamechanger['image']; ?>" alt=""/>
+			</li>
+			<?php }?>
+			<!--slide 1 -->
+			<?php if($gamechanger['bannertype']=='1' && $gamechanger['bannerposition']=='1' ){?>
+			<li>
+				<div class="gamechangerArea1">
+                	<a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>3">Shop The Look</a>
+                </div>
+			<?php }?>
+			
+			<?php if($gamechanger['bannertype']=='1' && $gamechanger['bannerposition']=='2' )
+			{?>
+                    <div class="gamechangerArea2">
+                	<a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>4">Shop The Look</a>
+				<?php }?>
+			<?php if($gamechanger['bannertype']=='1' && $gamechanger['bannerposition']=='3')
+			{?>	
+                <a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>5">Shop The Look</a>
+				
+				<?php }?>
+			<?php if($gamechanger['bannertype']=='1' && $gamechanger['bannerposition']=='4' )
+			{?>		
+                
+                	<a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>6">Shop The Look</a>
+					</div>
+				<?php }?>
+			<?php if($gamechanger['bannertype']=='1' && $gamechanger['bannerposition']=='5' )
+			{?>		 
+			<div class="gamechangerArea1">
+                    <a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>1 game_changer_imgnew<?php echo $gamechanger['bannerno'] ?>0">Shop The Look</a>
+					<?php }
+					?>
+			<?php if($gamechanger['bannertype']=='1' && $gamechanger['bannerposition']=='6' )
+			{?>	
+                      <a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>2">Analogue Black Leather Watch</a>
+                </div>
+				</li>
+				<?php }?> 
+		
+	<!--slide 2 -->
+				<?php if($gamechanger['bannertype']=='2' && $gamechanger['bannerposition']=='1' ){?>
+			<li>
+            <div class="gamechangerArea1">
+				<a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class=".game_changer_img<?php echo $gamechanger['bannerno'] ?>1  game_changer_imgnew<?php echo $gamechanger['bannerno'] ?>1">Dartmouth Striped Shirt</a>
+			<?php }?>
+			
+			<?php if($gamechanger['bannertype']=='2' && $gamechanger['bannerposition']=='2' )
+			{?>
+                    <a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>2">Analogue Black Leather Watch</a>
+            </div>
+				<?php }?>
+			<?php if($gamechanger['bannertype']=='2' && $gamechanger['bannerposition']=='3')
+			{?>	
+                <div class="gamechangerArea1">
+                	<a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>3">Shop The Look</a>
+				</div>
+				<?php }?>
+			<?php if($gamechanger['bannertype']=='2' && $gamechanger['bannerposition']=='4' )
+			{?>		
+                <div class="gamechangerArea2">
+                	<a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>4">Shop The Look</a>
+				<?php }?>
+			<?php if($gamechanger['bannertype']=='2' && $gamechanger['bannerposition']=='5' )
+			{?>		
+                    <a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>5">Shop The Look</a>
+					<?php }
+					?>
+					<?php if($gamechanger['bannertype']=='2' && $gamechanger['bannerposition']=='6' )
+			{?>	
+                    <a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>6">Shop The Look</a>
+                </div></li>
+				<?php }?> 	
+	<!--slide 3 -->
+			<?php if($gamechanger['bannertype']=='3' && $gamechanger['bannerposition']=='1' ){?>
+			<li>
+           <div class="gamechangerArea2">
+                	<a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>4">Shop The Look</a>
+			<?php }?>
+			
+			<?php if($gamechanger['bannertype']=='3' && $gamechanger['bannerposition']=='2' )
+			{?>
+                      <a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>5">Shop The Look</a>
+				<?php }?>
+			<?php if($gamechanger['bannertype']=='3' && $gamechanger['bannerposition']=='3')
+			{?>	
+                  <a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>6">Shop The Look</a>
+                </div> 
+				<?php }?>
+			<?php if($gamechanger['bannertype']=='3' && $gamechanger['bannerposition']=='4' )
+			{?>		
+              	<div class="gamechangerArea1">
+                <a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>3">Shop The Look</a>
+                </div> 
+				<?php }?>
+			<?php if($gamechanger['bannertype']=='3' && $gamechanger['bannerposition']=='5' )
+			{?>		
+                  <div class="gamechangerArea1">
+                	<a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>1  game_changer_imgnew<?php echo $gamechanger['bannerno'] ?>0">Dartmouth Striped Shirt</a>
+					<?php }
+					?>
+					<?php if($gamechanger['bannertype']=='3' && $gamechanger['bannerposition']=='6' )
+			{?>	
+                     <a href="<?php echo $this->getBaseUrl().$gamechanger['url']?>" class="game_changer_img<?php echo $gamechanger['bannerno'] ?>2">Analogue Black Leather Watch</a>
+                </div></li>
+				<?php }?> 
+				
+<?php }?>
+
+			
+         	
+	</ul>
+</div>
+</div>
+
+
+</body>
+
+			
+				
+					
+		

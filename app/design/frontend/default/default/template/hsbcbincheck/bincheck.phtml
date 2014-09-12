@@ -1,0 +1,68 @@
+<div class="request-heading">
+    <h1>Check your bank for offers</h1>
+</div>
+<div class="wrapr-bank">
+	<label>Select your Bank:</label>
+	<select id="banks" name="banks" class="banks">
+	      <option value=""></option>
+	      <option value="hsbc">HSBC</option>
+	      <option value="hdfc">HDFC</option>
+	      <option value="icici">ICICI</option>
+	      <option value="others">Others</option>
+	</select>
+	<div class='enter_bins' style="display:none">
+		<input class='check_credit_binnumber' placeholder='Enter Your Card Number' /> <br/>
+		<button type="button" class='submit_credit_bin button' id="bin-check">Submit</button>
+	</div>
+	<div class='err-msg' style="display:none">
+		<?php echo $this->__('Sorry there are no offers available for this bank at the moment');?>
+	</div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+	$('.banks').change(function(){
+		var bank = $(this).val();
+		if(bank=='hsbc'){
+			$('.enter_bins').show();
+			$('.err-msg').hide();
+		}else{
+			$('.enter_bins').hide();
+			$('.err-msg').show();
+			setTimeout(function() {
+				parent.jQuery.fancybox.close();
+			}, 3000);
+		}
+	})
+	$('.submit_credit_bin').live('click',function(){
+		if($('.check_credit_binnumber').val().length<16){
+			$('.check_credit_binnumber').val("Invalid Number!");
+			return false;
+		}
+		var bin_number = $('.check_credit_binnumber').val().substring(0,6);
+		$.ajax({
+            type:"POST",
+            url:"<?php echo $this->getUrl('hsbcbincheck/index/checkcreditbin');?>",
+            data:{'bin_number': bin_number},
+            dataType:"json",
+            success:function(data){
+            	/*console.log(data['data']);return false;*/
+            	if(data['msg'] == "success"){
+            		$('.enter_bins').fadeOut().remove();
+            		/*alert(data['data']);*/
+            		/*console.log($('.sitelinks',window.parent.document).attr('class'));return false;*/
+            		$('.sitelinks',window.parent.document).replaceWith(data['data']);	
+            		$('#shopping-cart-totals-table',window.parent.document).addClass("sitelinks f-right");
+            		$('#shopping-cart-totals-table',window.parent.document).removeAttr('id');
+            		setTimeout(function() {
+						parent.jQuery.fancybox.close();
+					}, 1000);                		
+            	}
+            	else if(data['msg'] == "failed"){
+            		$('.check_credit_binnumber').val("Invalid Number!");
+            	}
+           	}
+      	});
+	});
+})
+
+</script>

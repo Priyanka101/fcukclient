@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Fcuk_Outwardregister>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Fcuk_Outwardregister>
+    </modules>
+</config> 

@@ -1,0 +1,353 @@
+<style>
+#request-form-default
+{
+    position: absolute;
+    z-index: 0;
+	width:auto;
+	height:auto;
+	//padding:15px;
+	font-family: Arial, Helvetica;
+
+}
+.request-heading{ background: none repeat scroll 0 0 #CCCCCC;
+    float: left;
+    margin-bottom: 15px;
+    width: 100%;}
+/* #request-form-default:before
+{
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+ 
+} */
+.remark{color:red;font-size:12px;}
+
+.request-form-div {
+	width:50%;
+	float:left;
+	margin-bottom:10px;
+}
+
+#request-form-default #request-form-div h1
+{
+
+    //text-transform: uppercase;
+    text-align: center;
+    color: #666;
+    
+    //letter-spacing: 4px;
+    font: normal 22px/1 Verdana, Helvetica;
+    //position: relative;
+}
+
+label {
+
+	margin: 0px 0px 10px 10px;
+	width:100px;
+	float:left;
+
+    //text-transform: uppercase;
+	 
+    color: #666666;
+
+}
+
+.required-entry{  
+    width: 240px; 
+	height:25px;	
+
+    //border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 1px #CCCCCC inset, 0 1px 0 #FFFFFF;
+    //margin: 0 0 14px;
+   
+
+	
+}  
+.required-size-entry{  
+    width: 50px; 
+	height:25px;	
+}
+
+.request-submit {
+	/* margin-left:160px;*/
+	display:inline-block;
+	width:100%;
+}
+
+input[type=submit]{align:center;font-size: larger; 
+
+
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+   
+    color: #8F5A0A;
+    cursor: pointer;
+    float: left;
+    font: 15px Arial,Helvetica;
+    height: 35px;
+    padding: 0;
+    width: 100px;
+
+}
+
+.request-submit .request-form-div1 {
+	height: 36px;
+	width: 80px;
+	line-height: 36px;
+	text-align: center;
+	background-color: #BBB;
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+	margin:0px auto;
+}
+
+.request-submit .request-form-div1:hover {
+	cursor: pointer;
+	background-color: #666;
+}
+.required-size-entry{width:100px;}
+.validation-advice { clear:both; min-height:13px; margin:3px 0 0; padding-left:17px; font-size:10px; line-height:13px; background:url(../images/validation_advice_bg.gif) 2px 1px no-repeat; color:#f00; }
+#fullsize2{text-decoration:underline;font-size:14px;cursor:pointer;color:#0000ff}
+.validation-failed { border:1px dashed #f00 !important; background:#faebe7 !important; }
+.request-description{margin-bottom:10px;}
+#fullsize2{ position:relative; top:0px;left:0px;}
+</style>
+<script type="text/javascript" src="<?php echo $this->getUrl('js') .'jquery1.8.min.js'?>"></script>
+<script type="text/javascript" src="<?php echo $this->getUrl('js/prototype') . 'prototype.js' ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getUrl('js/prototype').'validation.js'?>"></script>
+<script type="text/javascript" src="<?php echo $this->getUrl('js/scriptaculous').'builder.js'?>"></script>
+<script type="text/javascript" src="<?php echo $this->getUrl('js/scriptaculous').'effects.js'?>"></script>
+<script type="text/javascript" src="<?php echo $this->getUrl('js/varien').'js.js'?>"></script>
+<script type="text/javascript" src="<?php echo $this->getUrl('js/varien').'form.js'?>"></script>
+<script type="text/javascript" src="<?php echo $this->getUrl('js/varien').'menu.js'?>"></script>
+<!--script type="text/javascript" src="<?php echo $this->getSkinUrl() .'css/jquery.fancybox-1.3.4.css'?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl() .'js/jquery.fancybox-1.3.4.pack.js'?>"></script-->
+	
+<script type="text/javascript">			
+	function callBackAction(){
+		var valid = new Validation('request-form', true);
+		if(valid.validate()){
+			var form_data = jQuery('#request-form').serializeArray();
+	
+			var url = '<?php echo $this->getUrl('requestproduct/index/getrequestSave');?>';
+			jQuery.post(url, {user_data:form_data}, function(data){
+				//alert(data);
+				if(data == 'mail sent'){
+					 parent.history.back();
+					 jQuery('html, body').animate({scrollTop:0}, 'slow');
+					
+					
+				} else{
+					 parent.history.back();
+					 jQuery('html, body').animate({scrollTop:0}, 'slow');
+					
+					
+				}
+			});
+		}
+	}
+</script>
+<?php 
+
+$productId   = $this->getRequest()->getParam('productid');
+//echo $productId ; 
+$product     =  Mage::getModel('catalog/product')->load($productId);
+//print_r($product->getData());
+$sku         = $product->getsku();
+$productName = $product->getName();
+
+/* $attr = $product->getResource()->getAttribute("color");
+
+if ($attr->usesSource()) {
+	echo $color_id = $attr->getSource()->getOptionText('753'); 
+} */
+ 
+ 
+/*  $_attributes = Mage::helper('core')->decorateArray($_product->getAllowAttributes());
+ foreach($_attributes as $_attribute){
+// Get Attribute Code
+$attCode = $_attribute->getProductAttribute()->getFrontend()->getAttribute()->getAttributeCode();
+
+// Get Attribute Id
+echo $attrId =  $_attribute->getAttributeId(); 
+
+
+}*/
+/* Mage::getModel('catalog/product')->load($product_id)->getAttributeText("color"); */
+
+/*---------------------------5/4/2013--------------------------*/
+ $optionid[]=array();
+$optionvalue[]=array();
+$attribute_details = Mage::getSingleton("eav/config")->getAttribute("catalog_product", "color");
+$options = $attribute_details->getSource()->getAllOptions(false);
+foreach($options as $option){
+	// print_r($option) and find all the elements
+//	echo '<pre>';
+	echo $optionid[]=$option["value"];
+	echo $optionvalue[]=$option["label"];
+} 
+/* $eavAttribute = new Mage_Eav_Model_Mysql4_Entity_Attribute();
+$code = $eavAttribute->getIdByCode('catalog_product', 'color');
+//echo $code;
+$optiomcode=array();
+$product = Mage::getModel('catalog/product')->load($productId);
+$childProducts = Mage::getModel('catalog/product_type_configurable')
+                        ->getUsedProducts(null,$product);
+$optiomcode[]=(array)$childProducts;
+		echo "<pre>";
+	 $i=0; 
+foreach($childProducts as $option){
+//print_r($childProducts);
+echo $i;
+print_r($option);
+echo $option['$i']['color'];
+$i=$i+1;;
+} 
+echo "<pre>"; */
+/* print_r($childProducts[0]['color']);
+print_r($childProducts[1]['color']);
+print_r($childProducts[2]['color']);
+print_r($childProducts[3]['color']); */
+
+					
+/* $array = array_merge($optionid,$optionvalue);
+
+print_r($array);  */
+/*-----------------------------------5/4/13---------------------------*/
+ //print_r($_attributes);
+/* $attributeValueId = $product->getResource()->getColor();
+echo $attributeValueId;  */
+/* if($attribute->usesSource()){
+
+// Getting all the sources (options) and print as label-value pair
+$options = $attribute->getSource()->getAllOptions(false);
+print_r($options);exit;
+}
+ */
+//echo '<pre>';
+//print_r($product->getData());exit;
+
+/* $_size=array();
+$currentCategory = Mage::getModel('catalog/layer')->getCurrentCategory()->getProductCollection()->getAllIds(); */
+
+/* foreach($currentCategory as $_productId)
+{
+	$_product = Mage::getModel('catalog/product')->load($_productId);
+	//print_r($_product);
+	$_size[]=$_product->getData('size');
+	echo '<pre>';
+}
+$result = array_unique($_size); */
+	   
+//print_r($result);
+/* $productModel = Mage::getModel('catalog/product');
+$attr = $productModel->getResource()->getAttribute("size");
+$size=array();
+foreach($result as $value):
+if ($attr->usesSource()) {
+	$size[] = $attr->getSource()->getOptionText($value);
+}
+endforeach;
+print_r($size); */
+
+?>						
+				
+			
+<div id="request-form-default">
+	<div id="request-form-div">
+		<form name="request-form" id="request-form" method="post" action="<?php //echo $this->getUrl('requestproduct/index/getrequestSave2');?>">
+		<div class="request-heading"><h1><?php echo $this->__('Check Availability')?></h1></div>
+		<div class="request-description">
+			<span class="description"><?php echo $this->__('To receive an email update on the availability of this product at a store in your city, please fill in the below fields.');?></span><br/><br/>
+			<span class="remark"><?php echo $this->__('Fields marked with * are mandatory.')?></span>
+		</div>
+			
+			<div class="request-form-div">
+				<span class="request-form-left">
+				    <!-- <label for="name">Name</label> -->
+					<input type="text" name="firstname" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="First Name"  class="required-entry" id="firstname" _onblur="myFunction()" />
+				</span>
+			</div>
+			<div class="request-form-div">
+				<span class="request-form-left">
+				  <!-- <label for="email">Email ID</label> -->
+					<input type="text" name="lastname" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Last Name" class="required-entry " id="lastname"  _value ="" />
+				</span> 
+			</div>
+			<div class="request-form-div">
+				<span class="request-form-left">
+				  <!-- <label for="email">Email ID</label> -->
+					<input type="textarea" name="address" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Address"  class="required-entry" id="address"  _value ="" />
+				</span> 
+			</div>
+			<div class="request-form-div">
+				<span class="request-form-left">
+				  <!-- <label for="email">Email ID</label> -->
+					<input type="text" name="city" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="City"  class="required-entry " id="city"  _value ="" />
+				</span> 
+			</div>
+			
+			
+			<div class="request-form-div">
+				<span class="request-form-left">
+				<!-- <label for="phoneno">Phone no</label> -->
+					<input type="email" name="email" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Email Id"  class="required-entry validate-email" id="emailid" />
+				</span>
+			</div>
+			
+			<div class="request-form-div">
+				<span class="request-form-left">
+					<input type="text" name="phoneno" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Mobile" class="required-entry validate-number" id="mobile" />
+				</span>
+			</div>
+			
+			<div class="request-form-div">
+				<span class="request-form-left">
+			
+					<input type="text" readonly="readonly" name="productname" placeholder="Product Name" class="required-entry " id="productname" value="<?php echo $productName;?>" />
+				</span>
+			</div>
+			<div class="request-form-div">
+				<span class="request-form-left">
+			
+					<input type="text" readonly="readonly" name="Stylecode" placeholder="Style Code" class="required-entry " id="stylecode" value="<?php echo $sku;?>"/>
+				</span>
+			</div>
+			<div class="request-form-div">
+				<span class="request-form-left">
+			
+					<input type="text" name="size" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Size" class="required-size-entry " id="size"  size="15" />
+					<a onclick="window.parent.popup('guide') ; window.parent.newpopup(popup_html);" id="fullsize2" top=0,left=0>Size Chart</a>
+					<div id="guide" style="display:none;" >
+					<div id="popup-close" onclick="popup('guide')" style="display:inline;" ></div>
+					<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('size-guide-center')->toHtml();?>
+					</div>
+				</span>
+			</div>
+			<div class="request-form-div">
+				<span class="request-form-left">
+			
+					<input type="text" name="color" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Color" class="required-entry " id="color" />
+				</span>
+			</div>
+			<input type="hidden" name="productid" class="productid_hidden" value="<?php echo $sku;?>" />
+			
+			<div class="request-submit" >
+			
+			<div class="request-form-div1" name="Request For Product">
+				<div id="customer-submit" onclick="callBackAction()">SUBMIT</div>
+			</div>
+			</div>
+		</form>
+		
+	
+	<div class="message-text"></div>
+	<!--</div>-->
+</div>
+<?php exit;

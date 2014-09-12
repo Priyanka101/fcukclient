@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <requestcatalog_adminhtml_requestcatalogbackend_index>
+	<reference name="content">
+	  <block type="requestcatalog/adminhtml_requestcatalogbackend" name="requestcatalogbackend" template="requestcatalog/requestcatalogbackend.phtml"/>
+	</reference>
+  </requestcatalog_adminhtml_requestcatalogbackend_index>
+  <requestcatalog_adminhtml_requestcatalog_index>
+	<reference name="content">
+	  <block type="requestcatalog/adminhtml_requestcatalog" name="requestcatalog" />
+	</reference>
+  </requestcatalog_adminhtml_requestcatalog_index>
+</layout>

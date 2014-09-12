@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+    </default>
+    <shippingvalidation_index_index>
+        <reference name="content">
+            <block type="shippingvalidation/shippingvalidation" name="shippingvalidation" template="shippingvalidation/shippingvalidation.phtml" />
+        </reference>
+    </shippingvalidation_index_index>
+</layout> 

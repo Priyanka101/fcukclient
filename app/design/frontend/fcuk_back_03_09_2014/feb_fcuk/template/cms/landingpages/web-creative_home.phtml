@@ -1,0 +1,31 @@
+<style type="text/css">
+.banner_one { background:url("<?php echo $this->getSkinUrl(); ?>images/zaid/home_page.jpg") no-repeat center 30px; height: 420px; }
+.std div#section0, .catalog-category-view #section0 { background: #B2B4B3; }
+div.link-container a {
+display: inline-block;
+color: #FFF;
+text-decoration: none;
+border-bottom: 1px solid #FFF;
+margin: 0 10px;
+padding-bottom: 0px;
+font-size: 21px;
+font-weight: bold;
+}
+</style>
+
+<?php 
+$_womencategories = Mage::helper('all')->getBannerCategories(3);
+$_mencategories = Mage::helper('all')->getBannerCategories(4);
+
+$womanUrl = Mage::getUrl('woman/category2/woman-dresses.html');
+$manUrl = Mage::getUrl('man/category3/man-tshirts.html');
+?>
+
+<div class="section" id="section0">
+	<!-- <div class="down" id="section1link"><a  href="#"></a></div> -->
+	<div class="banner_container banner_one">&nbsp;</div>	
+	<div class="link-container">
+		<a href="<?php echo $womanUrl;?>" id="woman" rel="wom_cat">shop woman</a>
+		<a href="<?php echo $manUrl;?>" id="man" rel="man_cat">shop man</a>
+	</div>
+</div>

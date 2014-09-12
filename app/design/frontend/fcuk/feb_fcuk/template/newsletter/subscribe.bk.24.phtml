@@ -1,0 +1,129 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?> 
+<div class="success_message"></div>
+<div class="block block-subscribe">
+    <form method="post" action="<?php echo $this->getAction(); ?>" id="newsletter-validate-detail-new">
+        <div class="block-content">
+            <div class="form-subscribe-header">
+                <label for="newsletter"><?php echo $this->__('Sign Up for Our Newsletter:') ?></label>
+            </div>
+            <div id="row_email">
+               <div class="inputfiled-area">
+                Email*
+               <input type="text" name="email" id="newsletter email" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry validate-email" />
+               </div>
+            </div>
+            <div id="row_first_name">
+                <div class="inputfiled-area">
+					First Name*
+				<input type="text" name="firstname" id="newsletter name" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry" />
+               </div>
+            </div>
+            <div id="row_last_name">
+                 <div class="inputfiled-area">
+                Last Name*
+               <input type="text" name="lastname" id="newsletter lastname" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry" />
+               </div>
+            </div>
+            <div id="genderPanel">
+				<div class="label">Gender *</div>
+				<div id="gender_box">
+                  <label for="rdoGenderMale" style="padding-right: 5px;">Male</label><input id="genderMale" type="radio" name="gender" value="male">
+                  <label for="rdoGenderFemale" style="padding-right: 5px;">Female</label><input id="genderFemale" type="radio" name="gender" value="female" checked="checked">
+                </div>
+            </div>
+            <div id="row_country">
+				<div class="inputfiled-area">
+                Country*
+               <input type="text" name="country" id="newsletter country" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry" />
+               </div>
+            </div>
+             <div id="row_postcode">
+				<div class="inputfiled-area">
+                Postcode
+               <input type="text" name="postcode" id="newsletter postcode" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry"/>
+               </div>
+            </div>
+             <div id="row_mobile">
+				<div class="inputfiled-area">
+                Mobile No.
+               <input type="text" name="mobileno" id="newsletter mobileno" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text" />
+               </div>
+            </div>
+            <div id="row_submit" class="actions">
+                <button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="button" id="submit_subscribe"></button>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        var myForm= new VarienForm('newsletter-validate-detail-new');
+    //]]>
+
+    jQuery(document).ready(function($){
+        $('.inputfiled-area input').focusin(function(){            
+                $(this).css("background","#fff");            
+        });
+
+        $('.inputfiled-area input').focusout(function(){
+            var in_val = $(this).val();  
+            //alert(in_val);
+            
+            if(in_val != "" )          
+            {
+                $(this).css("background","#fff");
+            }else{
+                $(this).css("background","none");
+            }
+        });
+        $('#submit_subscribe').click(function()
+          {
+              //alert(myForm.validator.validate());
+              //console.log(myForm);return false;
+              if (myForm.validator.validate())
+              {
+                  var form = $('#newsletter-validate-detail-new');
+                  var data = $(form).serialize();
+                  //alert(data);return false;
+                  //console.log(data);
+                  $.post('<?php echo $this->getFormActionUrl() ?>', data,function(response){
+                    var final_response = $(response).find('#admin_messages').html();
+                    $(".success_message").html(final_response);
+                    $(".block-subscribe").hide();
+                    setTimeout(function(){ $(".block-subscribe").show();$(".success_message").hide();},10000);
+                  });
+              }
+              else
+              {
+                  console.log('Validation Failed');
+              }
+              return false;
+          });
+    //$("#newsletter-validate-detail").ajaxForm({url: '<?php echo $this->getFormActionUrl() ?>', type: 'post'});
+  });
+</script>
+</div>

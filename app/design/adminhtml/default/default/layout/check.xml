@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <check_adminhtml_cod_index>
+	<reference name="content">
+	  <block type="check/adminhtml_cod" name="cod" />
+	</reference>
+  </check_adminhtml_cod_index>
+  <check_adminhtml_noncod_index>
+	<reference name="content">
+	  <block type="check/adminhtml_noncod" name="noncod" />
+	</reference>
+  </check_adminhtml_noncod_index>
+</layout>

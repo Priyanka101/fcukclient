@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Mac_Requestcatalog>
+      <version>0.1.0</version>
+    </Mac_Requestcatalog>
+  </modules>
+  <frontend>
+    <routers>
+      <requestcatalog>
+        <use>standard</use>
+          <args>
+            <module>Mac_Requestcatalog</module>
+            <frontName>requestcatalog</frontName>
+          </args>
+      </requestcatalog>
+    </routers>
+		<layout>
+		  <updates>
+			<requestcatalog>
+			  <file>requestcatalog.xml</file>
+			</requestcatalog>
+		  </updates>
+		</layout>
+  </frontend>
+  <global>
+    <helpers>
+      <requestcatalog>
+        <class>Mac_Requestcatalog_Helper</class>
+      </requestcatalog>
+    </helpers>
+	<blocks>
+	  <requestcatalog>
+		<class>Mac_Requestcatalog_Block</class>
+	  </requestcatalog>
+	</blocks>
+	<models>
+	  <requestcatalog>
+		<class>Mac_Requestcatalog_Model</class>
+		<resourceModel>requestcatalog_mysql4</resourceModel>
+	  </requestcatalog>
+	  <requestcatalog_mysql4>
+		<class>Mac_Requestcatalog_Model_Mysql4</class>
+		<entities>		  
+			  <requestcatalog>
+				<table>requestcatalog</table>
+			  </requestcatalog>
+        </entities>
+	  </requestcatalog_mysql4>
+	</models>
+	<resources>
+	  <requestcatalog_setup>
+		<setup>
+		  <module>Mac_Requestcatalog</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </requestcatalog_setup>
+	  <requestcatalog_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </requestcatalog_write>
+	  <requestcatalog_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </requestcatalog_read>
+	</resources>
+  </global>
+  <admin>
+	<routers>
+	  <requestcatalog>
+	    <use>admin</use>
+		<args>
+		  <module>Mac_Requestcatalog</module>
+		  <frontName>requestcatalog</frontName>
+		</args>
+	  </requestcatalog>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+<!-- 	  <requestcatalog module="requestcatalog">
+		<title>Requestcatalog</title>
+		<sort_order>100</sort_order>
+		<children>
+		  requestcatalogbackend module="requestcatalog">
+			<title>Backend Page Title</title>
+			<sort_order>0</sort_order>
+			<action>requestcatalog/adminhtml_requestcatalogbackend</action>
+		  </requestcatalogbackend>
+		  <requestcatalog module="requestcatalog">
+		    <title>Manage Requestcatalog</title>
+			<sort_order>0</sort_order>
+			<action>requestcatalog/adminhtml_requestcatalog</action>
+		  </requestcatalog>
+		</children>
+	  </requestcatalog> -->
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<requestcatalog translate="title" module="requestcatalog">
+			  <title>Requestcatalog</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <requestcatalogbackend translate="title">
+			<title>Backend Page Title</title>
+		  </requestcatalogbackend>
+		  <requestcatalog translate="title">
+			<title>Manage Requestcatalog</title>
+			<sort_order>0</sort_order>
+		  </requestcatalog>
+			  </children>
+			</requestcatalog>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<requestcatalog>
+		  <file>requestcatalog.xml</file>
+		</requestcatalog>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

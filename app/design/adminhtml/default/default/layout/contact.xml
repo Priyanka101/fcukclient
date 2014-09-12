@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <contact_adminhtml_contactbackend_index>
+	<reference name="content">
+	  <block type="contact/adminhtml_contactbackend" name="contactbackend" template="contact/contactbackend.phtml"/>
+	</reference>
+  </contact_adminhtml_contactbackend_index>
+</layout>

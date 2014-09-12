@@ -1,0 +1,93 @@
+
+#request-form-default
+{
+    position: absolute;
+    z-index: 0;
+	width:500px;height:220px;padding:15px;
+ -moz-border-radius:12px;-khtml-border-radius: 12px;-webkit-border-radius: 12px;border-radius:12px;
+}
+
+#request-form-default:before
+{
+    content: '';
+    position: absolute;
+    z-index: -1;
+    border: 1px dashed #ccc;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    -moz-box-shadow: 0 0 0 1px #fff;
+    -webkit-box-shadow: 0 0 0 1px #fff;
+    box-shadow: 0 0 0 1px #fff;
+}
+#request-form-default
+{
+    box-shadow:
+          0 0 2px rgba(0, 0, 0, 0.2),  
+          0 1px 1px rgba(0, 0, 0, .2),
+          0 3px 0 #fff,
+          0 4px 0 rgba(0, 0, 0, .2),
+          0 6px 0 #fff,  
+          0 7px 0 rgba(0, 0, 0, .2);
+}
+#request-form-default #request-form-div h1
+{
+text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
+    text-transform: uppercase;
+    text-align: center;
+    color: #666;
+    margin: 10 0 30px 0;
+    letter-spacing: 4px;
+    font: normal 26px/1 Verdana, Helvetica;
+    position: relative;
+}
+
+label {
+
+margin: 0px 0px 10px 50px;width:100px;float:left;
+
+    text-transform: uppercase;
+	    font-weight: bold;
+    color: #666666;
+
+}
+
+.required-entry{  
+    width: 280px; 
+	height:25px;	
+    -webkit-transition: width 1s ease;  
+    -moz-transition: width 1s ease;  
+    -o-transition: width 1s ease;  
+    -ms-transition: width 1s ease;  
+    transition: width 1s ease;  
+	border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 1px #CCCCCC inset, 0 1px 0 #FFFFFF;
+    margin: 0 0 10px;
+   
+
+	
+}  
+
+.required-entry:focus{  
+    width: 300px;  
+}  
+.request-submit{margin-left:330px;}
+input[type=submit]{align:center;font-size: larger; color: teal; background-color: #fddb6f; border: 3pt ridge lightgrey" 
+background-image: -moz-linear-gradient(center top , #FDDB6F, #FFB94B);
+    border-color: #D69E31 #E3A037 #D5982D;
+    border-radius: 3px 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+    color: #8F5A0A;
+    cursor: pointer;
+    float: left;
+    font: bold 15px Arial,Helvetica;
+    height: 35px;
+    padding: 0;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    width: 100px;
+
+}

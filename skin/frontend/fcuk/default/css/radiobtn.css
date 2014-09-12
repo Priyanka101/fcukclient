@@ -1,0 +1,22 @@
+/*	wrapper divs */
+.catalog-product-view .custom-radio { position: relative;width:13px;height:13px;margin:2px auto 0;}	
+/* input, label positioning */
+.catalog-product-view .custom-radio input{position: absolute;left: 0px;top: 0px;z-index: 0;}
+.catalog-product-view .custom-radio label{
+	display: block;
+	position:absolute;
+	z-index: 1;
+	cursor: pointer;
+	top:0;left:0;
+	width:13px;height:13px;background: url(../images/checkbox_off.png) no-repeat; }	
+/*Checked states */
+.catalog-product-view .custom-radio label.checked{background:url(../images/checkbox_on.png) no-repeat;}
+/*quickview*/
+.quickshop-index-view .custom-radio { position: relative;width:13px;height:13px;float:left; display:inline-block;margin:0 5px 0 5px;}
+.quickshop-index-view .custom-radio input{position: absolute;left: 0px;top: 0px;z-index: 0;}
+.quickshop-index-view .custom-radio label{display: block;	position:absolute;	z-index: 1;	cursor: pointer;top:0;left:0;	width:13px;height:13px;background-color:black;border:1px solid black;}
+/*Checked states */
+.quickshop-index-view .custom-radio label.checked{box-shadow: 0 0 15px #A5A29D;border-color: #A5A29D;border-width: 2px;overflow: hidden;}
+/**/
+
+.breadcrumbs ul li strong{color:#000000;}

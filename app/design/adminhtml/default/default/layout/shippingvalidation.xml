@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <shippingvalidation_adminhtml_shippingvalidation_index>
+        <reference name="content">
+            <block type="shippingvalidation/adminhtml_shippingvalidation" name="shippingvalidation" />
+        </reference>
+    </shippingvalidation_adminhtml_shippingvalidation_index>
+</layout>

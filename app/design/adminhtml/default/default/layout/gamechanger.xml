@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <gamechanger_adminhtml_gamechanger_index>
+	<reference name="content">
+	  <block type="gamechanger/adminhtml_gamechanger" name="gamechanger" />
+	</reference>
+  </gamechanger_adminhtml_gamechanger_index>
+</layout>

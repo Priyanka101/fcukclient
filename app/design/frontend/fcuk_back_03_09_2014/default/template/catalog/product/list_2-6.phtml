@@ -1,0 +1,441 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ *///
+?>
+<?php //$_category_detail=Mage::registry('current_category')->getData();
+//echo '<pre>';print_r($_category_detail);exit;
+	//echo $this->getCategoryId();exit;	
+	//echo '<pre>';print_r(get_class_methods($this));exit;
+	
+	?>
+	<?php $catid =  Mage::getSingleton('catalog/layer')->getCurrentCategory()->getId(); 
+			$parent = Mage::getSingleton('catalog/category')->load($catid)->getData('parent_id');
+			//echo '<pre>';print_r($parent);exit;
+	?>
+<?php
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+	$helper = Mage::helper('all');
+?>
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+<div class="category-products">
+    <?php echo $this->getToolbarHtml() ?>
+    <?php $_collectionSize = $_productCollection->count() ?>
+    <?php //$_columnCount = $this->getColumnCount();?>
+    <?php $_columnCount = 4;?>
+        <?php $i=0; foreach ($_productCollection as $_product): ?>
+		<?php //echo '<pre>';print_r($_product->getData('special_price_2'));?>
+        <?php if ($i++%$_columnCount==0): ?>
+        <ul class="products-grid">
+        <?php endif ?>
+            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+                <?php if($_product->isSaleable()): ?>
+					<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(132,198); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+				<?php else: ?>
+					<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img style="margin-bottom:30px;" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(132,198)->keepFrame(true); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+				<?php endif; ?>
+				<div class="actions">
+					<?php if(Mage::registry('current_category')){
+						$cat = Mage::registry('current_category')->getId();
+					} ?>
+                    <?php if($_product->isSaleable()): ?>
+						<div class="stock-container"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('In Stock')?></a></div>
+						<div class="quick-btn"><a class="quick_view" href="<?php echo $this->getUrl('quickshop/index/view').'path/'.$_product->getUrlKey().'.html'; ?>"><img src="<?php echo $this->getSkinUrl('images/quickview.jpg')?>"></a></div> 
+                    <?php else: ?>
+                        <!--p class="availability out-of-stock"><span><?php //echo $this->__('Out of stock') ?></span></p-->
+								<?php 
+								
+								if(!$_product->isSaleable() && $_product->getData('comingsoon')){ ?>
+
+                        <div class="outof-stock-container commingsoon-list"><?php echo $this->__('Coming Soon')?></div>
+						<div class="quick_view3">
+						<?php if($cat==58 || $cat==57){?>
+							<div class="stock-container"><a  href="<?php echo $_product->getProductUrl() ?>">LIMITED EDITION</a>
+							<?php }else{ ?></div>
+							<a class="request-product" href='<?php echo $this->getUrl(); ?>requestproduct/index/getrequestForm?productid=<?php echo $_product->getId() ?>&current_cat=<?php echo $cat?>' value="<?php echo $_product->getSku(); ?>" onclick="showOverlay(this, '<?php echo $_product->getId();?>')">Request</a>
+							<?php }?>
+							<input type="hidden" name="productid" value="<?php echo $productid;?>"/>
+						</div>
+							<?php	}else{
+								?>			
+						<div class="outof-stock-container"><?php echo $this->__('Sold Out')?></div>
+						<div class="quick_view2"><a class="request-product" href='<?php echo $this->getUrl(); ?>requestproduct/index/getrequestForm?productid=<?php echo $_product->getId() ?>' value="<?php echo $_product->getSku(); ?>" onclick="showOverlay(this, '<?php echo $_product->getId();?>')">Request</a>
+						<!--img src="<?php //echo $this->getSkinUrl('images/request.jpg')?>"></a-->
+						<?php //echo $productid=$_product->getSku();?>
+							<input type="hidden" name="productid" value="<?php echo $productid;?>"/>
+						</div>
+						<?php } ?>
+									
+                    <?php endif; ?>
+					
+                <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
+                
+                <?php if($_product->getRatingSummary()): ?>
+                <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                <?php endif; ?>
+                <?php echo $this->getPriceHtml($_product, true) ?>
+               
+				<?php //$helper->getColorCount($_product);?>
+				</div>
+            </li>
+        <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+        </ul>
+        <?php endif ?>
+        <?php endforeach ?>
+        <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+    
+
+    <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+    </div>
+</div>
+<?php endif; ?>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+
+
+	$(this).find('.commingsoon-list').hide();
+		$(this).find('.quick_view3 a').hide();
+	// load modified css file if category image and description exist
+	var perform_category_check_img = $('.current_cat_img').val();
+	var perform_category_check_desc = $('.current_cat_desc').val();
+	var mod_css_path = '<?php echo $this->getSkinUrl(); ?>' + 'css/detailed_category.css';
+	
+	if (perform_category_check_img == 1) {
+		if (document.createStyleSheet){
+			document.createStyleSheet(mod_css_path);
+		}
+		else {
+			$("head").append($("<link rel='stylesheet' href='" + mod_css_path + "' type='text/css' media='all' />"));
+		}
+	}
+    	
+	// load category description
+	function cat_desc_reposition() {
+		if($('.category-image').offset()) {
+			var cat_image_offset = $('.category-image').offset();
+			var cat_desc_offset_left = cat_image_offset.left + 665;
+			var cat_desc_height = $('.category-description').height();
+			var cat_image_height = $('.category-image').height(); 
+			var cat_desc_offset_top = cat_image_offset.top + (cat_image_height - cat_desc_height) * 0.5 - 16;
+			
+			$('.category-description').css({
+				left : cat_desc_offset_left,
+				top : cat_desc_offset_top
+			});
+			
+			$('.category-description').show();
+		
+		}
+	}
+	var delay_desc = setTimeout(function() {
+		cat_desc_reposition();
+	}, 3000);
+	
+	
+	$(window).resize(cat_desc_reposition);
+	
+	<?php 
+	$serviceArea = Mage::getSingleton('core/session')->getServiceArea();
+	if($serviceArea == ""){
+	?>
+	
+	var timeout = setTimeout(function() {
+			$('#service_area_popup').show();
+			$("#service_area_trigger").fancybox({
+				'autoDimensions': false,
+				'height': 180,
+				'width': 270
+			}).trigger('click');
+		}, 3000);
+	
+	<?php
+	Mage::getSingleton('core/session')->setServiceArea("yes");
+	 }?>	
+	
+	$('.products-grid li.item').hover(function(e){
+		e.stopImmediatePropagation();
+		$(this).find('.stock-container').show();
+		$(this).find('.commingsoon-list').show();
+		$(this).find('.quick_view3 a').show();
+		$(this).find('.quick-btn a').stop().animate({
+		left:'0px'
+		},'fast')
+	},function(e){
+		e.stopImmediatePropagation();
+		$(this).find('.stock-container').hide();
+		$(this).find('.commingsoon-list').hide();
+		$(this).find('.quick_view3 a').hide();
+		$(this).find('.quick-btn a').stop().animate({
+		left:'-154px'
+		},'fast')
+
+		});
+		
+	$('.quick_view').fancybox({
+		'height': 490,
+        'width': 540,
+		'type'				: 'iframe',
+		onComplete: function() { 
+			$.fancybox.showActivity();
+			$('#fancybox-frame').unbind('load');
+			$('#fancybox-frame').bind('load', function() {
+					$.fancybox.hideActivity();
+			});
+		}
+	});
+	
+	
+	/*
+	$('.quick_view2').fancybox({
+		'frameWidth': 0,
+		'type'				: 'iframe',
+		onComplete: function() { 
+			$.fancybox.showActivity();
+			//var ac=$('.request-product').val();
+			//alert(ac);
+			$('#fancybox-frame').unbind('load');
+			$('#fancybox-frame').bind('load', function() {
+					$.fancybox.hideActivity();
+			});
+		}
+	});*/
+	
+
+	
+	 $('.request-product').fancybox({
+				'height': 400,
+				'width': 620,
+				'type'		 : 'iframe',
+
+		'onComplete' : function() { 
+			$.fancybox.showActivity();
+			$('#fancybox-frame').unbind('load');
+			$('#fancybox-frame').bind('load', 
+			function() {
+					$.fancybox.hideActivity();
+			});
+		}
+	});	
+	
+});
+	function showOverlay(obj, sku){
+	  var abc=jQuery('.productid').val();
+	  }
+	function newpopup(data){
+		jQuery('.popup_final_slider').html(data);
+	}
+
+	jQuery(document).ready(function($) {
+	
+	/*jQuery('#zipcode').keyup(function() {
+	var pincode = jQuery('#zipcode').val();
+		 if(!pincode.match(/^\d+/))
+			{
+					jQuery('.shipping_methods').hide();
+					jQuery('.no_shipping_available').hide();
+					jQuery('.pincodeerror').css('display','block');
+					jQuery('.pincodeerror').html('Oops! Please enter a 6 digit PIN code');
+					jQuery('.pincodeerror').delay(3000).fadeOut();
+			} 
+	});*/
+	  $('#zipcode').keypress(function(e) {
+        if(e.which == 13) {
+           // alert();
+            checkpin_list();
+        }
+    });
+});
+	
+	
+function checkpin_list(){
+
+		 var pincode = jQuery("#fancybox-content #zipcode").val();
+		  if(pincode=='')
+		 {
+	//	 alert('please enter pincode');
+		 //jQuery('.pincodeerror_message').html('please enter pin code');
+		jQuery('.no_shipping_available').hide();
+		jQuery('.pincodeerror').css('display','block');
+		jQuery('.pincodeerror').html('Enter a 6 digit PIN code.');
+		jQuery('.pincodeerror').delay(3000).fadeOut();
+				 
+		 }
+		else
+		{
+		 	jQuery('.pincodeerror').css('display','none');
+		// var pincode = document.getElementById("zipcode").value;
+			var pattern = /^\d{6}$/;
+						if (!pattern.test(pincode)) 
+						{
+						jQuery('.shipping_methods').hide();
+							jQuery('.no_shipping_available').hide();
+							jQuery('.pincodeerror').css('display','block');
+							jQuery('.pincodeerror').html('Oops! Please enter a 6 digit PIN code');
+							jQuery('.pincodeerror').delay(3000).fadeOut();
+						//	alert('not a number');
+											
+						}
+						else
+						{	
+		//alert(pincode);jQuery('.shipping_methods').hide();
+							
+	//	alert(pincode);//return false;
+	jQuery.post("<?php echo $this->getUrl('check/index/check'); ?>","pincode="+pincode,function(msg){
+
+					switch(msg)
+							{
+									case 'cod': //alert('i m in cod switch'); //for cod no east zone
+												jQuery('#fancybox-content #all').show();
+												jQuery('#fancybox-content #nall').hide();
+												jQuery('#fancybox-content #oall').hide();
+												jQuery('#fancybox-content #none').hide();
+									break;
+									case 'ncod': //alert('i m in ncod switch');//
+												jQuery('#nall').show();
+												jQuery('#all').hide();
+												jQuery('#oall').hide();
+												jQuery('#none').hide();
+									break;
+									case 'ocod': //alert('i m in only cod switch');
+												 jQuery('#oall').show();
+												jQuery('#all').hide();
+												jQuery('#nall').hide();
+												jQuery('#none').hide();
+									break;
+									case 'none': //alert('i m in none switch');
+								
+												 jQuery("#service_area_popup #none").show();
+												 jQuery("#service_area_popup #oall").hide();
+												jQuery("#service_area_popup #all").hide();
+												jQuery('#service_area_popup #nall').hide();
+									break;
+									//default: caption ="default";
+							}$.fancybox.close();
+		});
+			
+	
+		
+	
+	}}
+}
+	
+/*
+ jQuery('.request-product').fancybox(function($) 
+ {
+	jQuery.fancybox();
+ });
+*/
+</script>
+<div id="blanket" style="display:none;height: 1100px;" >
+	<div id="popUpDiv" style="display:none;" >
+		<div id="popup-close" onclick="popup('popUpDiv')" style="display:inline;" ></div>
+		<div id="slider-next"><a class="next_a" onclick="getNext()"><img src="<?php echo $this->getSkinUrl('images/next-arrow.png')?>"></a></div>
+		<div id="slider-prev"><a class="prev_a" onclick="getPrev()" ><img src="<?php echo $this->getSkinUrl('images/prev-arrow.png')?>"></a></div>
+		<div class="popup_final_slider">
+		</div>
+	</div>
+	<div id="guide" style="display:none;" >
+		<div id="popup-close" onclick="popup('guide')" style="display:inline;" ></div>
+		<?php if($parent!=5):?>
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('size-guide-center')->toHtml();?>
+		<?php endif?>
+		<?php if($parent == 5):?>
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('size-guide-underwear')->toHtml();?>
+		<?php endif?>
+	</div>
+</div> 
+
+<div class="service_area_hidden">
+	<a id="service_area_trigger" href="#service_area_popup"></a>
+	<div id="service_area_popup">
+		<div class='shipping_methods_container'>
+			<div class="field">
+			<label class="required" for="zipcode">Know if your pin-code is serviceable or not</label>
+			<div class="input-box"><input id="zipcode" class="service_code" title="Zip/Postal Code" type="text" name="zipcode" maxlength=6 /> <button class="button" title="Check Pin" onclick="checkpin_list()" type="button"><span><span> Validate </span></span></button></div>
+			</div>
+
+			<div id="all" class='shipping_methods' style="display: none;">
+				<p>Available Payment Methods:</p>
+				<ul>
+					<li class="available_method">Cash On Delivery</li>
+					<li class="available_method">By Credit Card</li>
+					<li class="available_method">By Debit Card</li>
+					<li class="available_method">Net Banking</li>
+				</ul>
+			</div>
+
+			<div id="nall" class='shipping_methods' style="display: none;">
+				<p>Available Payment Methods:</p>
+				<ul>
+					<li class="available_method">By Credit Card</li>
+					<li class="available_method">By Debit Card</li>
+					<li class="available_method">Net Banking</li>
+					<li class="not_available_method">Cash On Delivery</li>
+				</ul>
+			</div>
+
+			<div id="oall" class='shipping_methods' style="display: none;">
+				<p>Available Payment Methods:</p>
+				<ul>
+					<li class="available_method">Cash On Delivery</li>
+					<li class="not_available_method">By Credit Card</li>
+					<li class="not_available_method">By Debit Card</li>
+					<li class="not_available_method">Net Banking</li>
+				</ul>
+			</div>
+
+			<div id="none" class='shipping_methods no_shipping_available' style="display: none;">Sorry, No Payment Method is Available in your Region.</div>
+			<span class="pincodeerror shipping_methods" style="color:red;display:none;font-weight:bold;"></span>
+		</div>
+		<?php //echo $this->getChildHtml('area_serviceable'); ?>
+	</div>
+</div>
+
+<?php
+$_categoryax = Mage::registry('current_category');
+if($_categoryax):?>
+
+<?php if($_categoryax->getDescription()): ?>
+	<input type="hidden" class="current_cat_desc" value=1 />
+<?php else: ?>
+	<input type="hidden" class="current_cat_desc" value=0 />
+<?php endif; ?>
+
+<?php if ($_categoryax->getImageUrl()): ?>
+	<input type="hidden" class="current_cat_img" value=1 />
+<?php else: ?>
+	<input type="hidden" class="current_cat_img" value=0 />
+<?php endif; ?>
+<?php endif;?>

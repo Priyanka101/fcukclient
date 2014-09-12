@@ -1,0 +1,101 @@
+<?php// echo 'u r here';exit;?>
+<div class="block block-subscribe">
+     <div class="subscribe_option f-right">
+    <form action="<?php echo $this->getFormActionUrl() ?>" onsubmit="return check();" method="post" id="newsletter-validate-detail">
+        <div class="block-content">
+        
+            <div class="form-subscribe-header">
+                <label for="newsletter"><?php echo $this->__('Subscription') ?></label>
+            </div>
+          
+           <div class="margin_bot">            
+                
+            <div class="input-box">
+               <input type="text" name="email" value="Enter your email address..." id="newsletter" title="<?php echo $this->__('Enter your email address') ?>" class="input-text required-entry validate-email" onfocus="javascript: if(this.value=='Enter your email address...'){this.value='';}" onblur= "javascript: if(this.value==''){this.value='Enter your email address...';}"/>
+            </div>
+	       	   <div class="actions">
+                <button type="submit" title="<?php //echo $this->__('Subscribe') ?>" class="button"><span><span><?php //echo $this->__('Subscribe') ?><img src="<?php echo $this->getSkinUrl('images/sms.jpg')?>"></span></span></button>
+            </div>
+            </div>
+            <div class="margin_bot">            
+			   <div class="input-box-sms">
+               <input type="text" name="mobileno" value="Enter your mobile number..." id="mobileno" title="<?php echo $this->__('Enter your mobile number') ?>" class="input-text required-entry validate-mobileno" onfocus="javascript: if(this.value=='Enter your mobile number...'){this.value='';}" onblur= "javascript: if(this.value==''){this.value='Enter your mobile number...';}"/>
+            </div>
+               <div class="actions">
+                <button type="submit" title="<?php //echo $this->__('Subscribe') ?>" class="button"><span><span><?php //echo $this->__('Subscribe') ?><img src="<?php echo $this->getSkinUrl('images/mobile.jpg')?>"></span></span></button>
+            </div>
+            </div>
+            
+        </div>
+    </form>
+    </div>
+    <script type="text/javascript">
+    //<![CDATA[
+	
+	// var dataForm = new VarienForm('newsletter-validate-detail', true);
+     //  var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+		
+		function check(){
+		
+		var email = jQuery('.validate-email').val();
+		var mobileno = jQuery('.validate-mobileno').val();
+
+	
+		if(email =='Enter your Email Address...')
+		{
+				//alert(email);
+							
+				if(mobileno =='Enter your Mobile Number...')
+				{
+					alert('Enter your Mobile Number');
+					 return false;
+				}
+				else
+				{
+					//logic of mobile no check
+					var mobile = document.getElementById("mobileno").value;
+					var pattern = /^\d{10}$/;
+					if (pattern.test(mobile)) 
+						{
+						
+						}
+					else
+					{
+						alert("It is not valid mobile number.input 10 digits number!");
+						return false;
+					}
+						
+				}
+	
+	}
+	else
+	{
+	if(email !='Enter your Email Address...')
+		{
+			
+			}
+			else
+			{
+		alert('Enter your Email Address or Mobile Number');
+		return false;
+		}
+	} 
+		
+		// alert('i m here in befor ajax');
+		 jQuery.ajax({
+						 type: "POST",
+						 url: "<?php echo $this->getUrl('subscription/index/store'); ?>",
+						 data: {email:email,mobileno:mobileno},
+						 // success: function(msg){
+						 
+						 // alert('i m here in success');
+						  
+						 // }
+			//	});
+		});
+		// });if(mobileno =='Enter your Mobile Number...')
+		}
+	
+    //]]>
+    </script>
+</div>

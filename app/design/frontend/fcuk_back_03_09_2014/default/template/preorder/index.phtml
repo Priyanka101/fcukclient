@@ -1,0 +1,405 @@
+<style>
+#request-form-default {
+	position: absolute;
+	z-index: 0;
+	width: auto;
+	height: auto;
+    /*padding:15px;*/
+	font-family: Arial, Helvetica;
+}
+.request-heading {
+	background: none repeat scroll 0 0 #CCCCCC;
+	float: left;
+	margin-bottom: 15px;
+	width: 100%;
+}
+/* #request-form-default:before
+{
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+
+} */
+.remark {
+	color: red;
+	font-size: 12px;
+}
+.request-form-div {
+	width: 49%;
+	float: left;
+	margin-bottom: 10px;
+}
+#request-form-default #request-form-div h1 {
+	/*text-transform: uppercase;*/
+	text-align: center;
+	color: #666;
+ 	/*letter-spacing: 4px;*/
+	font: normal 22px Verdana, Helvetica;
+	line-height:36px;
+	margin:0px ;
+	padding:0px;
+
+	/*position: relative;*/
+}
+label {
+	margin: 0px 0px 10px 10px;
+	width: 100px;
+	float: left;
+	/*text-transform: uppercase;*/
+	color: #666666;
+}
+.required-entry {
+	width: 240px;
+	height: 25px;
+ /*border-radius: 5px 5px 5px 5px;*/
+	box-shadow: 0 1px 1px #CCCCCC inset, 0 1px 0 #FFFFFF;
+	font-size:12px ;
+	color:#333 !important;
+ /*margin: 0 0 14px;*/
+}
+.required-size-entry {
+	width: 50px;
+	height: 25px;
+}
+.request-submit {
+	/* margin-left:160px;*/
+	display: inline-block;
+	width: 100%;
+	text-align:center;
+}
+input[type=submit] {
+	align: center;
+	font-size: larger;
+	border-radius: 3px 3px 3px 3px;
+	border-style: solid;
+	border-width: 1px;
+	color: #8F5A0A;
+	cursor: pointer;
+	float: left;
+	font: 15px Arial, Helvetica;
+	height: 35px;
+	padding: 0;
+	width: 100px;
+}
+.request-submit .request-form-div1 {
+	height: 36px;
+	width: 80px;
+	line-height: 36px;
+	text-align: center;
+	background-color: #BBB;
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+	margin: 0px auto;
+}
+.request-submit .request-form-div1:hover {
+	cursor: pointer;
+	background-color: #666;
+}
+.required-size-entry {
+	width: 100px;
+}
+.validation-advice {
+	clear: both;
+	min-height: 13px;
+	margin: 3px 0 0;
+	padding-left: 17px;
+	font-size: 10px;
+	line-height: 13px;
+	background: url(../images/validation_advice_bg.gif) 2px 1px no-repeat;
+	color: #f00;
+	float:left;
+	height:30px;
+}
+#fullsize2 {
+	text-decoration: underline;
+	font-size: 14px;
+	cursor: pointer;
+	color: #0000ff
+}
+.validation-failed {
+	border: 1px dashed #f00 !important;
+	background: #faebe7 !important;
+}
+.request-description {
+	margin-bottom: 10px;
+	font-size:12px;
+}
+#fullsize2 {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	font-size:12px;
+	text-decoration:none;
+	color:#333;
+}
+
+#fullsize2:hover {
+	text-decoration:underline;
+	color:#333;
+}
+
+
+em { color: red; }
+
+.validate-select
+{
+	font-size:12px;
+}
+
+
+</style>
+
+<script type="text/javascript" src="<?php echo $this->getBaseUrl() .'js/jquery1.8.min.js'?>"></script>
+<script type="text/javascript" src="<?php echo $this->getBaseUrl() . 'js/prototype/prototype.js' ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getBaseUrl().'js/prototype/validation.js'?>"></script>
+<script type="text/javascript" src="<?php echo $this->getBaseUrl().'js/scriptaculous/builder.js'?>"></script>
+<script type="text/javascript" src="<?php echo $this->getBaseUrl().'js/scriptaculous/effects.js'?>"></script>
+<script type="text/javascript" src="<?php echo $this->getBaseUrl().'js/varien/js.js'?>"></script>
+<script type="text/javascript" src="<?php echo $this->getUrl().'js/varien/form.js'?>"></script>
+<script type="text/javascript" src="<?php echo $this->getUrl().'js/varien/menu.js'?>"></script>
+
+<?php
+$productId   = $this->getRequest()->getParam('productid');
+$current_cat = $this->getRequest()->getParam('current_cat');
+$product =  Mage::getModel('catalog/product')->load($productId);
+$sku         = $product->getsku();
+$productName = $product->getName();
+$productType=$product->getTypeID();
+
+
+//Simple Product
+if($productType == 'simple')
+{
+
+$attr = $product->getResource()->getAttribute("color");
+$color_label_simple = $attr->getSource()->getOptionText($product->getData('color'));
+}
+//Configurable Product
+if($productType == 'configurable')
+{
+	 $eavAttribute = new Mage_Eav_Model_Mysql4_Entity_Attribute();
+	 $code = $eavAttribute->getIdByCode('catalog_product', 'color');
+	 $optioncode=array();
+	 $childProducts = Mage::getModel('catalog/product_type_configurable')
+							->getUsedProducts(null,$product);
+
+
+	 $i=0;
+	 foreach($childProducts as $option)
+	 {
+		$optioncode[$i]=(array)$option->getColor();
+		$i=$i+1;
+	}
+	$unique[] = array_map('unserialize', array_unique(array_map('serialize', $optioncode)));
+	$final_array =array();
+	foreach ($unique as $val)
+	 {
+		foreach($val as $val2)
+		 {
+			$final_array[] = $val2;
+		 }
+	 }
+	$productModel = Mage::getModel('catalog/product');
+	$attr = $productModel->getResource()->getAttribute("color");
+
+	if ($attr->usesSource()) {
+	$colorname=array();
+	$i=0;
+	foreach($final_array as $finalarrayval){
+		$color_label = $attr->getSource()->getOptionText($finalarrayval[0]);
+		$colorname[$i]=$color_label;
+		$i=$i+1;
+
+		}
+	}
+	//print_r($colorname);
+
+
+}
+/*-------------size--------------*/
+
+//Simple Product
+if($productType == 'simple')
+{
+
+$attr = $product->getResource()->getAttribute("size");
+$size_label_simple = $attr->getSource()->getOptionText($product->getData('size'));
+}
+//Configurable Product
+if($productType == 'configurable')
+{
+	 $eavAttribute = new Mage_Eav_Model_Mysql4_Entity_Attribute();
+	 $code = $eavAttribute->getIdByCode('catalog_product', 'size');
+	 //echo '<pre>';print_r($code);exit;
+	 $optioncode=array();
+	 $childProducts = Mage::getModel('catalog/product_type_configurable')
+							->getUsedProducts(null,$product);
+
+
+	 $i=0;
+	 foreach($childProducts as $option)
+	 {
+		$optioncode[$i]=(array)$option->getSize();
+		$i=$i+1;
+	}
+	$unique[] = array_map('unserialize', array_unique(array_map('serialize', $optioncode)));
+	$final_array =array();
+	foreach ($unique as $val)
+	 {
+		foreach($val as $val2)
+		 {
+			$final_array[] = $val2;
+		 }
+	 }
+	$productModel = Mage::getModel('catalog/product');
+	$attr = $productModel->getResource()->getAttribute("size");
+	//echo '<pre>';print_r($final_array);exit;
+	if ($attr->usesSource()) {
+	$sizename=array();
+	$i=0;
+	foreach($final_array as $finalarrayval){
+		$size_label = $attr->getSource()->getOptionText($finalarrayval[0]);
+		$sizename[$i]=$size_label;
+		$i=$i+1;
+
+		}
+	}
+	$sizename=array_filter($sizename);
+	//print_r($sizename);
+
+
+}
+
+
+?>
+
+<div id="request-form-default">
+  <div id="request-form-div">
+    <form name="request-form" id="request-form" method="post" action="<?php //echo $this->getUrl('requestproduct/index/getrequestSave2');?>">
+	  <div class="request-heading">
+        <h1><?php if($current_cat == 57 || $current_cat == 58){?><?php echo $this->__('SUPERMAN TEES (LIMITED EDITION)');?><?php }else{ ?><?php echo $this->__('Check Availability');}?></h1>
+      </div>
+      <div class="request-description"> <span class="description"><?php echo $this->__('To receive an email update on the availability of this product, please fill in the below fields.');?></span><br/>
+        <br/>
+        <span class="remark"><?php echo $this->__('Fields marked with * are mandatory.')?></span> </div>
+      <div class="request-form-div"> <span class="request-form-left">
+        <!-- <label for="name">Name</label> -->
+        <input type="text" name="firstname" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="First Name"  class="required-entry" id="firstname" _onblur="myFunction()" />
+        </span> </div>
+      <div class="request-form-div"> <span class="request-form-left">
+        <!-- <label for="email">Email ID</label> -->
+        <input type="text" name="lastname" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Last Name" class="required-entry " id="lastname"  _value ="" />
+        </span> </div>
+      <div class="request-form-div"> <span class="request-form-left">
+        <!-- <label for="email">Email ID</label> -->
+        <input type="textarea" name="address" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Address"  class="required-entry" id="address"  _value ="" />
+        </span> </div>
+      <div class="request-form-div"> <span class="request-form-left">
+        <!-- <label for="email">Email ID</label> -->
+        <input type="text" name="city" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="City"  class="required-entry " id="city"  _value ="" />
+        </span> </div>
+      <div class="request-form-div"> <span class="request-form-left">
+        <!-- <label for="phoneno">Phone no</label> -->
+        <input type="email" name="email" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Email Id"  class="required-entry validate-email" id="emailid" /><em>*</em>
+        </span> </div>
+      <div class="request-form-div"> <span class="request-form-left">
+        <input type="text" name="phoneno" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Mobile" class="required-entry validate-number" id="mobile" /><em>*</em>
+        </span> </div>
+      <div class="request-form-div"> <span class="request-form-left">
+        <input type="text" readonly="readonly" name="productname" placeholder="Product Name" class="required-entry " id="productname" value="<?php echo $productName;?>" />
+        </span> </div>
+      <div class="request-form-div"> <span class="request-form-left">
+        <input type="text" readonly="readonly" name="Stylecode" placeholder="Style Code" class="required-entry " id="stylecode" value="<?php echo $sku;?>"/>
+        </span> </div>
+      <div class="request-form-div"> <span class="request-form-left">
+	       <?php if($productType == 'configurable')
+					{  ?>
+        <select name="size_id" class="validate-select" style="width: 170px;height:25px;">
+          <option value="" selected>Select Size</option>
+          <?php foreach($sizename as $size) {$color = htmlspecialchars($size);?>
+          <option value="<?php echo $size; ?>"><?php echo $size; ?></option>
+          <?php
+					}
+					?>
+        </select><em>*</em>
+        <?php } else{?>
+        <input type="text" readonly="readonly" name="size" style="width: 240px;height:25px;" value="<?php echo $size_label_simple;?>" id="size" />
+        <?php }?>
+        <!--input type="text" name="size" onblur="if(this.value=='')this.value=this.defaultValue;" onfocus="if(this.value==this.defaultValue)this.value='';" value="Size" class="required-size-entry " id="size"  size="15" /-->
+        <a onclick="window.parent.popup('guide') ; window.parent.newpopup(popup_html);" id="fullsize2" top=0,left=0>Size Chart</a>
+        <div id="guide" style="display:none;" >
+          <div id="popup-close" onclick="popup('guide')" style="display:inline;" ></div>
+          <?php //echo  $this->getLayout()->createBlock('cms/block')->setBlockId('size-guide-center')->toHtml();?>
+        </div>
+        </span> </div>
+      <div class="request-form-div"> <span class="request-form-left">
+        <?php if($productType == 'configurable')
+					{  ?>
+        <select name="color_id" class="validate-select" style="width: 240px;height:25px">
+          <option value="" selected>Select Color</option>
+          <?php foreach($colorname as $color) {$color = htmlspecialchars($color);?>
+          <option value="<?php echo $color; ?>"><?php echo $color; ?></option>
+          <?php
+					}
+					?>
+        </select><em>*</em>
+        <?php } else{?>
+        <input type="text" readonly="readonly" name="color" style="width: 240px;height:25px;" value="<?php echo $color_label_simple;?>" id="color" />
+        <?php }?>
+        </span> </div>
+      <input type="hidden" name="productid" class="productid_hidden" value="<?php echo $sku;?>" />
+      <div class="request-submit" >
+        <div class="request-form-div1" name="Request For Product">
+          <div id="customer-submit" onclick="callBackAction()">SUBMIT</div>
+        </div>
+      </div>
+    </form>
+    <div class="message-text"></div>
+  </div>
+</div>
+<?php exit;?>
+
+<script type="text/javascript">
+	function callBackAction(){
+		//alert('request');return false;
+		//alert('i am here');exit;
+		var valid = new Validation('request-form', true);
+
+		if(valid.validate()){
+		//alert('request');
+			var form_data = jQuery('#request-form').serializeArray();
+		    var cat = <?php echo $this->getRequest()->getParam('current_cat')?>;
+			//alert(cat);
+			if(cat==58 || cat==57)
+			{
+				//alert('i am here');
+				var url ="<?php echo $this->getUrl('superman/index/getrequestSave');?>"
+			}
+			else
+			{
+				var url = "<?php echo $this->getUrl('requestproduct/index/getrequestSave');?>";
+			}
+			//alert(url);return;
+			alert('wfeg');
+			jQuery.post(url, {user_data:form_data}, function(data){
+				//return;
+				if(data == 'mail sent'){
+					window.parent.parent.window.location = window.parent.parent.window.location;
+					//jQuery('html, body').animate({scrollTop:0}, 'slow');
+				} else{
+					 parent.history.back();
+					 jQuery('html, body').animate({scrollTop:0}, 'slow');
+
+
+				}
+			});
+		}
+	}
+
+</script>
+

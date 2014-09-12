@@ -1,0 +1,144 @@
+<style>
+table{
+	background-color: whiteSmoke;
+	border-radius: 6px;
+
+	
+}
+ td:first-child{width:35%;text-align:left;font-weight:bold;padding-left:5%;}
+ td:nth-child(2){padding-left:5%;}
+ td {
+	padding: 0 20px;
+	line-height: 20px;
+	color: #0084B4;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 14px;
+}
+	
+	td:hover {
+	background-color: #fff;
+}
+.design{align:center;}
+</style>
+
+<?php
+
+//$track = $this->getRequest()->getParam('track');
+//echo $track;
+//exit;
+
+$data = Mage::getSingleton('core/session')->getTracknumber();
+//Mage::getSingleton('core/session')->unsTracknumber();
+//echo $data;
+
+error_reporting(E_ALL);
+ini_set('display_errors', true);
+ini_set('display_startup_errors', true);
+
+$test = 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance&#8221; xmlns:xsd="http://www.w3.org/2001/XMLSchema&#8221; xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+<soap:Body>
+<!–
+Keep your XML here to send request using SOAP. And yo will get response by reading predefine XML tags.
+–>
+</soap:Body>
+</soap:Envelope>';
+
+
+//Change this variables.
+$location_URL = 'http://atquantiumaspac.com/QSDTSAPI/TrackXML.aspx?trackingno='.$data;//write_your_location_url.asmx&#8217;;
+$action_URL = 'http://atquantiumaspac.com/QSDTSAPI/TrackXML.aspx?trackingno='.$data;
+
+$client = new SoapClient(null, array('location' => $location_URL,'uri' => "",'trace'=> 1,));
+
+try{
+
+$order_return = $client->__doRequest($test,$location_URL,$action_URL,1);
+echo '<pre>';
+//print_r($order_return);
+//var_dump($order_return);
+}
+catch (SoapFault $exception){
+var_dump(get_class($exception));
+var_dump($exception);
+}
+
+
+//$simple = "<para><note>simple note</note></para>";
+/* $p = xml_parser_create();
+xml_parse_into_struct($p, $simple, $vals, $index);
+xml_parser_free($p);
+//echo "Index array\n";
+//print_r($index);
+//echo "\nVals array\n";
+print_r($vals); */
+
+$url      = 'http://atquantiumaspac.com/QSDTSAPI/TrackXML.aspx?trackingno='.$data;
+$ns_lf    = 'http://atquantiumaspac.com/QSDTSAPI/TrackXML.aspx?trackingno='.$data;
+
+$response = (array)simplexml_load_file($url);
+
+echo "<h1><center>Tracking Information</center></h1>";
+echo "<h1><center>Details</center></h1>";
+echo '<table border="1" align="center"><tr>';
+echo '<td>TrackingNo  </td><td colspan="3">'.$response['StageHeader']->TrackingNo;echo '</td></tr><tr>';
+echo '<td>OrderDate  </td><td colspan="3">'.$response['StageHeader']->OrderDate;echo '</td></tr><tr>';
+echo '<td>PickingDate  </td><td colspan="3">'.$response['StageHeader']->PickingDate;echo '</td></tr><tr>';
+echo '<td>Origin  </td><td colspan="3">'.$response['StageHeader']->Origin;echo '</td></tr><tr>';
+echo '<td>Destination  </td><td colspan="3">'.$response['StageHeader']->Destination;echo '</td></tr><tr>';
+echo '<td>DestinationCity  </td><td colspan="3">'.$response['StageHeader']->DestinationCity;echo '</td></tr><tr>';
+echo '<td>Reference  </td><td colspan="3">'.$response['StageHeader']->Reference;echo '</td></tr><tr>';
+echo '<td>Quantity  </td><td colspan="3">'.$response['StageHeader']->Quantity;echo '</td></tr><tr>';
+echo '<td>Weight  </td><td colspan="3">'.$response['StageHeader']->Weight;echo '</td></tr><tr>';
+echo '<td>ReceiverName  </td><td colspan="3">'.$response['StageHeader']->ReceiverName;echo '</td></tr><tr>';
+
+echo '<td>ReceiverContactNo  </td><td colspan="3">'.$response['StageHeader']->ReceiverContactNo;echo '</td></tr><tr>';
+
+echo '<td>ReceiverArea  </td><td colspan="3">'.$response['StageHeader']->ReceiverArea;echo '</td></tr><tr>';
+echo '<td>ReceiverCity  </td><td colspan="3">'.$response['StageHeader']->ReceiverCity;echo '</td></tr><tr>';
+echo '<td>ReceiverZip  </td><td colspan="3">'.$response['StageHeader']->ReceiverZip;echo '</td></tr><tr>';
+echo '<td>CurrentStatus  </td><td colspan="3">'.$response['StageHeader']->CurrentStatus;echo '</td></tr><tr>';
+echo '<td>LastUpdatedDate  </td><td colspan="3">'.$response['StageHeader']->LastUpdatedDate;echo '</td></tr><tr>';
+echo '<td>SpecialDeliveryInstruction  </td><td colspan="3">'.$response['StageHeader']->SpecialDeliveryInstruction;echo '</td></tr><tr>';
+echo '<td>SenderInformation  </td><td colspan="3">'.$response['StageHeader']->SenderInformation;echo '</td></tr><tr>';
+$test = (array)$response['StageHeader']->Details[0];
+$test1 = (array)$response['StageHeader']->Details[1];
+$test2 =  (array)$response['StageHeader']->Details[2];
+echo '<tr><td>StageDetails  </td>';
+echo '<td>StatusUpdatedDate  </td>';
+echo '<td>UpdatedLocation  </td>';
+echo '<td>Remarks </td></tr>';
+
+echo '<td class="design">'.$test['@attributes']['StageDetails'];echo '</td>';
+echo '<td>'.$test['@attributes']['StatusUpdatedDate'];echo '</td>';
+echo '<td>'.$test['@attributes']['UpdatedLocation'];echo '</td>';
+echo '<td>'.$test['@attributes']['Remarks'];echo '</br>';echo '</td></tr><tr>';
+
+echo '<td class="design">'.$test1['@attributes']['StageDetails'];echo '</td>';
+echo '<td> '.$test1['@attributes']['StatusUpdatedDate'];echo '</td>';
+echo '<td> '.$test1['@attributes']['UpdatedLocation'];echo '</td>';
+echo '<td>'.$test1['@attributes']['Remarks'];echo '</br>';echo '</td></tr><tr>';
+
+echo '<td class="design">'.$test2['@attributes']['StageDetails'];echo '</td>';
+echo '<td>'.$test2['@attributes']['StatusUpdatedDate'];echo '</td>';
+echo '<td> '.$test2['@attributes']['UpdatedLocation'];echo '</td>';
+echo '<td>'.$test2['@attributes']['Remarks'];echo '</td></tr>';
+
+echo '</table>';
+echo '<pre>';
+//print_r($response);
+
+// children() fetches all nodes of a given namespace
+//$result = $response->children($ns_lf)->result;
+
+// dump the entire <lf:result> to see what it looks like
+//print_r($result);
+
+// once the namespace was handled, you can go on normally (-> syntax)
+// foreach ($result->item as $item) {
+  // $title = $item->xpath("TrackingNo");
+  // $state = $item->xpath("OrderDate");
+
+  //xpath() always returns an array of matches, hence the [0]
+  // echo( $title[0].", ".$state[0] );
+// }
+?>

@@ -1,0 +1,133 @@
+
+<div class="footer">
+<div  class="footer_content_container close" style="height:30px">
+	<a class="footer_content_tab">More Info +</a>
+ 	<div class="footer_content">
+ 		<div id="siteFooter" class="show_desktop">
+ 			<div id="footer_bar">
+ 				<div class="container container_24">
+
+		              <div id="footerNav_container_bar">
+		                <ul class="clearfix">
+		                  <li><span class="footHdr">Shop Online</span></li>
+		                  <li class="footerNav_divide"><span class="footHdr">|</span></li>
+		                  <li><span class="footHdr">About FC</span></li>
+		                  <li class="footerNav_divide"><span class="footHdr">|</span></li>
+		                  <li><span class="footHdr">Company</span></li>
+		                  <li class="footerNav_divide"><span class="footHdr">|</span></li>
+		                  <li class="last" style="border:0;"><span class="footHdr">More</span></li>
+		                </ul>
+		              </div>
+
+		              <div id="socialNav_container">
+		                <nav id="socialNav">
+		                  <ul class="clearfix">
+		                    <li>
+		                    <span class="footHdr">Follow Us</span>
+		                      <ul class="clearfix">
+		                        <li><a href="http://www.facebook.com/frenchconnectionindia?ref=ts" target="_blank" class="facebook">Facebook</a></li>
+		                        <li><a href="https://twitter.com/fcuk_india" target="_blank" class="twitter">Twitter</a></li>
+		                        <li><a href="http://pinterest.com/fcukindia/" target="_blank" class="pinterest">Pinterest</a></li>
+		                        <li><a href="http://www.youtube.com/frenchconnectionin" target="_blank" class="youtube_footer">Youtube</a></li>		                     
+		                      </ul>
+		                    </li>
+		                  </ul>
+		                </nav>
+		              </div>
+		              <div class="clear"></div>
+
+	            </div>
+ 			</div>
+
+ 			<div class="container container_24">
+
+	            <div id="footerNav_container">
+	              <nav id="footerNav" role="navigation">
+	                <ul class="clearfix">
+	                  <li>
+	                    <ul>
+	                      <li><a href="<?php echo $this->getUrl('woman.html')?>" title="Woman">Woman</a></li>
+	                      <li><a href="<?php echo $this->getUrl('man.html')?>" title="Man">Man</a></li>
+	                 
+	                    </ul>
+	                  </li>
+	                  <li>
+	                    <ul>
+	                      <li><a href="<?php echo $this->getUrl('about_fcuk_india')?>" title="FC India">FC India</a></li>
+	                      <li><a href="<?php echo $this->getUrl().'fashion-is-our-business'?>" target="_blank" title="About French Connection">About FCUK</a></li>
+	                      <li><a href="<?php echo $this->getUrl('how-to-order')?>" title="Help">Help</a></li>
+	                      <li><a href="<?php echo $this->getUrl('contact-us')?>" title="Contact Us">Contact Us</a></li>
+	                      <li><a href="<?php echo $this->getUrl('shipping-delivery')?>" title="Delivery">Delivery</a></li>
+		 				 <li><a href="<?php echo $this->getUrl('cancellation-refund')?>" title="Cancellation Refund Policy">Cancellation Policy</a></li>
+	                    </ul>
+	                  </li>
+	                  <li>
+	                    <ul>
+	                      <li><a href="<?php echo $this->getBaseUrl()."press-home"?>" title="Press">Press</a></li>
+			  				<li><a href="<?php echo $this->getUrl('careers')?>" title="Careers">Careers</a></li>
+	                    </ul>
+	                  </li>
+	                  <li class="last" style="border:0;">
+	                    <ul>
+	                      <li><a href="<?php echo $this->getUrl('privacy-policy')?>" title="Privacy Policy">Privacy Policy</a></li>
+						  <li><a href="<?php echo $this->getUrl('termsconditions')?>" target="_blank" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
+						  <li><a href="<?php echo $this->getUrl('storelocator')?>" title="Store Locator">Store Locator</a></li>
+						  <li><a href="<?php echo $this->getBaseUrl().'sitemap'?>" title="sitemap">Site Map</a></li>	
+	                    </ul>
+	                  </li>
+	                </ul>
+	              </nav>
+	            </div>
+            <div class="clear"></div>
+
+          </div>
+		</div>
+	</div>
+	                     
+  </div>
+  <div class="logo_container">
+	  <div class="logo_footer">
+	    <a href="/">
+	      <img class="svg_logo" src="<?php echo $this->getSkinUrl('images/kishan/french-connection-logo.png') ?>">
+	    </a>
+	  </div>
+
+	  <a href="#" class="message_footer">
+	    Free delivery, Cash on Delivery
+	  </a>
+	</div>
+</div>
+	
+      
+<script>
+jQuery(window).load(function($){
+  	jQuery("a.footer_content_tab").click(function(){
+    if(jQuery(".footer_content_container").hasClass("open")){
+      hideFooter();
+    }else{
+      showFooter();
+    }
+  });
+
+  function showFooter(){
+    jQuery(".footer_content_container").toggleClass("close open").animate({"height":220},250).find(".footer_content_tab").html("Close -");
+    jQuery(".container_24").show();
+  }
+  function hideFooter(){
+    if(jQuery(".footer_content_container").hasClass("open")){
+      jQuery(".footer_content_container").toggleClass("open close").animate({"height":30},250).find(".footer_content_tab").html("More Info +");
+    }
+  }
+jQuery(document).mouseup(function (e){
+    var container = jQuery(".footer_content_container");
+    if (container.has(e.target).length === 0){
+      hideFooter();
+    }
+  });
+
+
+});
+</script>
+
+
+ 

@@ -1,0 +1,251 @@
+<?php
+		$resource = Mage::getSingleton('core/resource');
+		$read = $resource->getConnection('core_read');
+		$query = "SELECT * FROM kittedout";
+		$result=$read->query($query);
+		$landingpage = $result->fetchAll();
+		$mediaurl=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+		
+?>
+<style type="text/css">
+.cms-kittedout body
+{
+	width:100%;
+	height:100%;
+	padding:0px;
+	margin:0px;
+}
+
+.cms-kittedout .kittedoutArea
+{
+	width:975px;
+	display:block;
+	background-color:#f2f0f1;
+	overflow:hidden;
+	margin:30px 30px;
+	position:relative;
+}
+
+.cms-kittedout .kittedImgArea
+{
+	width:650px;
+	float:left;
+	position:relative;
+	height:460px;
+}
+
+.cms-kittedout .wholeWrapper
+{
+	position:absolute;
+	z-index:1000;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:100%;
+	cursor:pointer;
+	display:none;
+}
+
+.cms-kittedout .popOut1,.cms-kittedout .popOut2,.cms-kittedout .popOut3,.cms-kittedout .popOut4,.cms-kittedout .popOut5,.cms-kittedout .popOut6
+{
+	position:absolute;
+	z-index:1001;
+	display:none;
+	width:312px;	
+	margin-left:150px;
+	margin-top:30px;
+
+}
+
+.cms-kittedout #popOut
+{
+	position:absolute;
+	left:0;
+	right:0;
+}
+
+.cms-kittedout #popOut div img
+{
+	box-shadow:rgba(0,0,0,0.3) 1px 3px 8px;
+	-moz-box-shadow:rgba(0,0,0,0.3) 1px 3px 8px;
+	-ms-box-shadow:rgba(0,0,0,0.3) 1px 3px 8px;
+	-o-box-shadow:rgba(0,0,0,0.3) 1px 3px 8px;
+	-webkit-box-shadow:rgba(0,0,0,0.3) 1px 3px 8px;
+	border:0;
+	border:1px solid #ccc\9;
+	
+	
+}
+
+.cms-kittedout .close
+{
+	position:absolute;
+	top:0px;
+	right:0px;
+	border:0;
+	background-image:url(<?php echo $this->getSkinUrl('images/CloseBTN.png');?>);
+	background-repeat:no-repeat;
+	width:28px;
+	height:30px;
+	cursor:pointer;
+}
+
+.cms-kittedout .img1
+{
+	margin-top:-5px;
+	margin-left:15px;
+	z-index:5;
+	
+}
+
+.cms-kittedout .imgorg
+{	
+	width:200px;	
+	border:0px;	
+	float:left;
+	position:absolute;
+	box-shadow:rgba(0,0,0,0.3) 1px 3px 8px;
+	-moz-box-shadow:rgba(0,0,0,0.3) 1px 3px 8px;
+	-ms-box-shadow:rgba(0,0,0,0.3) 1px 3px 8px;
+	-o-box-shadow:rgba(0,0,0,0.3) 1px 3px 8px;
+	-webkit-box-shadow:rgba(0,0,0,0.3) 1px 3px 8px;
+	cursor:pointer;
+	/*-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');*/
+	
+}
+
+.cms-kittedout .img2
+{
+	left:200px;
+	z-index:6;
+	margin-top:13px;
+
+}
+
+.cms-kittedout .img3
+{
+	left:400px;
+	margin-top:8px;
+	z-index:5;
+
+}
+
+.cms-kittedout .img4
+{
+	top:215px;
+	z-index:4;
+	left:0px;
+	
+}
+
+.cms-kittedout .img5
+{
+	left:170px;
+	top:210px;
+	z-index:3;
+
+}
+
+.cms-kittedout .img6
+{
+	left:380px;
+	top:200px;
+	z-index:4
+}
+	
+.cms-kittedout .img11 {	width:200px;
+	box-shadow:rgba(0,0,0,0.3) 3px 3px 8px;
+	-moz-box-shadow:rgba(0,0,0,0.3) 3px 3px 8px;
+	-ms-box-shadow:rgba(0,0,0,0.3) 3px 3px 8px;
+	-o-box-shadow:rgba(0,0,0,0.3) 3px 3px 8px;
+	-webkit-box-shadow:rgba(0,0,0,0.3) 3px 3px 8px;
+	border:0px;	
+	float:left;
+	position:absolute;
+}
+
+.cms-kittedout .textContentSty
+{
+	width:300px;
+	float:left;
+	text-align:center;
+	color:#332f30;
+	margin-top:50px;
+	*margin-top:100px;
+}
+
+.cms-kittedout .textContentSty h1
+{
+	font-family:Gotham;
+	font-size:70px;
+	text-transform:uppercase;
+	font-weight:bolder;
+	line-height:60px;
+	letter-spacing:-2px;
+}
+
+.cms-kittedout .textContentSty p
+{
+	font-size:14px;
+	font-family:Gotham;	
+}
+.cms-kittedout .main{float: left;}
+</style>
+<script src="<?php echo $this->getSkinUrl('js/jQueryRotate.js');?>"></script>
+<script>
+	jQuery(document).ready(function(){
+		
+		<?php $i=1;
+		foreach($landingpage as $lookbookval) {?>
+			jQuery('.img<?php echo $i;?>, .popOut<?php echo $i;?>, #test').rotate(<?php echo $lookbookval['degreeofrotation'];?>);	
+		<?php $i=$i+1; }?>
+		jQuery('.imgorg').css("position","absolute");
+		jQuery(".close, .wholeWrapper").click(function(){
+		jQuery("#popOut div.hideDive, .wholeWrapper").fadeOut();
+		});
+		
+		<?php $i=1;
+		foreach($landingpage as $lookbookval) {?>
+			jQuery(".img<?php echo $i;?>").click(function(){
+			jQuery("#popOut div.hideDive, .wholeWrapper").fadeOut();
+			jQuery(".popOut<?php echo $i;?>, .wholeWrapper").fadeIn();
+		});
+		<?php $i=$i+1; }?>
+				
+	});
+</script>
+</head>
+
+<body>
+	<div class="kittedoutArea">
+    	<div class="kittedImgArea">
+		<?php $i=1;?>
+		<?php foreach($landingpage as $lookbookval) {?>
+				<img src="<?php echo $mediaurl.''.$lookbookval['smallimage']; ?>" title="<?php echo $lookbookval['bannername'];?>" alt="<?php echo $lookbookval['bannername'];?>" class="imgorg img<?php echo $i;?>" />
+		<?php $i=$i+1; }?>
+                	
+        </div>
+        <div class="wholeWrapper"></div>
+        <div id="popOut">
+			<?php $i=1;?>
+			<?php foreach($landingpage as $lookbookval) {?>					
+				<div class="popOut<?php echo $i;?> hideDive">
+					<div class="close"></div>
+					<a href="<?php echo $this->getBaseUrl().$lookbookval['url']?>"><img src="<?php echo $mediaurl.''.$lookbookval['thumbnail']; ?>" alt=""/></a>
+				</div>
+			<?php $i=$i+1; }?>            
+        </div>
+        
+      <div class="textContentSty">
+        <h1>Kitted<br/>Out</h1>
+        <p>Accessories made to take weekend <br>
+          style up notch, whatever your plans.</p>
+        <p>Click on each image to <br>
+        see a bigger version.</p>
+      </div>
+        
+</div>
+
+</body>
+

@@ -1,0 +1,107 @@
+<div id = "content">
+<p class="banner_img"><img src="<?php echo $this->getBaseUrl();?>media/storelocator.jpg" /></p>
+	<div class = "left_filters">
+		<?php $cities = $this->getAllCities(); ?>
+		<div class = "city">
+			<ul  id="city">
+					<?php 	$configValue = Mage::getStoreConfig('store/storeinfo/storecities');		?>
+					<?php foreach($cities as $city) { ?>
+							<?php  if(strtolower($city)=='Mumbai & Thane'){?>
+							<li class="city_name active"><?php echo ucwords(strtolower($city)); ?></li>
+							<?php }else{?>
+							<li class="city_name"><?php echo ucwords(strtolower($city)); ?></li>
+							<?php } ?>
+					<?php } ?>
+			</ul>
+		</div>
+	</div>
+	<?php 
+		 $resource = Mage::getSingleton('core/resource');
+		 $readConnection = $resource->getConnection('core_read');
+		 $query = "SELECT * FROM storelocator where city='Mumbai & Thane' ORDER BY exclusive desc";
+		 $results = $readConnection->fetchAll($query);
+	//	 echo $query;
+	?>
+
+	<div class="address_wrapper">
+		<div class="storeheading">Mumbai</div>
+		<div class="storetitle">
+			<div class="storename">Store</div>
+			<div class="storeAddress">Address</div>
+			<div class="storeContact">Phone</div>
+		</div>
+		<div class="addressbox">
+			<?php foreach ($results as $storeval) { ?>
+				
+					<div class="add_wrapper">
+						<div class="storename"><?php echo $storeval['store'];?></div>
+						<div class="storeAddress"><?php echo $storeval['address'];?></div>
+						<div class="storeContact"><?php echo $storeval['tel_number'];?></div>
+					</div>
+
+			<?php } ?>
+		
+
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+jQuery("document").ready(function($)
+{	//$('li').addClass('active');
+	$("#city .city_name").click(function()
+		{	
+			$('li').removeClass('active');
+
+			$(this).addClass('active');
+
+			var city=$(this).text();
+			$('.storeheading').html(city);
+			//alert(city);
+			var city_url = "<?php echo $this->getBaseUrl().'storelocator/index/city'?>";
+			var pathname = window.location;
+			if(pathname == "http://frenchconnection.in/storelocator")
+			{
+				city_url = "http://frenchconnection.in/storelocator/index/city"
+			}
+			// alert(city_url);
+			$.post(
+				city_url,
+				{city:city},
+				function(data){
+					$(".addressbox").html(data);
+				}
+			); 
+			/* $.ajax({
+				type: 'POST',
+				url: city_url,
+				data: {'city':city},
+				success: function(result) {
+					alert('success: ' + result);
+				},
+				error: function(result) {
+					alert('error: ' + result);
+				}
+			});
+			return false; */
+		});
+		//$('.add_wrapper:odd').live("css",function(){"background-color", "#F4F4F4"});
+
+});
+</script>
+<style type="text/css">
+ #content .left_filters {float: left; font-size: 11px; font-weight: bold; padding-left: 10px; text-align: left; width: 155px; padding-top:10px !important;}
+.city .city_name{margin: 0 0 1em;text-decoration: none; color: #4A4A4A; font-weight: normal;} 
+.city .city_name:hover{text-decoration: none; color: #4A4A4A; font-weight: bold; }
+.storeheading{color: #4A4A4A;}
+.address_wrapper{float:right;}
+.storename {float: left; width: 200px; padding-left: 15px; padding-right: 40px; color: #4A4A4A; } 
+.storeAddress {float: left; width: 265px; padding-right: 100px; color: #4A4A4A; } 
+.storeContact{float:left;width: 125px;color: #4A4A4A;}
+.banner_img{margin-bottom: 20px;}
+.addressbox{overflow: hidden;}
+.add_wrapper{overflow: hidden; padding-bottom: 10px; padding-top: 10px; }
+.add_wrapper:nth-child(odd){background-color:#F4F4F4}
+.storelocator-index-index .left_filters #city .city_name{cursor:pointer;}
+.storelocator-index-index .active{font-weight: bold;}
+</style>

@@ -1,0 +1,26 @@
+<nav class="grid_6" id="subNav">
+    <ul>
+  <li class="subnav_title">Legal</li>
+  <li class="subnav_title_divide"></li>
+  <li class="open">
+      <ul style="display:block;">
+     <li><a href="<?php echo $this->getUrl('termsconditions')?>" target="_blank" title="Terms &amp; Conditions">Terms &amp; Conditions</a></li>
+	 <li><a href="<?php echo $this->getUrl('privacy-policy')?>" title="Privacy Policy">Privacy Policy</a></li>
+	 <li><a href="<?php echo $this->getUrl('shipping-delivery-policy')?>" title="Shipping Delivery Policy">Shipping &amp; Delivery Policy</a></li>
+	 <li><a href="<?php echo $this->getUrl('cancellation-refund-policy')?>" title="Cancellation Refund Policy">Cancellation &amp; Refund Policy</a></li>
+      </ul>
+  </li>
+</ul>
+
+
+    <!--#include virtual="left_menu_production.htm" -->
+    </nav>
+	<style>
+	.subNav{font-size:12px !important;}
+	.subnav_title{color: #2F3130;font-size: 1.2em;text-transform: uppercase;font-weight:bold}
+	.subnav_title_divide{border-top: 1px solid #DDDDDD;margin: 5px 0 10px;width: 120px;}
+	.open ul li{margin-bottom:5px;}
+	.open ul li a{text-decoration:none;color:#666666;}
+	.open ul li a:hover{text-decoration:none;color:#666666;}
+	.grid_6{border-right: 1px solid #DDDDDD;margin-right: 29px;min-height: 300px;width: 211px;}
+	</style>

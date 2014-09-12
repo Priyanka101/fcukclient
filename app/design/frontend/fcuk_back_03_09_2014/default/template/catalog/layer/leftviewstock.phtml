@@ -1,0 +1,99 @@
+<?php $currentUrl = Mage::helper("core/url")->getCurrentUrl();
+$url = strtok($url, '?');
+//echo $currentUrl; 
+
+if (strpos($currentUrl,'stock=0') !== false) {
+    $instock_url = str_replace("stock=0", "stock=1", $currentUrl);
+}else if(strpos($currentUrl,'stock=2') !== false){
+	$instock_url = str_replace("stock=2", "stock=1", $currentUrl);
+}elseif(strpos($currentUrl,'stock=1') !== false){
+	$instock_url = $currentUrl;
+}else{
+	if(strpos($currentUrl,'?') !== false){
+		$instock_url = $currentUrl ."&stock=1";
+	}else{
+		$instock_url = $currentUrl ."?stock=1";
+	}
+}
+
+if (strpos($currentUrl,'stock=1') !== false) {
+    $outstock_url = str_replace("stock=1", "stock=0", $currentUrl);
+}else if(strpos($currentUrl,'stock=2') !== false){
+	$outstock_url = str_replace("stock=2", "stock=0", $currentUrl);
+}elseif(strpos($currentUrl,'stock=0') !== false){
+	$outstock_url = $currentUrl;
+}else{
+	if(strpos($currentUrl,'?') !== false){
+		$outstock_url = $currentUrl ."&stock=0";
+	}else{
+		$outstock_url = $currentUrl ."?stock=0";
+	}
+}
+
+
+if (strpos($currentUrl,'stock=1') !== false) {
+    $comming_url = str_replace("stock=1", "stock=2", $currentUrl);
+}else if(strpos($currentUrl,'stock=0') !== false){
+	$comming_url = str_replace("stock=0", "stock=2", $currentUrl);
+}elseif(strpos($currentUrl,'stock=2') !== false){
+	$comming_url = $currentUrl;
+}else{
+	if(strpos($currentUrl,'?') !== false){
+		$comming_url = $currentUrl ."&stock=2";
+	}else{
+		$comming_url = $currentUrl ."?stock=2";
+	}
+}
+
+
+
+
+//echo $bodytag = str_replace("stock=1", "stock=0", $currentUrl);
+?>
+<?php //echo $currentUrl;
+$pos=strpos($currentUrl,'?');
+if($pos!==false)
+{
+
+$currentUrl=$currentUrl.'&';
+//echo $currentUrl;
+
+}
+else
+{
+$currentUrl=$currentUrl.'?';
+//echo $currentUrl;
+}
+$current_url = explode('?', $currentUrl);
+//echo $current_url[0];
+//echo '<br/>';
+//echo $current_url[1];
+?>
+<?php 
+
+//$product_info=Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($this->_productCollection);
+
+
+?>
+
+<dt class="stock-dt last odd">By Stock</dt>
+<dd class="stock-dd last odd">
+<ol>
+<li>
+<a href="<?php echo $instock_url ?>" ><?php echo $this->__('Instock') ?></a>
+</li>
+<li>
+<a href="<?php echo $outstock_url ?>" ><?php echo $this->__('Out of Stock') ?></a>
+</li>
+<li>
+<a href="<?php echo $comming_url ?>" ><?php echo $this->__('Coming Soon') ?></a>
+</li>
+<li>
+</ol>
+</dd>
+</dl>
+
+<script type="text/javascript">
+
+
+</script>

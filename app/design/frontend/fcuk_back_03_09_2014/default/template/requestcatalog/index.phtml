@@ -1,0 +1,112 @@
+<script>
+/* function changeCat(thisbox) {
+var optiontxt = thisbox.options[thisbox.selectedIndex].value;
+if (optiontxt == "0") return;
+else location.href = optiontxt
+} */
+</script>
+
+<div class="billing_address_content">
+	<form action="<?php echo $this->getBaseUrl().'requestcatalog/index/automated'?>" method="post">
+       <h1 class="acountTitle">REQUEST A CATALOGUE</h1>
+       <p class="accountpara">Check out our latest lookbook by having it send over to you! Don’t miss a single book.</p>
+       <br/>
+       <br/>
+       <div class="addressForm">
+           <div class="addressDiv">
+               <div class="addressName">Country <sup>*</sup></div>
+               <div class="addressinputArea">
+                <?php //echo $this->getCountryHtmlSelect() ?>
+                <?php $_countries = Mage::getResourceModel('directory/country_collection')
+                ->loadData()
+                ->toOptionArray(false); ?>
+                <?php if (count($_countries) > 0): ?>
+                <select name="country" id="country">
+                    <option value="">-- Please Select --</option>
+                    <?php foreach($_countries as $_country): ?>
+                    <?php if($_country['label']=='India'){ ?>
+                    <option value="<?php echo $_country['value'] ?>" selected="selected">
+                      <?php echo $_country['label'] ?>
+                  </option>
+                  <?php } else { ?>
+                  <option value="<?php echo $_country['value'] ?>">
+                      <?php echo $_country['label'] ?>
+                  </option>
+                  <?php }?>
+              <?php endforeach; ?>
+          </select>
+      <?php endif;  ?>
+
+
+  </div>
+</div>
+
+<div class="addressDiv">
+   <div class="addressName">Building Name/Number</div>
+   <div class="addressinputArea"><input type="text" name="" value="" class="inputSty"/></div>
+</div>        
+<div class="addressDiv">
+   <div class="addressName">Postcode<sup>*</sup></div>
+   <div class="addressinputArea"><input type="text" name="postcode" id="postcode" class="inputSty"/></div>
+</div>
+<div class="addressDiv" style="*margin-bottom:20px;">
+   <input type="submit" class="findAddressbtn" id="finddelivery" value="&nbsp;"/>
+</div>        
+</div>
+<div class="addressHint"><sup>*</sup> Postcode is required to find your address. <br/>Alternatively, you can enter your full address <a href="<?php echo $this->getBaseUrl().'requestcatalog/index/address'?>">here</a>.</div>
+</form>
+</div>
+<div id="catalogue_address_form">
+</div>
+<style>
+#catalogue_address_form {
+    background-image: url(<?php echo $this->getSkinUrl('/images/bg_catalogue.jpg') ?>);
+    background-position: right top;
+    background-repeat: no-repeat;
+    height: auto !important;
+    margin-top: 2px;
+    min-height: 595px;
+
+}
+.billing_address_content {
+    float: left;
+    width: 440px;
+    margin: 0px 5px 10px 10px;
+    background: #F0EFEF;
+    padding: 20px;
+    color: #666666;
+    font-family: sans-serif;
+}
+</style>
+<script type="text/javascript">
+
+jQuery(document).ready(function($) {
+  jQuery("#country").change(function(){
+      var YourParam = jQuery("select option:selected").val();
+      if (jQuery(this).val()!='') {
+          window.location.href='<?php echo $this->getBaseUrl().'requestcatalog/index/address'?>'+"?country_id="+YourParam;
+      }
+  });
+
+  jQuery("#finddelivery").click(function(){
+    var postcode = jQuery('input[id=postcode]').val();
+    //alert(postcode);
+    var YourParam = jQuery("select option:selected").val();
+    if(postcode!=''){
+
+
+      window.location.href='<?php echo $this->getBaseUrl().'requestcatalog/index/automated'?>'+"?country_id="+YourParam+"&postcode"+postcod;
+  }
+  else
+  {
+      window.location.href='<?php echo $this->getBaseUrl().'requestcatalog/index/address'?>'+"?country_id="+YourParam;
+      return false;
+  }
+
+});
+
+
+});
+</script>
+
+

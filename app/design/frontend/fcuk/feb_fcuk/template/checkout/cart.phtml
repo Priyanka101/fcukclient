@@ -1,0 +1,387 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Shopping cart template
+ *
+ * @see Mage_Checkout_Block_Cart
+ */
+//print_r(get_class($this));exit;?>
+<div class="cart" style="">
+    <div class="page-title title-buttons">
+        <h1><?php echo $this->__('Your Basket') ?></h1>
+        <!--<h1><?php //echo $this->__('Your Basket') ?></h1>-->
+        <!--<div id="news-flash">
+		<p><img src="<?php //echo $this->getSkinUrl('images/news-flash.jpg');?>" alt="news update" style="float: left; margin-right:5px;">
+        Please note that any items added to your basket are not reserved until purchased. If you leave your basket for too long this can result in items selling out before completing the transaction. We are aware that this is not ideal and are working hard to resolve this issue.<br>
+		Thank you for your patience.</p> 
+	</div>-->
+        <?php //if(!$this->hasError()): ?>
+        <!--<ul class="checkout-types">
+        <?php //foreach ($this->getMethods('top_methods') as $method): ?>
+            <?php //if ($methodHtml = $this->getMethodHtml($method)): ?>
+            <li><?php //echo $methodHtml; ?></li>
+            <?php //endif; ?>
+        <?php //endforeach; ?>
+        </ul>-->
+        <?php //endif; ?>
+    </div>
+    <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+    <ul class="messages" style="display:none"><li class="success-msg"></li></ul>
+    <?php echo $this->getChildHtml('form_before') ?>
+    <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+        <fieldset>
+            <table id="shopping-cart-table" class="data-table cart-table">
+                <col width="1" />
+                <col />
+                <col width="1" />
+            <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
+                <col width="1" />
+            <?php endif ?>
+            <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                <col width="1" />
+            <?php endif; ?>
+            <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                <col width="1" />
+            <?php endif; ?>
+                <col width="1" />
+            <?php if ($this->helper('tax')->displayCartPriceExclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                <col width="1" />
+            <?php endif; ?>
+            <?php if ($this->helper('tax')->displayCartPriceInclTax() || $this->helper('tax')->displayCartBothPrices()): ?>
+                <col width="1" />
+            <?php endif; ?>
+                <col width="1" />
+
+            <?php $mergedCells = ($this->helper('tax')->displayCartBothPrices() ? 2 : 1); ?>
+                <thead>
+                    <tr>
+                        <th rowspan="<?php echo $mergedCells; ?>">&nbsp;</th>
+                        <th rowspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('product') ?></span></th>
+                        <th rowspan="<?php echo $mergedCells; ?>"></th>
+                        <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
+                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><span class="nobr"><?php echo $this->__('Move to Wishlist') ?></span></th>
+                        <?php endif ?>
+                        <th class="a-center" colspan="<?php echo $mergedCells; ?>"><span class="nobr"><?php echo $this->__('price') ?></span></th>
+                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('quantity') ?></th>
+                        <th class="a-center" colspan="<?php echo $mergedCells; ?>"><?php echo $this->__('subtotal') ?></th>
+                        <th rowspan="<?php echo $mergedCells; ?>" class="a-center">&nbsp;</th>
+                    </tr>
+                    <?php if ($this->helper('tax')->displayCartBothPrices()): ?>
+                    <tr>
+                        <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                        <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                        <th class="a-right"><?php echo $this->helper('tax')->getIncExcTaxLabel(false) ?></th>
+                        <th><?php echo $this->helper('tax')->getIncExcTaxLabel(true) ?></th>
+                    </tr>
+                    <?php endif; ?>
+                </thead>
+               <!-- <tfoot>
+                    <tr>
+                        <td colspan="50" class="a-right">
+                            <?php //if($this->getContinueShoppingUrl()): ?>
+                                <button type="button" title="<?php //echo $this->__('Continue Shopping') ?>" class="button btn-continue" onclick="setLocation('<?php //echo $this->getContinueShoppingUrl() ?>')"></button>
+                            <?php //endif; ?>
+                            <button type="submit" title="<?php //echo $this->__('Update Shopping Bag') ?>" class="button btn-update"></button>
+                        </td>
+                    </tr>
+                </tfoot>-->
+                <tbody>
+                <?php foreach($this->getItems() as $_item): ?>
+                    <?php echo $this->getItemHtml($_item) ?>					
+                <?php endforeach ?>
+                </tbody>
+            </table>
+            <script type="text/javascript">decorateTable('shopping-cart-table')</script>
+        </fieldset>
+    </form>
+    <div class="cart-collaterals">
+       	
+        <div class="totals">
+	
+            <?php echo $this->getChildHtml('totals'); ?>
+            <?php if(!$this->hasError()): ?>
+            <div class="contshopArea">
+             <button type="button" title="<?php echo $this->__('Continue Shopping') ?>" class="button btn-continue" onclick="setLocation('<?php echo $this->getContinueShoppingUrl() ?>')">Continue Shopping</button>
+            <ul class="checkout-types">
+            <?php foreach ($this->getMethods('methods') as $method): ?>
+                <?php if ($methodHtml = $this->getMethodHtml($method)): ?>
+                <li><?php echo $methodHtml; ?></li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+             <img src="<?php echo $this->getSkinUrl() ?>images/checkout-methods.jpg" alt="Go to Checkout" title="Go to Checkout" />
+            </ul>
+            </div>
+            <?php endif; ?>
+        </div>
+    </div>
+    <div>
+    	 <div class="col2-set">        
+            <div class="col-1">
+				<div class='apply_coupon_code'>
+				<?php echo $this->getChildHtml('coupon') ?>
+				<?php echo $this->getChildHtml('giftcardcoupon') ?>
+				
+				<?php //if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
+			</div>
+                <?php //echo $this->getChildHtml('crosssell') ?>
+            </div>
+            <div class="col-2">
+                <?php //echo $this->getChildHtml('coupon') ?>
+                <?php //echo $this->getChildHtml('giftcardcoupon') ?>
+                
+                <?php //if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+	<!--div class='apply_coupon_code'>
+		<?php //echo $this->getChildHtml('coupon') ?>
+		<?php //echo $this->getChildHtml('giftcardcoupon') ?>
+		
+		<?php //if (!$this->getIsVirtual()): echo $this->getChildHtml('shipping'); endif; ?>
+	</div-->
+</div>
+<!--script type="text/javascript">
+//<![CDATA[
+
+jQuery('.coupon_code_apply').click(function(){
+ var coupon=jQuery('.pramotionalcode').val();    
+ if(coupon=='FCUK50' || coupon=='fcuk50'){
+     alert('NO EXCHANGE, NO CASH ON DELIVERY & NO REFUND');
+ }
+});
+
+jQuery(document).ready(function() {
+    var coupon=jQuery('.pramotionalcode').val().toLowerCase();  
+    if(coupon=='FCUK50' || coupon=='fcuk50'){
+        jQuery('.success-msg ul').html('<li><span>Coupon code "FCUK50" was applied. <span> NO EXCHANGE, NO CASH ON DELIVERY &amp; NO REFUND</span></span></li>');
+        
+        return false;
+    }
+
+    jQuery('#discount-coupon-form').on('submit', function(){
+        var coupon=jQuery('.pramotionalcode').val().toLowerCase();
+        if(coupon=='FCUK50'|| coupon=='fcuk50'){
+            alert('NO EXCHANGE, NO CASH ON DELIVERY & NO REFUND');
+        }
+    });
+});
+//]]>
+</script-->
+<script>
+    
+    
+    
+
+    jQuery(document).ready(function($) {
+          
+        if (!($.cookie("test"))) {
+        var timeout = setTimeout(function() {
+                $('#service_area_popup').show();
+                $("#service_area_trigger").fancybox({
+                    'autoDimensions': false,
+                    'height': 180,
+                    'width': 270
+                }).trigger('click');
+            }, 3000);
+        $.cookie("test", 1 ,{ expires : 1 });
+     }
+      $('#zipcode').keypress(function(e) {
+        if(e.which == 13) {
+           // alert();
+            checkpin_list();
+        }
+    });
+});
+    
+    
+function checkpin_list(){
+
+         var pincode = jQuery("#fancybox-content #zipcode").val();
+          if(pincode=='')
+         {
+    //   alert('please enter pincode');
+         //jQuery('.pincodeerror_message').html('please enter pin code');
+        jQuery('.no_shipping_available').hide();
+        jQuery('.pincodeerror').css('display','block');
+        jQuery('.pincodeerror').html('Enter a 6 digit PIN code.');
+        jQuery('.pincodeerror').delay(3000).fadeOut();
+                 
+         }
+        else
+        {
+            jQuery('.pincodeerror').css('display','none');
+        // var pincode = document.getElementById("zipcode").value;
+            var pattern = /^\d{6}$/;
+                        if (!pattern.test(pincode)) 
+                        {
+                        jQuery('.shipping_methods').hide();
+                            jQuery('.no_shipping_available').hide();
+                            jQuery('.pincodeerror').css('display','block');
+                            jQuery('.pincodeerror').html('Oops! Please enter a 6 digit PIN code');
+                            jQuery('.pincodeerror').delay(3000).fadeOut();
+                        //  alert('not a number');
+                                            
+                        }
+                        else
+                        {   
+        //alert(pincode);jQuery('.shipping_methods').hide();
+                            
+    //  alert(pincode);//return false;
+    jQuery.post("<?php echo $this->getUrl('check/index/check'); ?>","pincode="+pincode,function(msg){
+
+                    switch(msg)
+                            {
+                                    case 'cod': //alert('i m in cod switch'); //for cod no east zone
+                                                jQuery('#fancybox-content #all').show();
+                                                jQuery('#fancybox-content #nall').hide();
+                                                jQuery('#fancybox-content #oall').hide();
+                                                jQuery('#fancybox-content #none').hide();
+                                    break;
+                                    case 'ncod': //alert('i m in ncod switch');//
+                                                jQuery('#nall').show();
+                                                jQuery('#all').hide();
+                                                jQuery('#oall').hide();
+                                                jQuery('#none').hide();
+                                    break;
+                                    case 'ocod': //alert('i m in only cod switch');
+                                                 jQuery('#oall').show();
+                                                jQuery('#all').hide();
+                                                jQuery('#nall').hide();
+                                                jQuery('#none').hide();
+                                    break;
+                                    case 'none': //alert('i m in none switch');
+                                
+                                                 jQuery("#service_area_popup #none").show();
+                                                 jQuery("#service_area_popup #oall").hide();
+                                                jQuery("#service_area_popup #all").hide();
+                                                jQuery('#service_area_popup #nall').hide();
+                                    break;
+                                    //default: caption ="default";
+                            }$.fancybox.close();
+        });
+            
+    
+        
+    
+    }}
+}
+    
+/*
+ jQuery('.request-product').fancybox(function($) 
+ {
+    jQuery.fancybox();
+ });
+*/
+</script>
+<div id="blanket" style="display:none;height: 1100px;" >
+    <div id="popUpDiv" style="display:none;" >
+        <div id="popup-close" onclick="popup('popUpDiv')" style="display:inline;" ></div>
+        <div id="slider-next"><a class="next_a" onclick="getNext()"><img src="<?php echo $this->getSkinUrl('images/next-arrow.png')?>"></a></div>
+        <div id="slider-prev"><a class="prev_a" onclick="getPrev()" ><img src="<?php echo $this->getSkinUrl('images/prev-arrow.png')?>"></a></div>
+        <div class="popup_final_slider">
+        </div>
+    </div>
+    <div id="guide" style="display:none;" >
+        <div id="popup-close" onclick="popup('guide')" style="display:inline;" ></div>
+        <?php if($parent!=5):?>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('size-guide-center')->toHtml();?>
+        <?php endif?>
+        <?php if($parent == 5):?>
+            <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('size-guide-underwear')->toHtml();?>
+        <?php endif?>
+    </div>
+</div> 
+
+<div class="service_area_hidden">
+    <a id="service_area_trigger" href="#service_area_popup"></a>
+    <div id="service_area_popup">
+        <div class='shipping_methods_container'>
+            <div class="field">
+            <label class="required" for="zipcode">Know if your pin-code is serviceable or not</label>
+            <div class="input-box"><input id="zipcode" class="service_code" title="Zip/Postal Code" type="text" name="zipcode" maxlength=6 /> <button class="button" title="Check Pin" onclick="checkpin_list()" type="button"><span><span> Validate </span></span></button></div>
+            </div>
+
+            <div id="all" class='shipping_methods' style="display: none;">
+                <p>Available Payment Methods:</p>
+                <ul>
+                    <li class="available_method">Cash On Delivery</li>
+                    <li class="available_method">By Credit Card</li>
+                    <li class="available_method">By Debit Card</li>
+                    <li class="available_method">Net Banking</li>
+                </ul>
+            </div>
+
+            <div id="nall" class='shipping_methods' style="display: none;">
+                <p>Available Payment Methods:</p>
+                <ul>
+                    <li class="available_method">By Credit Card</li>
+                    <li class="available_method">By Debit Card</li>
+                    <li class="available_method">Net Banking</li>
+                    <li class="not_available_method">Cash On Delivery</li>
+                </ul>
+            </div>
+
+            <div id="oall" class='shipping_methods' style="display: none;">
+                <p>Available Payment Methods:</p>
+                <ul>
+                    <li class="available_method">Cash On Delivery</li>
+                    <li class="not_available_method">By Credit Card</li>
+                    <li class="not_available_method">By Debit Card</li>
+                    <li class="not_available_method">Net Banking</li>
+                </ul>
+            </div>
+
+            <div id="none" class='shipping_methods no_shipping_available' style="display: none;">Sorry, No Payment Method is Available in your Region.</div>
+            <span class="pincodeerror shipping_methods" style="color:red;display:none;font-weight:bold;"></span>
+        </div>
+        <?php //echo $this->getChildHtml('area_serviceable'); ?>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+        $('.coupon_code_apply').click(function(){
+            coupon_code = $('#coupon_code').val().toLowerCase();
+            //alert(coupon_code);
+            if(coupon_code == 'fcuk30'){
+                alert('Flat 30% off on fresh Merchandise only, No COD / No Exchange / No Refund');
+            }
+
+        });
+
+        $('#coupon_code').keypress(function(){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == 13){
+            coupon_code = $('#coupon_code').val().toLowerCase();
+            //alert(coupon_code);
+            if(coupon_code == 'fcuk30'){
+                alert('Flat 30% off on fresh Merchandise only, No COD / No Exchange / No Refund');
+            }
+        }});
+    });
+</script>

@@ -1,0 +1,169 @@
+<div id = "content">
+<p class="banner_img"><img src="<?php echo $this->getBaseUrl().'media/storelocator.jpg';?>" /></p>
+	<div class = "left_filters">
+		<?php $cities = $this->getAllCities(); ?>
+		<div class = "city">
+			<ul  id="city">
+					
+					<?php foreach($cities as $city) { ?>
+							<li class="city_name"><?php echo ucwords($city); ?></li>
+					<?php } ?>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="address_wrapper">
+		<div class="storeheading">Mumbai</div>
+		<div class="storetitle">
+			<div class="storename">Store</div>
+			<div class="storeAddress">Address</div>
+			<div class="storeContact">Phone</div>
+		</div>
+		<div class="addressbox">
+			<div class="add_wrapper"><div class="storename">Linking Road  (Exclusive Brand Store)</div><div class="storeAddress">317, Rinku Appartment
+Ground Floor
+Khar Linking Road
+Mumbai - 400052</div><div class="storeContact">+91 80 3016 0104</div></div><div class="add_wrapper"><div class="storename">Phoenix Marketcity Mall  (Exclusive Brand Store)</div><div class="storeAddress">French Connection
+UG-23A, Upper Ground Floor
+L.B. S. Marg
+Kurla (West)
+Mumbai 400 070.</div><div class="storeContact">+91 22 6180 121691</div></div><div class="add_wrapper"><div class="storename">Linking Road 
+(Exclusive Brand Store)</div><div class="storeAddress">317, Rinku Appartment
+Ground Floor
+Khar Linking Road
+Mumbai - 400052</div><div class="storeContact">+91 22 2648 2143</div></div><div class="add_wrapper"><div class="storename">Phoenix Marketcity Mall 
+(Exclusive Brand Store)</div><div class="storeAddress">French Connection
+UG-23A, Upper Ground Floor
+L.B. S. Marg
+Kurla (West)
+Mumbai 400 070.</div><div class="storeContact">+91 22 6180 1216</div></div><div class="add_wrapper"><div class="storename">Infiniti Mall 
+(Exclusive Brand Store)</div><div class="storeAddress">French Connection
+GF017, Upper Ground Floor
+Podium Level, Infinity Mall
+Link Road, Malad West
+Mumbai-400 064</div><div class="storeContact">+91 22 2889 3300</div></div><div class="add_wrapper"><div class="storename">Palladium Mall 
+(Exclusive Brand Store)</div><div class="storeAddress">Palladium Mall 
+Phoenix Mills Compound
+462, Senapati Bapat Marg
+Lower Parel
+Mumbai - 400013</div><div class="storeContact">+91 22 3072 8800</div></div><div class="add_wrapper"><div class="storename">R-City Mall 
+(Exclusive Brand Store)</div><div class="storeAddress">Phase 2, Ground Floor 
+Ghatkopar (W)
+Mumbai - 400086</div><div class="storeContact">+91 22 6643 0919</div></div><div class="add_wrapper"><div class="storename">Vama</div><div class="storeAddress">Vama 
+Kanchanjunga
+Peddar Road
+Cumbala Hill
+Mumbai - 400026</div><div class="storeContact">+91 22 6512 0518</div></div><div class="add_wrapper"><div class="storename">Shoppers Stop</div><div class="storeAddress">Shoppers Stop
+Dynamix Mall
+Sant Dhyaneshwar Marg
+JVPD Scheme
+Next to Chandan Cinema Hall
+Juhu
+Mumbai - 400049</div><div class="storeContact">+91 93239 14920</div></div><div class="add_wrapper"><div class="storename">Shoppers Stop</div><div class="storeAddress">Shoppers Stop
+In Orbit Mall
+Plot No 1406-A
+28/A Link Road
+Malad (W)
+Mumbai - 400064</div><div class="storeContact">+91 93239 14932</div></div><div class="add_wrapper"><div class="storename">Shoppers Stop</div><div class="storeAddress">Shoppers Stop
+Linking Road
+Bandra (W)
+Mumbai - 400049</div><div class="storeContact">+91 93239 14929</div></div><div class="add_wrapper"><div class="storename">Shoppers Stop</div><div class="storeAddress">Shoppers Stop
+R-City Mall
+2nd Floor
+Ghatkopar- 400086</div><div class="storeContact">+91 97730 87195</div></div><div class="add_wrapper"><div class="storename">Shoppers Stop</div><div class="storeAddress">Shoppers Stop
+Inorbit Mall
+Ground Floor
+Unit No:G - A2 &amp; F - A2
+Plot No 39/1
+Vashi - 400705</div><div class="storeContact"></div></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+jQuery("document").ready(function($)
+{
+	$("#city .city_name").click(function()
+		{
+			var city=$(this).text();
+			$('.storeheading').html(city);
+			//alert(city);
+			var city_url = "<?php echo $this->getBaseUrl().'storelocator/index/city'?>";
+			var pathname = window.location;
+			if(pathname == "http://frenchconnection.in/storelocator")
+			{
+				city_url = "http://frenchconnection.in/storelocator/index/city"
+			}
+			//alert(pathname);
+			// alert(city_url);
+			$.post(
+				city_url,
+				{city:city},
+				function(data){
+					$(".addressbox").html(data);
+				}
+			); 
+			/* $.ajax({
+				type: 'POST',
+				url: city_url,
+				data: {'city':city},
+				success: function(result) {
+					alert('success: ' + result);
+				},
+				error: function(result) {
+					alert('error: ' + result);
+				}
+			});
+			return false; */
+		});
+		//$('.add_wrapper:odd').live("css",function(){"background-color", "#F4F4F4"});
+
+});
+</script>
+<style type="text/css">
+#content .left_filters
+{float: left;
+font-size: 11px;
+font-weight: bold;
+padding-left: 10px;
+text-align: left;
+width: 155px;
+padding-top:10px !important;}
+
+.city .city_name{margin: 0 0 1em;text-decoration: none;
+color: #4A4A4A;
+font-weight: normal;}
+.city .city_name:hover{
+text-decoration: none;
+color: #4A4A4A;
+font-weight: bold;
+}
+.storeheading{color: #4A4A4A;}
+.address_wrapper{float:right;}
+.storename
+{
+float: left;
+width: 200px;
+padding-left: 15px;
+padding-right: 40px;
+color: #4A4A4A;
+}
+.storeAddress
+{
+float: left;
+width: 265px;
+padding-right: 100px;
+color: #4A4A4A;
+}
+.storeContact{float:left;width: 125px;color: #4A4A4A;}
+.banner_img{margin-bottom: 20px;}
+.addressbox{overflow: hidden;}
+.add_wrapper{
+overflow: hidden;
+padding-bottom: 10px;
+padding-top: 10px;
+}
+ .add_wrapper:nth-child(odd){background-color:#F4F4F4} 
+#city .city_name{cursor:pointer;}
+
+</style>

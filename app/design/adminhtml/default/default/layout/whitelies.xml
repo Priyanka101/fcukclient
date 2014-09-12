@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <whitelies_adminhtml_whitelies_index>
+	<reference name="content">
+	  <block type="whitelies/adminhtml_whitelies" name="whitelies" />
+	</reference>
+  </whitelies_adminhtml_whitelies_index>
+</layout>

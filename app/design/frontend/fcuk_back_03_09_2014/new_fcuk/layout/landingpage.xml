@@ -1,0 +1,41 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">   
+  <landingpage_index_index>   
+    <reference name="root">   
+      <action method="setTemplate"><template>page/1column.phtml</template></action>   
+    </reference>   
+    <reference name="content">   
+      <block type="landingpage/index" name="landingpage_index" template="landingpage/index.phtml"/>   
+    </reference>   
+	
+  </landingpage_index_index>   
+  <landingpage_index_view> 
+  
+  <!-- <reference name="content">
+		<block type="landingpage/index" name="landing" template="landingpage/view.phtml" >
+		
+		  <block type="catalog/product_view_media" name="media" as="media_new" template="catalog/product/view/media.phtml"/>
+		</block>
+  </reference> 	 -->
+<remove name="left.newsletter"/>
+<remove name="left.permanent.callout" />
+<remove name="catalog.vertnav"/>
+<reference name="left">
+        <remove name="categories"/>
+       <remove name="breadcrumbs" />
+        <block  type="core/template" name="static_left" after="-" template="cms/shopthelook_left.phtml"></block>
+</reference>
+
+   <reference name="root">   
+      <action method="setTemplate"><template>page/2columns-left.phtml</template></action>   
+    </reference> 
+  <reference name="content">   
+      <block type="landingpage/index" name="landingpage_index" template="landingpage/index.phtml"/>   
+	  
+	  
+    </reference> 
+  
+</landingpage_index_view>
+	
+</layout>   
+	

@@ -1,0 +1,13 @@
+<?php 
+$_helper = $this->helper('catalog/output');
+$attrCode = Mage::getStoreConfig('easy_tabs/custom/customtabid1');
+	//echo 1234;exit;
+	$product = $this->getProduct();
+	
+		
+			echo '<div class="product-specs">'
+				. $product->getData('sizing_and_care')
+				. '</div>';
+		
+	
+?>

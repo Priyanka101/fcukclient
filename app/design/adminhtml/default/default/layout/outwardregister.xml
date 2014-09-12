@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <outwardregister_adminhtml_outwardregister_index>
+        <reference name="content">
+            <block type="outwardregister/adminhtml_outwardregister" name="outwardregister" />
+        </reference>
+    </outwardregister_adminhtml_outwardregister_index>
+	<outwardregister_adminhtml_outwardregister_outwardreport>
+		<reference name="head">
+		   <action method="addJs"><js>extjs/jquery1.8.min.js</js></action>
+		</reference>
+		<reference name="content">
+	  <block type="outwardregister/adminhtml_outwardregister" name="outwardregisterreport" template="outwardregister/outwardregisterreport.phtml"/>
+	</reference>
+	</outwardregister_adminhtml_outwardregister_outwardreport>
+	
+</layout>

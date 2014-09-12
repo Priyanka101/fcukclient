@@ -1,0 +1,440 @@
+<?php
+//echo 'Kishan';exit;
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ *///
+?>
+<?php $catid =  Mage::getSingleton('catalog/layer')->getCurrentCategory()->getId(); 
+		$parent = Mage::getSingleton('catalog/category')->load($catid)->getData('parent_id');
+?>
+<?php
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+?>
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+<div class="category-products">
+    <?php $_collectionSize = $_productCollection->count() ?>
+    <?php $_columnCount = $this->getColumnCount();?>
+        <?php $i=0; foreach ($_productCollection as $_product): ?>
+        <?php if ($i++%$_columnCount==0): ?>
+        <ul class="products-grid">
+        <?php endif ?>
+            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+            	
+            	<!-- Quick View Start-->
+            	<div class="quick-btn"><a class="quick_view" href="<?php echo $this->getUrl('quickshop/index/view').'path/'.$_product->getUrlKey().'.html'; ?>">quick view</a></div>
+				<!-- Quick View Ends-->
+                
+                <?php if($_product->isSaleable()): ?>
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo ucwords(strtolower($this->stripTags($_product->getName(), null, true))) ?>" class="product-image" >
+                	<img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image'); ?>" alt="<?php echo ucwords(strtolower($this->stripTags($this->getImageLabel($_product, 'small_image'), null, true)))?>" class="<?php echo $_product->getId().'-image-grid'; ?> main-product-image"/>
+                </a>
+                	<?php 
+                	//print_r($_product->getSku()); ?>
+                	<div class="category_product_rollover_container">		
+		                <h2 class="product-name">
+		                	<?php echo  ucwords(strtolower($_helper->productAttribute($_product, $_product->getName(), 'name'))) ?>
+		                </h2>
+		                <?php if($_product->getRatingSummary()): ?>
+		                <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+		                <?php endif; ?>
+		                <?php echo $this->getPriceHtml($_product, true) ?>
+		                <div class="category_product_rollover_colours">
+		                	<span class="category_product_rollover_colours_title">colours</span>
+		                	<?php if($_product->getTypeId() == "configurable" ): ?>
+							        <?php $attValConfig = $_product->getTypeInstance()->getConfigurableAttributesAsArray(); ?>
+							        <?php if(sizeof($attValConfig)): ?>
+							            <?php foreach($attValConfig as $attValConfigSingle): ?>
+							               <?php $Colorcounter=1;?>
+							                <?php if($attValConfigSingle['label']=='Color'):?>
+							                <div class="product-options" id="product-options-wrapper">
+						                        <?php foreach($attValConfigSingle['values'] as $attValConfigSingleVal): ?> 
+						                             <?php if($Colorcounter<=10):
+						                             // print_r($attValConfigSingleVal);
+						                             ?>
+
+						                            <img width="20px !important" title="<?php echo $attValConfigSingleVal['label'];?>" id="<?php echo $_product->getId().'-image-grid-'.str_replace('&', '',str_replace('/', '',str_replace(' ', '', $attValConfigSingleVal['label']))) ?>" class="customswates <?php echo $_product->getSku()?>" value="<?php echo $attValConfigSingleVal['label'] ?>" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'amconf/images/'.$attValConfigSingleVal['value_index'].'.jpg' ?>" />
+						                            <?php 
+						                              $Colorcounter++;
+						                              endif;
+						                            ?>
+						                        <?php endforeach; ?>
+							                </div>
+							                <?php endif;?>
+							            <?php endforeach; ?>
+							        <?php endif; ?>
+							    <?php endif; ?>
+							    <div class="hide">
+							    <?php 
+									$product = Mage::getModel('catalog/product')->load($_product->getId()); 
+									echo '<span class="gallaryimages">';
+									foreach ($product->getMediaGalleryImages() as $image) {
+									// print_r($image);
+									echo "<img class='gallaryimagessize ".$product->getId()."-image-grid-".str_replace('&', '',str_replace('/', '',str_replace(' ', '', $image->getLabel())))."' width='20px' src='".$image->getUrl()."' value='".$image->getUrl()."' />";
+
+								}   
+								echo '</span>';
+							?>
+								</div>
+		                </div>
+		                 <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo ucwords(strtolower($this->stripTags($_product->getName(), null, true))) ?>" class="category_product_rollover_cta">
+		                	shop now
+		                </a>
+	                </div>
+            	
+					
+				<?php else: ?>
+				<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo ucwords(strtolower($this->stripTags($_product->getName(), null, true))) ?>" class="product-image">
+					<img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image'); ?>" alt="<?php echo ucwords(strtolower($this->stripTags($this->getImageLabel($_product, 'small_image'), null, true)))?>" class="<?php echo $_product->getId().'-image-grid'; ?> main-product-image"/>
+				</a>
+					<div class="category_product_rollover_container">		
+		                <h2 class="product-name">
+		                	<?php echo  ucwords(strtolower($_helper->productAttribute($_product, $_product->getName(), 'name'))) ?>
+		                </h2>
+		                <?php if($_product->getRatingSummary()): ?>
+		                <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+		                <?php endif; ?>
+		                <?php echo $this->getPriceHtml($_product, true) ?>
+		                <div class="category_product_rollover_colours">
+		                	<span class="category_product_rollover_colours_title">colours</span>
+		                	    <?php if($_product->getTypeId() == "configurable" ): ?>
+							        <?php $attValConfig = $_product->getTypeInstance()->getConfigurableAttributesAsArray(); ?>
+							        <?php if(sizeof($attValConfig)): ?>
+							            <?php foreach($attValConfig as $attValConfigSingle): ?>
+							               <?php $Colorcounter=1;?>
+							                <?php if($attValConfigSingle['label']=='Color'):?>
+							                <div class="product-options" id="product-options-wrapper">
+						                        <?php foreach($attValConfigSingle['values'] as $attValConfigSingleVal): ?> 
+						                             <?php if($Colorcounter<=10):?>
+						                            <img width="20px" title="<?php echo $attValConfigSingleVal['label'];?>" id="<?php echo $_product->getSku().'-image-grid-'.str_replace('&', '',str_replace('/', '',str_replace(' ', '', $attValConfigSingleVal['label']))) ?>" class="customswates <?php echo $_product->getSku()?>" value="<?php echo $attValConfigSingleVal['label'] ?>" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'amconf/images/'.$attValConfigSingleVal['value_index'].'.jpg' ?>" />
+						                            <?php 
+						                              $Colorcounter++;
+						                              endif;
+						                            ?>
+						                        <?php endforeach; ?>
+							                </div>
+							                <?php endif;?>
+							            <?php endforeach; ?>
+							        <?php endif; ?>
+							    <?php endif; ?>
+							    <div class="hide">
+							    <?php 
+								$product = Mage::getModel('catalog/product')->load($_product->getId()); 
+									echo '<span class="gallaryimages">';
+								foreach ($product->getMediaGalleryImages() as $image) {
+									echo "<img class='gallaryimages ".$product->getId()."-image-grid-".str_replace('&', '',str_replace('/', '',str_replace(' ', '', $image->getLabel())))."' width='20px;' src='".$image->getUrl()."' value='".$image->getUrl()."' />";
+								}   
+								echo '</span>';
+							?>
+								</div>
+		                </div>
+		                 <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo ucwords(strtolower($this->stripTags($_product->getName(), null, true))) ?>" class="category_product_rollover_cta">
+		                	shop now
+		                </a>
+	                </div>
+				<?php endif; ?>
+
+				<div class="actions">
+					<?php 
+						if(Mage::registry('current_category')){
+						$cat = Mage::registry('current_category')->getId();
+					} ?>
+                <?php /*if($_product->getData('comingsoon')): ?>
+                    <div class="outof-stock-container commingsoon-list"><?php echo $this->__('Coming Soon')?></div>
+                <?php else:*/ ?>
+                    <?php if($_product->isSaleable()): ?>
+						<?php if($catid==58 || $catid==57){ ?>
+							<div class="stock-container"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->__('Limited Edition')?></a></div>
+							<!-- <div class="quick-btn"><a class="quick_view" href="<?php //echo $this->getUrl('quickshop/index/view').'path/'.$_product->getUrlKey().'.html'; ?>">quick view</a></div> -->
+						<?php }else{ ?>
+						<!-- <div class="instockdiv"> -->
+							<!-- <div class="stock-container"><a href="<?php //echo $_product->getProductUrl() ?>"><?php //echo $this->__('In Stock')?></a></div> -->
+							<!-- <div class="quick-btn"><a class="quick_view" href="<?php //echo $this->getUrl('quickshop/index/view').'path/'.$_product->getUrlKey().'.html'; ?>">quick view</a>
+							</div> -->
+							<!-- Start of more color Logic -->
+							<!-- <div>
+								<?php
+								/*if($_product->isConfigurable()) : 
+								// echo $_product->getId();
+								$product =  Mage::getModel('catalog/product')->load($_product->getId());
+								$eavAttribute = new Mage_Eav_Model_Mysql4_Entity_Attribute();
+								$code = $eavAttribute->getIdByCode('catalog_product', 'color');
+								$optioncode=array();
+								$childProducts = Mage::getModel('catalog/product_type_configurable')
+								->getUsedProducts(null,$product); 
+								$jj=0;
+
+								foreach($childProducts as $option)
+								{
+									$optioncode[$jj]=$option->getColor();
+
+									$jj=$jj+1;
+								} 
+
+								$result = array_unique(call_user_func_array('array_merge', $optioncode));
+								
+								$attrs  = $_product->getTypeInstance(true)->getConfigurableAttributesAsArray($_product);  
+								//print_r($_product->getData());
+								foreach($attrs as $attr) :  
+
+									if(0 == strcmp("color", $attr['attribute_code'])) :?>
+								<?php if(count(array_unique($optioncode)) > 1 && $_product->isSaleable()) { ?>
+								<div class="more-colors-legend">
+									<a href="<?php echo $_product->getProductUrl() ?>">
+										<img class="category_more_colours" src="<?php echo $this->getSkinUrl('images/btn_category_more_colours.png');?>"/>
+									</a>
+								</div>
+								<?php  } else{ ?>
+								<div class="more-colors-legend" style="min-height:40px;"></div>
+								<?php 	}endif;
+								endforeach; 
+								endif; */?>
+							</div> -->
+							<!-- end of more color Logic -->
+						<!-- </div> -->
+						<?php }?>
+                    <?php else: ?>
+						<?php 
+						if(!$_product->isSaleable() && $_product->getData('comingsoon')){ ?>
+                        	<div class="outof-stock-container commingsoon-list"><?php echo $this->__('Coming Soon')?></div>
+							<div class="quick_view3"><a class="request-product" href='<?php echo $this->getUrl(); ?>requestproduct/index/getrequestForm?productid=<?php echo $_product->getId() ?>&current_cat=<?php echo $catid;?>' value="<?php echo $_product->getSku(); ?>" onclick="showOverlay(this, '<?php echo $_product->getId();?>')">Request</a>
+							<?php	}else{
+								?>			
+							<div class="outof-stock-container"><?php echo $this->__('Sold Out')?></div>
+							<div class="quick_view2"><a class="request-product" href='<?php echo $this->getUrl(); ?>requestproduct/index/getrequestForm?productid=<?php echo $_product->getId() ?>&current_cat=<?php echo $catid;?>' value="<?php echo $_product->getSku(); ?>" onclick="showOverlay(this, '<?php echo $_product->getId();?>')">Request</a>
+						<?php } ?>
+									
+                    <?php endif; ?>
+						</div>
+					<input type="hidden" name="productid" value="<?php echo $productid;?>">
+           </li>
+        <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+        </ul>
+        <?php endif ?>
+        <?php endforeach ?>
+        <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+</div>
+<?php endif; ?>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+
+	$(this).find('.commingsoon-list').hide();
+		$(this).find('.quick_view3 a').hide();
+		$(this).find('.quick-btn a').hide();
+		$(this).find('.category_product_rollover_container').hide();
+	// load modified css file if category image and description exist
+	var perform_category_check_img = $('.current_cat_img').val();
+	var perform_category_check_desc = $('.current_cat_desc').val();
+	var mod_css_path = '<?php echo $this->getSkinUrl(); ?>' + 'css/detailed_category.css';
+	
+	if (perform_category_check_img == 1) {
+		if (document.createStyleSheet){
+			document.createStyleSheet(mod_css_path);
+		}
+		else {
+			$("head").append($("<link rel='stylesheet' href='" + mod_css_path + "' type='text/css' media='all' />"));
+		}
+	}
+    	
+	// load category description
+	function cat_desc_reposition() {
+		if($('.category-image').offset()) {
+			var cat_image_offset = $('.category-image').offset();
+			var cat_desc_offset_left = cat_image_offset.left + 665;
+			var cat_desc_height = $('.category-description').height();
+			var cat_image_height = $('.category-image').height(); 
+			var cat_desc_offset_top = cat_image_offset.top + (cat_image_height - cat_desc_height) * 0.5 - 16;
+			
+			$('.category-description').css({
+				left : cat_desc_offset_left,
+				top : cat_desc_offset_top
+			});
+			
+			$('.category-description').show();
+		
+		}
+	}
+	var delay_desc = setTimeout(function() {
+		cat_desc_reposition();
+	}, 3000);
+	
+	
+	$(window).resize(cat_desc_reposition);
+	
+	
+	$('.products-grid li.item').hover(function(e){
+		e.stopImmediatePropagation();
+		$(this).find('.stock-container').fadeIn('fast');
+		$(this).find('.commingsoon-list').fadeIn('fast');		
+		$(this).find('.quick_view3 a').fadeIn('fast');
+		$(this).find('.quick-btn a').fadeIn('fast');
+		$(this).find('.category_product_rollover_container').fadeIn('fast');
+		//$(this).find('.quick-btn a').stop().animate({
+		// left:'0px'
+		// },'fast')
+	},function(e){
+		e.stopImmediatePropagation();
+		$(this).find('.stock-container').fadeOut('fast');
+		$(this).find('.commingsoon-list').fadeOut('fast');		
+		$(this).find('.quick_view3 a').fadeOut('fast');
+		$(this).find('.quick-btn a').fadeOut('fast');
+		$(this).find('.category_product_rollover_container').fadeOut('fast');
+		// $(this).find('.quick-btn a').stop().animate({
+		// left:'-175px'
+		// },'fast')
+
+		});
+		
+	$('.quick_view').fancybox({
+		'height': 550,
+        'width': 900,
+		'type'				: 'iframe',
+		onComplete: function() { 
+			$.fancybox.showActivity();
+			$('#fancybox-frame').unbind('load');
+			$('#fancybox-frame').bind('load', function() {
+					$.fancybox.hideActivity();
+			});
+		}
+	});
+	
+	
+	/*
+	$('.quick_view2').fancybox({
+		'frameWidth': 0,
+		'type'				: 'iframe',
+		onComplete: function() { 
+			$.fancybox.showActivity();
+			//var ac=$('.request-product').val();
+			//alert(ac);
+			$('#fancybox-frame').unbind('load');
+			$('#fancybox-frame').bind('load', function() {
+					$.fancybox.hideActivity();
+			});
+		}
+	});*/
+	
+
+	
+	 $('.request-product').fancybox({
+				'height': 400,
+				'width': 620,
+				'type'	: 'iframe',
+
+		onComplete: function() { 
+		//alert("i m here");
+			$.fancybox.showActivity();
+			$('#fancybox-frame').unbind('load');
+			$('#fancybox-frame').bind('load', 
+			function() {
+					$.fancybox.hideActivity();
+			});
+		}
+	});	
+	
+});
+	function showOverlay(obj, sku){
+	  var abc=jQuery('.productid').val();
+	  }
+	function newpopup(data){
+		jQuery('.popup_final_slider').html(data);
+	}
+
+</script>
+<?php
+$_categoryax = Mage::registry('current_category');
+if($_categoryax):?>
+
+<?php if($_categoryax->getDescription()): ?>
+	<input type="hidden" class="current_cat_desc" value=1 />
+<?php else: ?>
+	<input type="hidden" class="current_cat_desc" value=0 />
+<?php endif; ?>
+
+<?php if ($_categoryax->getImageUrl()): ?>
+	<input type="hidden" class="current_cat_img" value=1 />
+<?php else: ?>
+	<input type="hidden" class="current_cat_img" value=0 />
+<?php endif; ?>
+<?php endif;?>
+<?php
+$minimumprice = $_productCollection->getMinPrice();
+echo Mage::getSingleton('core/session')->setFromprice($minimumprice);
+?>
+
+<script type="text/javascript">
+	jQuery(document).ready(function($){
+		//alert('hello');
+		//alert($('.category-products .products-grid li a[title = "'+Campaign+'"]').attr('href'));return false;
+		$('.category-products .products-grid').each(function(){
+			$(this).find('li').each(function(){
+				//alert('hi');
+				product_title = $(this).find("a").attr('title');
+				//alert(product_title);
+				if(product_title == "Campaign"){
+					$(this).find("div.actions").css({"display":"none"});
+					$(this).find("a").attr('href','<?php echo $this->getUrl().'campaign'?>');
+				}
+				if(product_title == "Campaign-men"){
+					//alert("hello");
+					$(this).find("div.actions, .product-name, .price-box").css({"display":"none"});
+					$(this).find("a").attr('href','<?php echo $this->getUrl().'campaign'?>');
+				}
+
+			});
+			//return false;
+			/*product_title = $(this+" a").attr('title');
+			alert(product_title);
+			if(product_title == "Campaign"){
+				alert(product_title);
+			}*/
+		});
+	});
+</script>
+<!-- Configurable product js starts-->
+<script type="text/javascript">
+  jQuery(document).ready(function($){
+          jQuery('.customswates').click(function () {
+              // var valueee = this.id;
+              var uniqueid = this.id;
+              var productsku = uniqueid.split('-');
+              // alert(productsku);
+              var imagesrc = jQuery('.'+this.id).attr('src');
+              // alert(imagesrc);
+              jQuery('.'+productsku[0]+'-image-grid').attr('src',imagesrc);
+              jQuery('.'+productsku[0]+'-image-list').attr('src',imagesrc);
+
+          });
+  });
+</script>
+<!-- Configurable product js ends-->

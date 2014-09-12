@@ -1,0 +1,54 @@
+<script>
+/* function changeCat(thisbox) {
+var optiontxt = thisbox.options[thisbox.selectedIndex].value;
+if (optiontxt == "0") return;
+else location.href = optiontxt
+} */
+</script>
+
+<div class="billing_address_content">
+	<form action="<?php echo $this->getBaseUrl().'/customer/address/addressbook'?>" method="post">
+	<h1 class="acountTitle">YOUR BILLING ADDRESS</h1>
+    <p class="accountpara">Enter your house name or number and postcode and we will find your address</p>
+	<p>For security reasons your billing address needs to be the same as the one on your bank statement. You will be offered the opportunity to send your order to an alternative delivery address in the next step of the checkout process.</p>
+    <div class="addressForm">
+    	<div class="addressDiv">
+        	<div class="addressName">Country <sup>*</sup></div>
+            <div class="addressinputArea">
+            <?php echo $this->getCountryHtmlSelect() ?>
+            </div>
+        </div>
+        <div class="addressHint">Can't find the country you require? <a href="#">Click here</a>.</div>
+        <div class="addressDiv">
+        	<div class="addressName">Building Name/Number</div>
+            <div class="addressinputArea"><input type="text" name="" value="" class="inputSty"/></div>
+        </div>        
+        <div class="addressDiv">
+        	<div class="addressName">Postcode<sup>*</sup></div>
+            <div class="addressinputArea"><input type="text" name="postcode" id="postcode" class="inputSty"/></div>
+        </div>
+        <div class="addressDiv" style="*margin-bottom:20px;">
+        	<input type="submit" class="findAddressbtn" id="findbilling" value="&nbsp;"/>
+        </div>        
+    </div>
+    	<div class="addressHint"><sup>*</sup> Postcode is required to find your address. <br/>Alternatively, you can enter your full address <a href="#">here</a>.</div>
+        </form>
+</div>
+<script type="text/javascript">
+
+jQuery(document).ready(function($) {
+  jQuery("#country").change(function(){
+  var YourParam = jQuery("select option:selected").val();
+    if (jQuery(this).val()!='') {
+      window.location.href='<?php echo $this->getBaseUrl().'customer/address/addressbook'?>'+"?country_id="+YourParam;
+    }
+  });
+  jQuery("#findbilling").click(function(){
+    var bla = jQuery('input[id=postcode]').val();
+		alert(bla);
+
+      });
+
+ 
+});
+</script>

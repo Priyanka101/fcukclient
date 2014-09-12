@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Fcuk_Skipshippingmethods>
+      <version>0.1.0</version>
+    </Fcuk_Skipshippingmethods>
+  </modules>
+  <global>
+    <helpers>
+      <skipshippingmethods>
+        <class>Fcuk_Skipshippingmethods_Helper</class>
+      </skipshippingmethods>
+    </helpers>
+	<blocks>
+	  <skipshippingmethods>
+		<class>Fcuk_Skipshippingmethods_Block</class>
+	  </skipshippingmethods>
+	<blocks>
+		<checkout>
+            <rewrite>
+                 <onepage>Fcuk_Skipshippingmethods_Block_Checkout_Onepage</onepage>
+			</rewrite>
+        </checkout>
+    </blocks>   
+	</blocks>
+	<models>
+		<checkout>
+			<rewrite>
+				<type_onepage>Fcuk_Skipshippingmethods_Model_Type_Onepage</type_onepage>
+			</rewrite>
+		</checkout>
+	</models>
+</global>
+  <frontend>
+  <routers>
+			<checkout>  
+					<args>  
+						<modules>  
+						  <Fcuk_Skipshippingmethods before="Mage_Checkout">Fcuk_Skipshippingmethods_Checkout</Fcuk_Skipshippingmethods>  
+						</modules>  
+					</args>  
+			</checkout> 
+	</routers>
+  </frontend>
+</config> 

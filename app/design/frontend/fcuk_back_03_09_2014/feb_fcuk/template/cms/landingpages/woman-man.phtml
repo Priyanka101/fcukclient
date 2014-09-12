@@ -1,0 +1,76 @@
+<?php $_womencategories = Mage::helper('all')->getBannerCategories(3);?>
+<?php $_mencategories = Mage::helper('all')->getBannerCategories(4);?>
+<div class="custom-category-container">
+	<div class="custom-category-container-wrap">
+	<div class="link-container">
+		<a href="<?php echo $_womencategories['url'];?>" id="woman" rel="wom_cat">WOMAN</a>
+		<a href="<?php echo $mencategories['url'];?>" id="man" rel="man_cat">MAN</a>
+	</div>
+	<div class="woman-category wom_cat cat_toggle">
+		<div class="links-content">
+			<div class="grid">
+				<?php 
+				if (count($_womencategories) > 0):
+					$i=0; ?>
+                    <div class="grid_fluid">
+	                    <?php foreach($_womencategories['categories'] as $_womencategory) :?>
+	                    		<a href="<?php echo $_womencategory[1]?>"><?php echo $_womencategory[0]; ?></a>
+                    			<?php $i++;
+	                    		if ($i==3): ?>
+		                    		</div><div class="grid_fluid">
+		                    		<?php $i=0; 
+	                    		endif;?>
+                		<?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+			</div>
+		</div>
+	</div>
+	<div class="man-category man_cat cat_toggle">
+		<div class="links-content">
+			<div class="grid">
+				<?php 
+				if (count($_mencategories) > 0):
+					$i=0; ?>
+                    <div class="grid_fluid">
+                    	
+	                    <?php foreach($_mencategories['categories'] as $_mencategory) : ?>
+	                    		<a href="<?php echo $_mencategory[1]; ?>"><?php echo $_mencategory[0]; ?></a>
+                    			<?php $i++;
+	                    		if ($i==3): ?>
+		                    		</div><div class="grid_fluid">
+		                    		<?php $i=0; 
+	                    		endif;
+	                    		?>
+                		<?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	jQuery(document).ready(function($){
+
+		$(".link-container a").mouseenter(function(){
+			$(".custom-category-container").stop(true,true).addClass("active");
+			$(".custom-category-container-wrap").stop(true,true).addClass("active");
+			$(".link-container a").stop(true,true).removeClass("active_open");
+			$(this).stop(true,true).addClass("active_open");
+			var rel_value =  $(this).attr("rel");
+			$(".cat_toggle").stop(true,true).hide();			
+			$("."+rel_value).delay(600).stop(true,true).fadeIn(300);
+		})
+
+		$(".custom-category-container").mouseleave(function(){
+			$(".custom-category-container").stop(true,true).removeClass("active");		
+			$(".cat_toggle").stop(true,true).hide();					
+			$(".link-container a").stop(true,true).removeClass("active_open");
+			$(".link-container a").stop(true,true).removeClass("active_open");
+			$(".custom-category-container-wrap").stop(true,true).removeClass("active");		
+		})
+	});
+</script>
+</div>

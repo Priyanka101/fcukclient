@@ -1,0 +1,154 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+
+
+<script src="<?php echo $this->getSkinUrl('js/cufon-yui.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/Gotham_700.font.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/Helvetica_Neue_400.font.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/HelveticaNeue_LT_55_Roman_400-HelveticaNeue_LT_55_Roman_700.font.js') ?>"></script>
+<script src="<?php echo $this->getSkinUrl('js/cufon_main.js') ?>"></script>
+
+<script type="text/javascript">
+jQuery(document).ready(function($){
+	// if ($.browser.msie  && parseInt($.browser.version, 10) === 6) {
+	//   alert('This Site is Best Viewed in IE Version above 7..');
+	// }
+	// var check_cookie = $.cookie('example2');
+	// if(check_cookie !='1' )
+	// {
+	// 	//alert('not set');
+	// 	$.cookie('example2', '1',{ expires: 1 });
+	// 	<?php //echo $this->getChildHtml('helpus'); ?>
+	// }
+
+});
+
+</script>
+
+<?php
+// $cookie_model = Mage::getModel('core/cookie');
+// $name = "frenchconnection.in";
+// $value = "helpus";
+// $period = 3600*24*3;
+
+// $cookie_names = $cookie_model->get('frenchconnection_in');
+// // echo $cookie_names;
+// 	if($cookie_names){
+// 	}
+// 	else {
+// 		echo $this->getChildHtml('helpus');
+// 		$cookie_model->set($name, $value, $period);
+// 	}
+
+?>
+<?php
+	//Mihir Code for popup
+	$controller_path = Mage::app()->getRequest()->getRouteName()."/".Mage::app()->getRequest()->getControllerName()."/".Mage::app()->getRequest()->getActionName();
+	$helpus_counter = Mage::getSingleton('core/session')->getHelpuscounter();
+	if($controller_path == "cms/index/index" && !$helpus_counter){
+		echo $this->getChildHtml('helpus');
+		Mage::getSingleton('core/session')->setHelpuscounter('popup_showed');
+	}
+
+?>
+<div class="top-header">
+	<div class="float-left">
+	<a href="/storelocator/" id="store_locator_link" title = "Store Finder"><?php echo $this->__('STORE FINDER');?></a>
+    <div class="fc-country">
+        <div id="country-select">
+          <ul>
+            <li class="fc-country-india"><a href="<?php echo $this->getUrl();?>">INDIA</a>
+              <ul class="fc-country-pad" title="select your country" id="selectcountrylist">
+                <li><a class="uk has-flag" id="maincountry" href="http://www.frenchconnection.com/index.htm?countryselect=fcuk">UK and Europe</a></li>
+                <li><a class="usa has-flag"id="international" href="http://www.frenchconnection.com/index.htm?countryselect=fcus">USA</a></li>
+                <li><a class="canada has-flag"id="international" href="http://www.frenchconnection.com/index.htm?countryselect=fcca">Canada</a></li>
+                <li><a class="aus has-flag" id="international" href="http://www.frenchconnection.com.au">Australia</a></li>
+
+              </ul>
+            </li>
+          </ul>
+        </div>
+    </div>
+
+	<!--span class="tollfree">Call Toll Free: 1800 - 22 - 8288</span-->
+	</div>
+
+	<div class="float-right">
+ 	<!--<p class="subscription"><span><?php //echo $this->__('Subscribe')?></span></p> -->
+		<div class="subscription-newsletter" style="display:none">
+			<?php echo $this->getChildHtml('subscribe_header') ?>
+		</div>
+		<div class="customer-links"><?php echo $this->getChildHtml('topLinks') ?></div>
+		<?php echo $this->getChildHtml('header_cart_sidebar') ?>
+	</div>
+</div>
+<div class="main-navigation">
+	<?php echo $this->getChildHtml('topMenu') ?>
+</div>
+
+<div class="input-wrapper">
+    <?php $catalogSearchHelper =  $this->helper('catalogsearch'); ?>
+    <div class="input-label">Looking for something specific? This is the place to find it.</div>
+    <input id="searchbox" type="text" name="<?php echo $catalogSearchHelper->getQueryParamName() ?>" class="input-text" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>" placeholder="Start Typing Here..."/>
+    <a href="" class="button-search">find it for me</a>
+</div>
+
+
+
+
+<script type="text/javascript">
+	 jQuery(document).ready(function($) {
+
+		  jQuery('.subscription').mouseover(function(){
+			  jQuery('.subscription-newsletter').show();
+			  jQuery('.subscription').addClass('active');
+		  });
+	 jQuery('.subscription').mouseleave(function(){
+		 jQuery('.subscription-newsletter').hide();
+		 jQuery('.subscription').removeClass('active');
+	  });
+		jQuery('.subscription-newsletter').mouseenter(function() {
+				$(this).show();
+				jQuery('.subscription').addClass('active');
+		});
+
+		jQuery('.subscription-newsletter').mouseleave(function() {
+			$(this).hide();
+			jQuery('.subscription').removeClass('active');
+		});
+
+		//jQuery('#popup3 .block1 .first a.level2').attr('href','http://www.frenchconnection.in/sale/woman.html');
+		//jQuery('#popup4 .block1 .first a.level2').attr('href','http://www.frenchconnection.in/sale/man.html');
+		//jQuery('#popup5 .block1 .first a.level2').attr('href','http://www.frenchconnection.in/sale/underwear.html');
+
+	 });
+ </script>
+
+<script type="text/javascript">jwplayer.key="r/b4lw74MwDzyS+21OqkhxoUGQzsSX3waoxGLg==";</script>

@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Fcuk_Check>
+      <version>0.1.1</version>
+    </Fcuk_Check>
+  </modules>
+  
+  <global>
+    <models>
+      <!-- <catalog>
+        <rewrite>
+          <layer_filter_price>Fcuk_Check_Model_Layer_Filter_Price</layer_filter_price>
+        </rewrite>
+      </catalog> -->
+    </models>
+  </global>
+  
+  <frontend>
+    <routers>
+      <check>
+        <use>standard</use>
+          <args>
+            <module>Fcuk_Check</module>
+            <frontName>check</frontName>
+          </args>
+      </check>
+    </routers>
+		<layout>
+		  <updates>
+			<check>
+			  <file>check.xml</file>
+			</check>
+		  </updates>
+		</layout>
+  </frontend>
+  <global>
+    <helpers>
+      <check>
+        <class>Fcuk_Check_Helper</class>
+      </check>
+    </helpers>
+	<blocks>
+	  <check>
+		<class>Fcuk_Check_Block</class>
+	  </check>
+	</blocks>
+	<models>
+	  <check>
+		<class>Fcuk_Check_Model</class>
+		<resourceModel>check_mysql4</resourceModel>
+	  </check>
+	  <check_mysql4>
+		<class>Fcuk_Check_Model_Mysql4</class>
+		<entities>		  
+			  <cod>
+				<table>cod</table>
+			  </cod>		  
+			  <noncod>
+				<table>ncod</table>
+			  </noncod>
+        </entities>
+	  </check_mysql4>
+	</models>
+	<resources>
+	  <check_setup>
+		<setup>
+		  <module>Fcuk_Check</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </check_setup>
+	  <check_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </check_write>
+	  <check_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </check_read>
+	</resources>
+	<events>
+		<checkout_onepage_controller_success_action>
+            <observers>
+                <check>
+                    <class>check/observer</class>
+                    <method>placeOrderSuccess</method>
+                </check>
+            </observers>
+        </checkout_onepage_controller_success_action>       
+<!--        <customer_logout>
+        <observers>
+            <inventory>
+                <class>check/observer</class>
+                <method>customattributeset</method>
+            </inventory>
+        </observers>
+      </customer_logout>     -->
+    </events>  
+  </global>
+  <admin>
+	<routers>
+	  <check>
+	    <use>admin</use>
+		<args>
+		  <module>Fcuk_Check</module>
+		  <frontName>check</frontName>
+		</args>
+	  </check>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <check module="check">
+		<title>Shipping Validation</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <cod module="check">
+		    <title>Manage Cod</title>
+			<sort_order>0</sort_order>
+			<action>check/adminhtml_cod</action>
+		  </cod>
+		  <noncod module="check">
+		    <title>Manage Noncod</title>
+			<sort_order>10</sort_order>
+			<action>check/adminhtml_noncod</action>
+		  </noncod>
+		</children>
+	  </check>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<check translate="title" module="check">
+			  <title>Check</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <cod translate="title">
+			<title>Manage Cod</title>
+			<sort_order>0</sort_order>
+		  </cod>
+		  <noncod translate="title">
+			<title>Manage Noncod</title>
+			<sort_order>10</sort_order>
+		  </noncod>
+			  </children>
+			</check>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<check>
+		  <file>check.xml</file>
+		</check>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

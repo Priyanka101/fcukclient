@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Fcuk_Requestproduct>
+      <version>0.1.0</version>
+    </Fcuk_Requestproduct>
+  </modules>
+  <frontend>
+    <routers>
+      <requestproduct>
+        <use>standard</use>
+          <args>
+            <module>Fcuk_Requestproduct</module>
+            <frontName>requestproduct</frontName>
+          </args>
+      </requestproduct>
+	  
+    </routers>
+		<layout>
+		  <updates>
+			<requestproduct>
+			  <file>requestproduct.xml</file>
+			</requestproduct>
+		  </updates>
+		</layout>
+  </frontend>
+  <global>
+    <helpers>
+      <requestproduct>
+        <class>Fcuk_Requestproduct_Helper</class>
+      </requestproduct>
+    </helpers>
+	<blocks>
+	  <requestproduct>
+		<class>Fcuk_Requestproduct_Block</class>
+	  </requestproduct>
+	</blocks>
+	<models>
+	  <requestproduct>
+		<class>Fcuk_Requestproduct_Model</class>
+		<resourceModel>requestproduct_mysql4</resourceModel>
+	  </requestproduct>
+	  <requestproduct_mysql4>
+		<class>Fcuk_Requestproduct_Model_Mysql4</class>
+		<entities>		  
+			  <requestmodel>
+				<table>requestproduct</table>
+			  </requestmodel>
+	    </entities>
+	  </requestproduct_mysql4>
+	</models>
+	<resources>
+	  <requestproduct_setup>
+		<setup>
+		  <module>Fcuk_Requestproduct</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </requestproduct_setup>
+	  <requestproduct_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </requestproduct_write>
+	  <requestproduct_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </requestproduct_read>
+	</resources>
+  </global>
+  
+  <admin>
+	<routers>
+	  <requestproduct>
+	    <use>admin</use>
+		<args>
+		  <module>Fcuk_Requestproduct</module>
+		  <frontName>requestproduct</frontName>
+		</args>
+	  </requestproduct>
+	</routers>
+  </admin>
+  <adminhtml>
+  
+	<menu>
+	  <requestproduct module="requestproduct">
+		<title>OutOfStock Product</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <requestmodel module="requestproduct">
+		    <title>Manage Product</title>
+			<sort_order>0</sort_order>
+			<action>requestproduct/adminhtml_requestmodel</action>
+		  </requestmodel>
+		</children>
+	  </requestproduct>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<requestproduct translate="title" module="requestproduct">
+			  <title>Requestproduct</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <requestmodel translate="title">
+			<title>Manage Requestmodel</title>
+			<sort_order>0</sort_order>
+		  </requestmodel>
+			  </children>
+			</requestproduct>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<requestproduct>
+		  <file>requestproduct.xml</file>
+		</requestproduct>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

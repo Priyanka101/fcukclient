@@ -1,0 +1,136 @@
+<style>
+	strong
+	{
+		color:#222;
+	}
+.categoryname[href="<?php echo $this->getBaseUrl(); ?>woman/category.html"],
+.categoryname[href="<?php echo $this->getBaseUrl(); ?>woman/category-5.html"],
+.categoryname[href="<?php echo $this->getBaseUrl(); ?>man/category.html"],
+.categoryname[href="<?php echo $this->getBaseUrl(); ?>man/category-12.html"],
+.categoryname[href="<?php echo $this->getBaseUrl(); ?>underwear/category.html"]
+
+{
+	display:none
+}
+</style>
+
+<?php
+    $_rtl           = Mage::getStoreConfig('custom_menu/general/rtl') + 0;
+    $_categories    = $this->getStoreCategories();
+    if (is_object($_categories)) $_categories = $this->getStoreCategories()->getNodes();
+?>
+<div class="nav-container">
+    <div id="custommenu" class="<?php echo $_rtl ? ' rtl' : ''; ?>">
+        <?php if ($this->showHomeLink()) : ?>
+        <div class="menu">
+            <div class="parentMenu menu0">
+                <a href="<?php echo $this->getUrl('') ?>">
+                    <span><?php echo $this->__('Home'); ?></span>
+                </a>
+            </div>
+        </div>
+        <?php endif ?>
+		
+        <?php foreach ($_categories as $_category): ?>
+            <?php echo $this->drawCustomMenuItem($_category) ?>
+        <?php endforeach ?>
+				
+    <div id="menu53" class="menu" onmouseover="wpShowMenuPopup(this, event, 'popup53');" onmouseout="wpHideMenuPopup(this, event, 'popup53', 'menu53')">
+<div class="parentMenu">
+<a href="#" rel="#">
+<span id="inspire"><cufon class="cufon cufon-canvas" alt="INSPIRE ME" style="width: 35px; height: 12px;"><canvas width="43" height="14" style="width: 43px; height: 14px; top: -2px; left: -1px;"></canvas><cufontext>INSPIRE ME</cufontext></cufon></span>
+</a>
+</div>
+</div>
+
+<div id="popup53" class="wp-custom-menu-popup" onmouseout="wpHideMenuPopup(this, event, 'popup53', 'menu53')" onmouseover="wpPopupOver(this, event, 'popup53', 'menu53')" style="z-index: 10000; top: 33px; left: 312px; display: none;">
+<div class="block1">
+<div class="column first odd">
+	<div class="itemMenu level1">
+    	<a class="itemMenuName categoryname inspirewoman level1" href="#"><span>Woman</span></a>
+    	<div class="itemSubMenu level1">
+        	<div class="itemMenu level2">            	
+                <!--a class="itemMenuName categoryname level2" href="#" target="_blank" title="New Photographers"><span>New Photographers</span></a-->
+                <a class="itemMenuName categoryname level2" href="<?php echo $this->getBaseUrl().'lookbookwoman'?>" title="Lookbook"><span>Lookbook</span></a>
+           <!--      <a class="itemMenuName categoryname level2" href="<?php echo $this->getBaseUrl().'whitelies'?>" title="White Lies"><span>White Lies</span></a> -->
+                <!--a class="itemMenuName categoryname level2" href="#" title="On The Catwalk"><span>On The Catwalk</span></a-->
+               <!--  <a class="itemMenuName categoryname level2" href="#" title="As Seen In Press"><span>As Seen In Press</span></a>  --> 
+                <!--a class="itemMenuName categoryname level2" href="#" title="Make a Scene"><span>Make a Scene</span></a-->
+         <!--        <a class="itemMenuName categoryname level2" href="#" title="Print Works"><span>Print Works</span></a>
+                <a class="itemMenuName categoryname level2" href="#" title="Festival Shop"><span>Festival Shop</span></a>
+                <a class="itemMenuName categoryname level2" href="#" title="Holiday Shop"><span>Holiday Shop</span></a>
+                <a class="itemMenuName categoryname level2" href="#" title="Nautical"><span>Nautical</span></a>
+                <a class="itemMenuName categoryname level2" href="#" title="Lookbook"><span>Occasion Wear</span></a> -->
+                <!--a class="itemMenuName categoryname level2" href="#" title="Embellishment"><span>Embellishment</span></a>
+                <a class="itemMenuName categoryname level2" href="#" title="Catwalk Collection"><span>Catwalk Collection</span></a-->
+          <!--       <a class="itemMenuName categoryname level2" href="#" title="Spring Bloom"><span>Spring Bloom</span></a> -->
+                <!--<a class="itemMenuName categoryname level2" href="#" title="Shop the Beat"><span>Shop the Beat</span></a>-->
+             <!--    <a class="itemMenuName categoryname level2" href="<?php echo $this->getBaseurl().'woman/category-5/summer-13-catalogue.html';?>" title="Spring 13 Catalogue" target="_blank"><span>Spring 13 Catalogue</span></a> -->
+                <!--a class="itemMenuName categoryname level2" href="#" title="Summer 13 Catalogue" target="_blank"><span>Summer 13 Catalogue</span></a-->
+                <a class="itemMenuName categoryname level2" href="<?php echo $this->getBaseurl().'requestcatalog';?>" title="Request a Catalogue"><span>Request a Catalogue</span></a>   
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="column last even">
+	<div class="itemMenu level1">
+    	<a class="itemMenuName categoryname inspireman level1" href="#"><span>Man</span></a>
+        <div class="itemSubMenu level1">
+        	<div class="itemMenu level2">            	
+                <!--a class="itemMenuName categoryname level2" href="#" target="_blank" title="New Photographers"><span>New Photographers</span></a-->
+                <a class="itemMenuName categoryname level2" href="<?php echo $this->getBaseUrl().'lookbookman'?>" title="Lookbook"><span>Lookbook</span></a>  
+               <!--  <a class="itemMenuName categoryname level2" href="#" title="Make a Scene"><span>Make a Scene</span></a>
+                <a class="itemMenuName categoryname level2" href="#" title="Holiday Shop"><span>Holiday Shop</span></a> -->
+                <a class="itemMenuName categoryname level2" href="<?php echo $this->getBaseUrl().'kittedout'?>" title="kitted out"><span>Kitted Out</span></a>
+               <!--  <a class="itemMenuName categoryname level2" href="#" title="Printed Shirts"><span>Printed Shirts</span></a> -->
+                <a class="itemMenuName categoryname level2" href="<?php echo $this->getBaseUrl().'content'?>" title="Game Changer"><span>Game Changer</span></a>
+                <!--<a class="itemMenuName categoryname level2" href="#" title="Shop the Beat"><span>Shop the Beat</span></a>-->
+                <!--a class="itemMenuName categoryname level2" href="#" title="Spring 13 Catalogue" target="_blank"><span>Spring 13 Catalogue</span></a--> 
+            <!--     <a class="itemMenuName categoryname level2" href="<?php echo $this->getBaseurl().'man/category-2/summer-13-catalogue.html';?>" title="Summer 13 Catalogue" target="_blank"><span>Summer 13 Catalogue</span></a> -->
+                <a class="itemMenuName categoryname level2" href="<?php echo $this->getBaseurl().'requestcatalog';?>" title="Request a Catalogue"><span>Request a Catalogue</span></a>
+            </div>
+        </div>
+    </div>
+<!--     <div class="itemMenu level1">
+    	<a class="itemMenuName categoryname level1" href="#"><span>&nbsp;</span></a>
+    	<a class="itemMenuName categoryname inspiresocial level1"><span>Social</span></a>
+        <div class="itemSubMenu level1">
+        	<div class="itemMenu level2">            	
+                <a class="itemMenuName categoryname level2" href="#" target="_blank" title="Facebook"><span>Facebook</span></a>
+                <a class="itemMenuName categoryname level2" href="#" target="_blank" title="Twitter"><span>Twitter</span></a>
+                <a class="itemMenuName categoryname level2" href="#" target="_blank" title="Google +"><span>Google +</span></a>
+                <a class="itemMenuName categoryname level2" href="#" target="_blank" title="Pinterest"><span>Pinterest</span></a>
+                <a class="itemMenuName categoryname level2" href="#" target="_blank" title="Youtube"><span>Youtube</span></a>
+            </div>
+        </div>
+    </div> -->
+</div>
+</div>
+</div>
+		<div class="menu">
+    <div class="parentMenu">
+        <a href="http://911fashion.frenchconnection.in">
+            <span  id="inspire"><?php echo $this->__('Blog'); ?></span>
+        </a>
+    </div>
+</div>
+
+        <div class="clearBoth"></div>
+    </div>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+var CUSTOMMENU_POPUP_WIDTH = <?php echo Mage::getStoreConfig('custom_menu/popup/width') + 0; ?>;
+var CUSTOMMENU_POPUP_TOP_OFFSET = <?php echo Mage::getStoreConfig('custom_menu/popup/top_offset') + 0; ?>;
+var CUSTOMMENU_POPUP_DELAY_BEFORE_DISPLAYING = <?php echo Mage::getStoreConfig('custom_menu/popup/delay_displaying') + 0; ?>;
+var CUSTOMMENU_POPUP_DELAY_BEFORE_HIDING = <?php echo Mage::getStoreConfig('custom_menu/popup/delay_hiding') + 0; ?>;
+var CUSTOMMENU_RTL_MODE = <?php echo $_rtl; ?>;
+var wpCustommenuTimerShow = {};
+var wpCustommenuTimerHide = {};
+var wpActiveMenu = null;
+//]]>
+</script>
+
+
+

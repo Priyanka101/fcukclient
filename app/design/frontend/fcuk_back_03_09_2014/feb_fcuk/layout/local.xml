@@ -1,0 +1,218 @@
+<layout version="0.1.0">
+    <default>
+	<reference name="head">
+		   <action method="addJs"><script>jquery-1.7.2.min.js</script></action>
+		   <action method="addCss"><stylesheet>css/override.css</stylesheet></action>
+		   <action method="addCss"><stylesheet>css/override_new.css</stylesheet></action>
+		   <action method="addCss"><stylesheet>css/jquery.bxslider.css</stylesheet></action>
+		   <action method="addCss"><stylesheet>css/zaid_override.css</stylesheet></action>
+		   <action method="addCss"><stylesheet>css/kishan.css</stylesheet></action>
+		   <action method="addCss"><stylesheet>css/social_bar.css</stylesheet></action>
+		   <action method="addCss"><stylesheet>css/rk.css</stylesheet></action>
+		   <action method="addCss"><stylesheet>css/custom.css</stylesheet></action>
+		   <action method="addCss"><stylesheet>css/jquery.fancybox-1.3.4.css</stylesheet></action>
+		   <action method="addCss"><stylesheet>css/fullPage.js-master/jquery.fullPage.css</stylesheet></action>
+		   <action method="addCss"><stylesheet>css/fullPage.js-master/example2.css</stylesheet></action>  
+		   <action method="addItem"><type>skin_js</type><name>js/jquery.fancybox-1.3.4.pack.js</name></action>
+		   <action method="addItem"><type>skin_js</type><name>js/jwplayer.js</name></action>
+		   <action method="addItem"><type>skin_js</type><name>js/jquery.cookie.js</name></action>
+		   <action method="addItem"><type>skin_js</type><name>js/custom.js</name></action>
+		   <action method="addItem"><type>skin_js</type><name>js/custom.js</name></action>
+		   <action method="addItem"><type>skin_js</type><name>js/jquery.bxslider.js</name></action>
+		   <action method="setTitle" translate="title"><title>FRENCH CONNECTION</title></action>
+	</reference>
+	<reference name="root">
+        <action method="setTemplate"><template>page/1column.phtml</template></action>
+    </reference>
+	<reference name="header">
+		<block type="newsletter/subscribe" name="footer.newsletter" template="page/nsubscribe.phtml"/>
+		<block type="newsletter/subscribe" name="subscribe_header" template="page/subscribe.phtml"/>
+		<block type="checkout/cart_sidebar" name="header_cart_sidebar" template="page/sidebar.phtml"/>
+		<remove name="top.search"></remove>
+	</reference>
+	<!--reference name="top.links">
+		<action method="addLink" translate="label title" module="customer"><label>Sign Up Newsletter</label><title>Sign Up Newsletter</title><prepare/><position>10</position></action>
+	</reference-->
+	<reference name="top.menu">
+		<block type="core/template" name="top.search" as="topSearch" template="catalogsearch/form.mini.phtml"/>
+	</reference>
+	<reference name="footer">
+        <block type="newsletter/subscribe" name="newsletter" as="newsletter" template="newsletter/subscribe.phtml" before="-" />
+        </reference>
+	</default>
+	
+	<contacts_index_index>
+	<reference name="root">
+        <action method="setTemplate"><template>page/1column.phtml</template></action>
+    </reference>
+	</contacts_index_index>
+	<catalog_product_view>
+		<reference name="head">
+			  <action method="addItem"><type>skin_js</type><name>js/customInputnew.js</name></action>
+			  <action method="addCss"><stylesheet>css/radiobtn.css</stylesheet></action>
+		</reference>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>	 
+	    <remove  name="catalog.product.related"/>
+	</catalog_product_view>
+	<catalog_category_layered>
+		<reference name="left">
+			<block type="catalog/layer_view" name="catalog.leftnav" after="currency" template="catalog/layer/view.phtml"/>
+        	<!--<block type="catalog/product_list_toolbar" name="product_list_toolbar" before="-" template="catalog/product/list/toolbar.phtml">
+    	        <action method="setToolbarBlockName"><name>product_list_toolbar</name></action>
+            </block> -->
+        </reference>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+			<remove name="left.newsletter"/>
+			<remove name="left.permanent.callout"/>
+		</reference>		
+	</catalog_category_layered>
+	
+	<customer_account_login>
+	<reference name="customer_form_login">
+		<block type="customer/form_register" name="customer_form_register" template="customer/form/register.phtml">
+                <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before" translate="label">
+                    <label>Form Fields Before</label>
+                </block>
+            </block>
+		</reference>	
+	</customer_account_login>
+	<catalog_category_view>
+		<reference name="head">
+		   <action method="addItem"><type>skin_js</type><name>js/css-pop.js</name></action>
+		</reference>
+	</catalog_category_view>
+	<catalog_product_view>
+		<reference name="head">
+		   <action method="addItem"><type>skin_js</type><name>js/css-pop.js</name></action>
+		</reference>
+		 <reference name="content">
+            <block type="catalog/product_list_related" name="catalog.product.related" template="catalog/product/list/related.phtml"/>
+        </reference>
+	</catalog_product_view>
+	<checkout_cart_index>	
+		<reference name="head">
+		   <action method="addItem"><type>skin_js</type><name>js/css-pop.js</name></action>
+		</reference>
+	    <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+            <!--action method="setTemplate"><template>page/1column.phtml</template></action-->
+        </reference>
+		
+		<remove name="checkout.cart.crosssell"/>
+		<remove name="left.newsletter"/>
+		<remove name="left.permanent.callout"/>
+		<remove name="catalog.vertnav"/>		
+		<reference name="right">
+			<block type="core/template" name="need.help" before="-" as="need.help" template="checkout/cart/need_help.phtml"/>
+			<block type="checkout/cart_crosssell" name="left.checkout.cart.crosssell" as="left.crosssell" template="checkout/cart/crosssell.phtml"/>
+			<remove name="catalog.compare.sidebar"/>
+			<remove name="right.reports.product.viewed"/>
+			<remove name="cart_sidebar"/>
+		</reference>
+	</checkout_cart_index>	
+	<wishlist_index_index>
+		<remove name="left.newsletter"/>
+		<remove name="left.permanent.callout"/>
+		<remove name="cart_sidebar"/>
+		<remove name="catalog.compare.sidebar"/>
+	</wishlist_index_index>
+	<customer_account_index>
+		<remove name="left.newsletter"/>
+		<remove name="left.permanent.callout"/>
+		<remove name="cart_sidebar"/>
+		<remove name="catalog.compare.sidebar"/>
+	</customer_account_index>
+	<customer_account>
+		<remove name="left.newsletter"/>
+		<remove name="left.permanent.callout"/>
+		<remove name="cart_sidebar"/>
+		<remove name="catalog.compare.sidebar"/>
+	</customer_account>
+	<customer_address_index>
+		<remove name="left.newsletter"/>
+		<remove name="left.permanent.callout"/>
+		<remove name="cart_sidebar"/>
+		<remove name="catalog.compare.sidebar"/>
+	</customer_address_index>
+	<customer_address_form>
+		<remove name="left.newsletter"/>
+		<remove name="left.permanent.callout"/>
+		<remove name="cart_sidebar"/>
+		<remove name="catalog.compare.sidebar"/>
+	</customer_address_form>
+	<giftcards_customer_balance>
+		<remove name="left.newsletter"/>
+		<remove name="left.permanent.callout"/>
+		<remove name="cart_sidebar"/>
+		<remove name="catalog.compare.sidebar"/>
+	</giftcards_customer_balance>
+	<sales_order_history>
+		<remove name="left.permanent.callout"/>
+		<remove name="catalog.compare.sidebar"/>
+	</sales_order_history>
+	<sales_order_view>
+		<remove name="left.permanent.callout"/>
+		<remove name="catalog.compare.sidebar"/>
+	</sales_order_view>
+	<customer_account_edit>
+		<remove name="catalog.compare.sidebar"/>
+	</customer_account_edit>
+	<catalog_category_view>
+		<reference name="content">
+			<!--block type="catalog/product_list" name="product_list" template="catalog/product/list.phtml">
+                    <action method="setColumnCount"><columns>4</columns></action>
+            </block-->
+		</reference>
+	</catalog_category_view>
+	<catalogsearch_result_index>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>js/css-pop.js</name></action>
+        </reference>
+		<reference name="root">
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+        </reference>
+		<reference name="left">
+			<remove name="left.newsletter" />
+			<remove name="catalog.vertnav" />
+			<remove name="left.permanent.callout" />
+			<!-- <block type="vertnav/navigation" name="catalog.vertnav" template="vertnav/left.phtml" before="catalog.leftnav"/> -->
+			
+            <!-- <block type="catalog/product_list_toolbar" name="product_list_toolbar" before="-" template="catalog/product/list/toolbar.phtml">
+            </block> -->
+            
+        
+		</reference>
+	</catalogsearch_result_index>
+	
+	<checkout_onepage_success>
+		<reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+	</checkout_onepage_success>
+	
+	<checkout_onepage_index>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>js/css-pop.js</name></action>
+        </reference>
+	</checkout_onepage_index>
+	
+	<sales_order_view>
+	 <reference name="order_totals">
+	 	<action method="setLabelProperties"><value>colspan="5" class="a-right"</value></action>
+                    <action method="setValueProperties"><value>class="last a-right"</value></action>
+	 </reference>
+	</sales_order_view>
+	<sales_order_print>
+	<reference name="head">
+		   <action method="addCss"><stylesheet>css/override.css</stylesheet></action>
+		</reference>
+	 <reference name="order_totals">
+	 	<action method="setLabelProperties"><value>colspan="5" class="a-right"</value></action>
+                    <action method="setValueProperties"><value>class="last a-right"</value></action>
+	 </reference>
+	</sales_order_print>
+		
+</layout>

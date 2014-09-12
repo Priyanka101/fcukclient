@@ -1,0 +1,314 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * One page checkout payment methods
+ *
+ * @see Mage_Checkout_Block_Onepage_Payment_Methods
+ */
+?>
+<?php 
+	//Code for Payment Redirects Start
+	//Get Product Info Collection
+	$coupon_code= Mage::getSingleton('checkout/session')->getQuote()->getCouponCode();
+	$coupon_code=strtolower($coupon_code);
+	//echo $coupon_code;exit;
+	/*Coupon code for 50% discount to disable COD*/
+	$model  = Mage::getModel("paymentinfo/paymentinfo")->getCollection();
+	//Product info Collection Data Array
+	$paymentCollection = $model->getData();
+	//Final Array
+	$finalPaymentArray=array();
+	//Logic for Finding Payment with least price
+	foreach ($paymentCollection as $pc1){ 
+		foreach ($paymentCollection as $pc2){ 
+			if($pc1['name']==$pc2['name']){
+				if(($pc1['price']<=$pc2['price'])&&($pc1['payment_type']!=$pc2['payment_type'])){
+					array_push($finalPaymentArray,$pc1);
+				}
+			}
+		}
+	}
+	//Logic for Finding Remaining Payment
+	foreach ($paymentCollection as $pc){ 
+		foreach ($finalPaymentArray as $fpa){ 
+			if($pc['name']==$fpa['name']){
+				$temp='0';
+				break;
+			}
+			else{
+				$temp=$pc;
+			}
+		}
+		if($temp!='0'){
+			array_push($finalPaymentArray,$temp);
+		}
+	}
+	//Final Array with Data
+	// print_r($finalPaymentArray);
+	// exit;
+	//Code for Payment Redirects End
+?>
+<?php //echo get_class($this);?>
+<dl class="sp-methods" id="checkout-payment-method-load">
+	<?php  $methods = $this->getMethods(); $oneMethod = count($methods) <= 1;?>
+	<?php	   
+	$mcode =Mage::getSingleton('core/session')->getPayment();
+	//	$mcode =Mage::getSingleton('core/session')->getPayment('ncod');
+		// echo "Test".(!$oneMethod)."Test";
+				//echo $mcode;
+				
+	?>
+	<?php if($mcode=='cod'):
+			//if($coupon_code!='FCUK50' &&  $coupon_code!='fcuk50'):?>
+		
+		<?php foreach ($methods as $_method): $_code = $_method->getCode();?>
+				<?php 
+				if($coupon_code == 'fcuk50'){
+				if($_code != 'cashondelivery'){ ?>
+					<dt>
+						<!--Code for Displaying Final Payment Array Start-->
+						<?php $i=0; ?>
+						<?php foreach ($finalPaymentArray as $fpa){?>
+						<?php if ($fpa['payment_type']==$_code){?>
+						<?php if ($i>0){echo "</dt><dt>"; }?>
+						<input id="p_method_<?php echo $fpa['payment_type'].$i ?>" value="<?php echo $fpa['payment_type'] ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($fpa['name']) ?>" onclick="payment.switchMethod('<?php echo $fpa['payment_type'] ?>')"<?php if($this->getSelectedMethodCode()==$fpa['payment_type']): ?><?php endif; ?> class="radio" />
+						<label for="p_method_<?php echo $fpa['payment_type'].$i ?>"><?php echo $this->escapeHtml($fpa['name']) ?></label>
+						<?php $i=$i+1;?>
+						<?php }?>
+						<?php }?>
+						<!--Code for Displaying Final Payment Array End-->
+					<?php if ($i==0){?>
+						<input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" onclick="payment.switchMethod('<?php echo $_code ?>')"<?php if($this->getSelectedMethodCode()==$_code): ?><?php endif; ?> class="radio" />
+						<label for="p_method_<?php echo $_code ?>"><?php echo $this->escapeHtml($this->getMethodTitle($_method)) ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
+					<?php } ?>
+					
+					</dt>
+				<?php } 
+			}else{?>
+				<dt>
+				<?php $i=0; ?>
+						<?php foreach ($finalPaymentArray as $fpa){?>
+						<?php if ($fpa['payment_type']==$_code){?>
+						<?php if ($i>0){echo "</dt><dt>"; }?>
+						
+						<input id="p_method_<?php echo $fpa['payment_type'].$i ?>" value="<?php echo $fpa['payment_type'] ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($fpa['name']) ?>" onclick="payment.switchMethod('<?php echo $fpa['payment_type'] ?>')"<?php if($this->getSelectedMethodCode()==$fpa['payment_type']): ?><?php endif; ?> class="radio" />
+						<label for="p_method_<?php echo $fpa['payment_type'].$i ?>"><?php echo $this->escapeHtml($fpa['name']) ?></label>
+						<?php $i=$i+1;?>
+						<?php }?>
+						<?php }?>
+						<!--Code for Displaying Final Payment Array End-->
+					<?php if ($i==0){?>
+						
+						<input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" onclick="payment.switchMethod('<?php echo $_code ?>')"<?php if($this->getSelectedMethodCode()==$_code): ?><?php endif; ?> class="radio" />
+						<label for="p_method_<?php echo $_code ?>"><?php echo $this->escapeHtml($this->getMethodTitle($_method)) ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
+					<?php } ?>
+				</dt>
+			<? }?>
+			
+		<?php //endforeach; 
+		/*else:
+		foreach ($methods as $_method): $_code = $_method->getCode();?>
+			<?php if($_code != "cashondelivery"):?>
+			<dt>
+				<?php if(!$oneMethod): ?>
+								<!--Code for Displaying Final Payment Array Start-->
+					<?php $i=0; ?>
+					<?php foreach ($finalPaymentArray as $fpa){?>
+					<?php if ($fpa['payment_type']==$_code){?>
+					<?php if ($i>0){echo "</dt><dt>"; }?>
+					<input id="p_method_<?php echo $fpa['payment_type'].$i ?>" value="<?php echo $fpa['payment_type'] ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($fpa['name']) ?>" onclick="payment.switchMethod('<?php echo $fpa['payment_type'] ?>')"<?php if($this->getSelectedMethodCode()==$fpa['payment_type']): ?><?php endif; ?> class="radio" />
+					<label for="p_method_<?php echo $fpa['payment_type'].$i ?>"><?php echo $this->escapeHtml($fpa['name']) ?></label>
+					<?php $i=$i+1;?>
+					<?php }?>
+					<?php }?>
+					<!--Code for Displaying Final Payment Array End-->
+					<?php if ($i==0){?>
+					<input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" onclick="payment.switchMethod('<?php echo $_code ?>')"<?php if($this->getSelectedMethodCode()==$_code): ?><?php endif; ?> class="radio" />
+					<label for="p_method_<?php echo $_code ?>"><?php echo $this->escapeHtml($this->getMethodTitle($_method)) ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
+					<?php } ?>
+				<?php else: ?>
+					<span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" class="radio" /></span>
+					<?php $oneMethod = $_code; ?>
+					<label for="p_method_<?php echo $_code ?>"><?php echo $this->escapeHtml($this->getMethodTitle($_method)) ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
+				<?php endif; ?>
+			</dt>
+			
+			<?php endif; */?>
+			
+		<?php endforeach; //endif;?>
+	<?php elseif($mcode=='ncod'):?>
+	<?php foreach ($methods as $_method): $_code = $_method->getCode();?>
+		<?php if($_code != "cashondelivery"):?>
+		<dt>
+			<?php if(!$oneMethod): ?>
+							<!--Code for Displaying Final Payment Array Start-->
+				<?php $i=0; ?>
+				<?php foreach ($finalPaymentArray as $fpa){?>
+				<?php if ($fpa['payment_type']==$_code){?>
+				<?php if ($i>0){echo "</dt><dt>"; }?>
+				<input id="p_method_<?php echo $fpa['payment_type'].$i ?>" value="<?php echo $fpa['payment_type'] ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($fpa['name']) ?>" onclick="payment.switchMethod('<?php echo $fpa['payment_type'] ?>')"<?php if($this->getSelectedMethodCode()==$fpa['payment_type']): ?><?php endif; ?> class="radio" />
+				<label for="p_method_<?php echo $fpa['payment_type'].$i ?>"><?php echo $this->escapeHtml($fpa['name']) ?></label>
+				<?php $i=$i+1;?>
+				<?php }?>
+				<?php }?>
+				<!--Code for Displaying Final Payment Array End-->
+				<?php if ($i==0){?>
+				<input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" onclick="payment.switchMethod('<?php echo $_code ?>')"<?php if($this->getSelectedMethodCode()==$_code): ?><?php endif; ?> class="radio" />
+				<label for="p_method_<?php echo $_code ?>"><?php echo $this->escapeHtml($this->getMethodTitle($_method)) ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
+				<?php } ?>
+			<?php else: ?>
+				<span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" class="radio" /></span>
+				<?php $oneMethod = $_code; ?>
+				<label for="p_method_<?php echo $_code ?>"><?php echo $this->escapeHtml($this->getMethodTitle($_method)) ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
+			<?php endif; ?>
+		</dt>
+		<?php /*if ($html = $this->getPaymentMethodFormHtml($_method)): ?>
+		<dd>
+			<?php echo $html; ?>
+		</dd>
+		<?php endif; */?>
+		<?php endif; ?>
+		
+	<?php endforeach; ?>
+	<?php elseif($mcode=='ocod'):?>
+	<?php foreach ($methods as $_method): $_code = $_method->getCode();?>
+		<?php if($_code != "secureebs_standard" && $_code != "ccavenuepay"):?>
+		<dt>
+			<?php if(!$oneMethod): ?>
+				<input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" onclick="payment.switchMethod('<?php echo $_code ?>')"<?php if($this->getSelectedMethodCode()==$_code): ?><?php endif; ?> class="radio" />
+			<?php else: ?>
+				<span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" class="radio" /></span>
+				<?php $oneMethod = $_code; ?>
+			<?php endif; ?>
+			<label for="p_method_<?php echo $_code ?>"><?php echo $this->escapeHtml($this->getMethodTitle($_method)) ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
+		</dt>
+		<?php if ($html = $this->getPaymentMethodFormHtml($_method)): ?>
+		<dd>
+			<?php echo $html; ?>
+		</dd>
+		<?php endif; ?>
+		<?php endif; ?>
+		<?php endforeach; ?>
+	<?php else: ?>
+	<?php echo "no processing"; ?>
+			<?php endif; ?>
+	<!--dt>
+		<input id="p_method_ccavenuepay" value="ccavenuepay" type="radio" name="payment[method]" title="Ccavenuepay Payment" onclick="payment.switchMethod('ccavenuepay')" class="radio" autocomplete="off" class="i-banking">
+		<label for="p_method_ccavenuepay">Internet Banking</label>
+    </dt>
+	<dt>
+		<input id="p_method_secureebs_standard" value="secureebs_standard" type="radio" name="payment[method]" title="Secureebs Standard" onclick="payment.switchMethod('secureebs_standard')" class="radio" autocomplete="off" class="jcb">
+		<label for="p_method_secureebs_standard">JCB/AMEX</label>
+    </dt-->
+</dl>
+<?php echo $this->getChildChildHtml('additional'); ?>
+<script type="text/javascript">
+//<![CDATA[
+<?php echo $this->getChildChildHtml('scripts'); ?>
+payment.init();
+<?php if (is_string($oneMethod)): ?>
+    payment.switchMethod('<?php echo $oneMethod ?>');
+<?php endif; ?>
+//]]>
+</script>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+	/*$('#p_method_cashondelivery').change(function(){
+		if( $(this).is(":checked") ){ // check if the radio is checked
+            var val = $(this).val(); // retrieve the value
+           //  alert(val);
+            if(val == "cashondelivery")
+            {
+            	alert("The Poker set is not available on Cash On Delivery");
+            }
+        }
+	});*/
+
+	/*$("#checkout-step-payment #payment-buttons-container button").click(function(){
+		url = "<?php echo $this->getUrl().'checkout/onepage/index'?>";
+		setTimeout(function(){
+		$.post(url,function(response){
+			//alert(response);
+			//alert(response);
+			refresh_data = $(response).find('.cartrightsection').html();
+			console.log(refresh_data);
+			$('.col-main .cart .cartrightsection').html(refresh_data);
+		});},3000);
+	});*/
+});
+</script>
+
+
+
+<script type="text/javascript">
+	jQuery(document).ready(function($){
+		/*$(".sp-methods input[type='radio']").click(function(){
+			if($(this).attr('title')=='Credit Card'){
+				var url = "<?php echo $this->getUrl('hsbcbincheck/index/loadccform');?>";
+				jQuery.fancybox({
+					href : url,
+					'type'  : 'iframe',
+					'width': 450,
+					'height': 200,
+					'autoScale': true,
+					'autoDimensions': true,
+					'autoCenter':true
+				});
+			}else if($(this).attr('title')=='Debit Card'){
+				var url = "<?php echo $this->getUrl('hsbcbincheck/index/loaddcform');?>";
+				jQuery.fancybox({
+					href : url,
+					'type'  : 'iframe',
+					'width': 450,
+					'height': 200,
+					'autoScale': true,
+					'autoDimensions': true,
+					'autoCenter':true
+				});
+			}else{
+				$.ajax({
+	                type:"POST",
+	                url:"<?php echo $this->getUrl('hsbcbincheck/index/removeCoupon');?>",
+	                data:{'bin_number': $('.check_debit_binnumber').val()},
+	                dataType:"json",
+	                success:function(data){
+	                	if(data['msg'] == "success"){
+	                		$('.sitelinks').replaceWith(data['data']);
+	                		$('#shopping-cart-totals-table').addClass("sitelinks f-right");
+	                		$('#shopping-cart-totals-table').removeAttr('id');
+	                	}
+	                	else if(data['msg'] == "failed"){
+	                		alert("Unable to process your order.");		
+	                		return false;
+	                	}
+	               	}
+	          	});
+			}	
+		})*/
+	});
+</script>

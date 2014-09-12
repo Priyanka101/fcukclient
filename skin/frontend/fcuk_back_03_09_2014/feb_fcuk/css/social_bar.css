@@ -1,0 +1,265 @@
+html , body { *overflow-x: hidden !important; }
+
+#social {
+    position:absolute;
+    top: 0px;
+    right:0px;
+    width:40px;
+    height: 1000px;
+    opacity: 1.0;
+    /*z-index:1500;*/
+    overflow:hidden;
+	z-index:10;
+}
+.cms-home #social {
+    position:absolute;
+    top: 0px;
+    right:0px;
+    width:40px;
+    height: 720px;
+    opacity: 1.0;
+    /*z-index:1500;*/
+    overflow:hidden;
+  z-index:10;
+}
+#social_inner { position:relative; width:490px; }
+#social_box {
+    float:left;
+    position: relative;
+    width: 40px;
+    height: 1000px;
+    background-color:rgba(255,255,255,0.4);
+    background-color: #CCCCCC;
+    text-align: center;
+    padding-top: 75px;
+}
+.cms-home #social_box {
+    float:left;
+    position: relative;
+    width: 40px;
+    height: 720px;
+    background-color:rgba(255,255,255,0.4);
+    background-color: #CCCCCC;
+    text-align: center;
+    padding-top: 75px;
+}
+
+#social_box li {
+  display: block;
+  padding: 0;
+  text-decoration: none;
+  font-weight: normal;
+  width: 25px;
+  height: 25px;
+  background-repeat: no-repeat;
+  text-indent: -9999em;
+}
+.social_content_container {
+    float:left;
+    width:300px;
+    padding-left: 0px;
+    padding-right: 0px;
+
+    background-color:rgba(255,255,255,0.9);
+	background:#eee\9;
+    height:1000px;
+}
+
+.banner_awlaunch #social { height:800px; }
+
+.banner_awlaunch #social_box {
+  height: 800px;
+}
+.banner_awlaunch .social_content_container {
+  height:800px;
+}
+
+.social_content { width: 200px; padding-top: 75px; margin-left: auto; margin-right: auto; }
+.social_content h3 { font-weight: normal; font-size: 20px}
+.social_content a {text-decoration: none;}
+#close_social {
+  position: absolute;
+  z-index:600;
+  display: none;
+  width: 15px;
+  left: 13px;
+  top: 10px;
+  *top: 15px;
+  cursor: pointer;
+}
+#close_social img {left: 10px;}
+.social_content, .social_content_facebook {text-align: center; margin-left: 25px;}
+.social_content_facebook h3 {padding-left: 40px;}
+.Social_content_box { padding-bottom: 10px;  border-bottom: 2px solid grey;}
+.Social_content_box_bottom { border-bottom: none;}
+#social_box li.social_box_icon{
+  cursor: pointer;
+  overflow: hidden;
+  margin: 10px 8px 10px 7px;
+  padding-top: 15px;
+  list-style:none;
+  *margin-left:-10px;
+}
+#social_box li.social_box_icon a {
+  display:block;
+  width:25px; height:25px;
+  *width:28px; *height:28px;
+  background-size:200px 283px;
+  z-index: 111;
+  background-image: url(../images/kishan/fc_social_icons.png);
+  background-image: url(../images/kishan/fc_social_icons_ie.png)\9;
+}
+#social_box li.social_box_icon.social_box_email a { background-position:-240px -120px;  background-position:-237px -119px\9; }
+#social_box li.social_box_icon.social_box_email a:hover, #social_box li.social_box_icon.social_box_email.social_box_icon_on a { background-position:-240px -50px; background-position:-237px -50px\9; }
+
+#social_box li.social_box_icon.social_box_blog a { background-position:-7px -123px; background-position:-7px -121px\9;}
+#social_box li.social_box_icon.social_box_blog a:hover, #social_box li.social_box_icon.social_box_blog.social_box_icon_on a { background-position:-7px -53px; background-position:-7px -52px\9;}
+
+#social_box li.social_box_icon.social_box_facebook a { background-position:-136px -91px; background-position:-134px -89px\9;}
+#social_box li.social_box_icon.social_box_facebook a:hover, #social_box li.social_box_icon.social_box_facebook.social_box_icon_on a { background-position:-136px -21px; background-position:-134px -20px\9; }
+
+#social_box li.social_box_icon.social_box_twitter a { background-position:-39px -91px; background-position:-38px -89px\9;  }
+#social_box li.social_box_icon.social_box_twitter a:hover, #social_box li.social_box_icon.social_box_twitter.social_box_icon_on a { background-position:-39px -21px; background-position:-38px -20px\9; }
+
+#social_box li.social_box_icon.social_box_insta a { background-position:-168px -91px; }
+#social_box li.social_box_icon.social_box_insta a:hover, #social_box li.social_box_icon.social_box_insta.social_box_icon_on a { background-position:-168px -21px; }
+
+#social_box li.social_box_icon.social_box_youtube a {background-position:-104px -91px; background-position:-102px -89px\9; }
+#social_box li.social_box_icon.social_box_youtube a:hover, #social_box li.social_box_icon.social_box_youtube.social_box_icon_on a  { background-position:-104px -21px; background-position:-102px -20px\9;}
+
+#social_box li.social_box_icon.social_box_pinterest a { background-position:-7px -91px; }
+#social_box li.social_box_icon.social_box_pinterest a:hover, #social_box li.social_box_icon.social_box_pinterest.social_box_icon_on a { background-position:-7px -21px; }
+
+
+#social_box li.social_box_icon.social_box_google a {
+  background-image: url(../images/kishan/fc_social_icons.png);
+  background-image: url(../images/kishan/fc_social_icons_ie.png)\9;
+  background-position:-71px -91px;
+}
+#social_box li.social_box_icon.social_box_google a:hover, #social_box li.social_box_icon.social_box_google.social_box_icon_on a {background-position:-71px -21px; }
+#social_box li.social_box_icon.selected a {background-position:-71px -21px; }
+#social_box li.social_box_icon.social_box_google a.selected {background-position:-71px -21px;}
+.social_content .social_content_email {float: left;}
+
+/*EMAIL FORM*/
+#social input { outline:0; }
+#social h1 { text-transform:uppercase; margin:0; padding:0; font-size:16px; letter-spacing:1px;}
+#social p { margin:0; padding:0 0 2px 0; color:#999999; }
+#social h3 { margin:0; padding:0 0 10px 0; font-size:11px;letter-spacing:1px;}
+.form_row { font-size:13px; padding:0 0 10px 0; }
+#row_gender {padding: 10px 0 20px 10px; }
+#gender_box label { padding-left:20px; color:#999999; }
+.form_note {font-size: 0.70em; }
+.social_content_email {width: 250px; margin-left:20px;}
+.label {float: left; color:#999999; }
+.social_content_email p { padding:  0 5px 0 5px; font-size: 13px; }
+.social_content_email h3 { padding:  0 30px 0 30px;  }
+.input_box { width: 250px; }
+.submitBtn_submit {
+  width: 151px; height: 44px; margin-top: 25px;
+  background-image: url(../images/kishan/btn_submit.png);
+}
+.submitBtn {
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  border: 0;
+  line-height: 999px;
+  overflow: hidden;
+  font-size: 0;
+}
+#social .input_box { padding:10px 5px 10px 10px; font-size:13px; }
+
+/*EMAIL SIGNUP CONFIRM*/
+.signup_confirmation { display: none;} /*HIDING CONFIMATION TEXT*/
+.signup_confirmation h2 {height: 150px; width: 100%; font-size: 24px; font-weight: lighter; text-align: center; font-size:4em;}
+.signup_confirmation a {text-decoration: none;}
+.signup_confirmation a:hover {text-decoration: underline;}
+#form_text {  display: ;} /*FORM TEXT/ DISPLAY NONE TO HIDE*/
+#form_error_message {color: red; display: none;} /*HIDING ERROR MESSAGE*/
+/*#row_email input{border: 3px solid red;}*/
+.social_content_email header  { display: ;}
+input {border: 0px;}
+
+#email_popup {
+  position: absolute;
+  right: 50px;
+  top: 92px;
+  z-index: 111;
+  display: none;
+  z-index: 555;
+}
+
+
+/*LIVE FEEDS*/
+
+
+
+/* Twitter Styles */
+
+#tweetFeed, #tweetScroll {float:left;width:100%; margin:0 0 10px 0; height:820px; overflow:hidden;}
+
+#tweetScroll { position: relative !important;  color: #333; font-size:11px;  text-align:left; position:relative; z-index:1;}
+
+
+
+#tweetScroll a { }
+
+#tweetScroll ul li { margin:0 0 10px 0; padding: 0 0 10px 0; border-bottom: 1px solid #c2c3c5; position:relative; width:100%; height:75px!Important;}
+
+#tweetScroll ul li em { margin:3px 0 0 0; display:inline-block; }
+
+
+
+.tw-custom-header,.tw-custom-header-hyperlink {width:100%; font-weight:bold; display:inline-block; margin: 0 0 3px 0;}
+
+.tw-custom-header span.warestyle {font-weight:normal; color:#999;}
+
+.twtr-hyperlink {display:inline-block; color:#999;}
+
+.twtr-hyperlink:hover {color:#000;}
+
+.twtr-timestamp {float: right;position: absolute;top: 5px; right:0;}
+
+
+#social .social_content_inner { width:124px; margin:0 auto; }
+#social .social_content_inner_item { margin:0 0 20px 0; padding:20px 0 0 0; font-size:10px; border-top:1px solid #CCCCCC;}
+#social .social_content_inner_item_first { border-top:0px solid #CCCCCC; }
+#social .social_content_inner_item h3 { margin:0; padding:0; font-size:11px; letter-spacing:0;}
+#social .social_content_inner_item img { margin-top:10px; }
+
+#social .social_content_youtube .social_content_inner_item { margin:10px 0 10px 0; padding:0px 0 0 0; font-size:10px; border-top:0; }
+#social .social_content_pinterest .social_content_inner_item { margin:10px 0 10px 0; padding:0px 0 0 0; font-size:10px; border-top:0; }
+#social .social_content_insta .social_content_inner_item { margin:10px 0 10px 0; padding:0px 0 0 0; font-size:10px; border-top:0; }
+#social .social_content_twitter .social_content_inner_item { margin:10px 0 15px 0; padding:0px 0 0 0; font-size:10px; border-top:0; text-align:left; font-size:13px; line-height:20px; }
+
+#social .social_content_twitter .social_content_inner_item a { color:#5A9289; }
+#social .social_content_twitter .social_content_inner_item a:hover { text-decoration:underline; }
+
+
+.social_content_inner_item_link {
+  background-size:200px 283px;
+  background-image: url(../images/kishan/fc_social_icons.png);
+  background-image: url(../images/kishan/fc_social_icons_ie.png)\9 !important;
+  background-position:-7px -53px;
+  display:block;
+  width:25px; height:25px;
+  margin:5px auto;
+  text-align:center;
+}
+
+
+#social .social_content_twitter .social_content_inner_item .social_content_inner_item_link { text-align:center; }
+
+.social_content_blog .social_content_inner_item_link { background-position:-7px -53px; background-position:-7px -52px; }
+.social_content_pinterest .social_content_inner_item_link { background-position:-7px -21px; background-position:-6px -20px; }
+.social_content_youtube .social_content_inner_item_link { background-position:-104px -21px; background-position:-102px -20px; }
+.social_content_insta .social_content_inner_item_link { background-position:-168px -21px; background-position:-166px -20px; }
+.social_content_facebook .social_content_inner_item_link { background-position:-136px -21px; background-position:-134px -20px\9; }
+.social_content_twitter .social_content_inner_item_link { background-position:-39px -21px; background-position:-38px -20px\9; }
+
+/*END LIVE FEEDS*/
+
+.social_content_inner_blog .blog_content{
+ padding: 20px 0 20px 0;
+border-top: 1px solid #CCCCCC;
+}

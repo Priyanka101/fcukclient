@@ -1,0 +1,5 @@
+<?php if ($this->helper('customer')->isLoggedIn()):?>
+<li><a href="<?php echo Mage::helper('customer')->getLogoutUrl(); ?>" style="color: #999;">SIGN OUT</a><span class="fc-header-sub-nav-sep">|</span></li>
+<?php else :?>
+<li><a href="<?php echo Mage::helper('customer')->getLoginUrl(); ?>" style="color: #999;">SIGN IN</a><span class="fc-header-sub-nav-sep">|</span></li>
+<?php endif;?>

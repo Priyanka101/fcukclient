@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Mac_Custom>
+      <version>0.1.0</version>
+    </Mac_Custom>
+  </modules>
+  <global>
+    <helpers>
+      <custom>
+        <class>Mac_Custom_Helper</class>
+      </custom>
+    </helpers>
+	<blocks>
+	  <custom>
+		<class>Mac_Custom_Block</class>
+	  </custom>
+	</blocks>
+	<models>
+	  <custom>
+		<class>Mac_Custom_Model</class>
+		<resourceModel>custom_mysql4</resourceModel>
+	  </custom>
+	  <custom_mysql4>
+		<class>Mac_Custom_Model_Mysql4</class>
+		<entities>		  
+			  <kittedout>
+				<table>kittedout</table>
+			  </kittedout>
+        </entities>
+	  </custom_mysql4>
+	</models>
+	<resources>
+	  <custom_setup>
+		<setup>
+		  <module>Mac_Custom</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </custom_setup>
+	  <custom_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </custom_write>
+	  <custom_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </custom_read>
+	</resources>
+  </global>
+  <admin>
+	<routers>
+	  <custom>
+	    <use>admin</use>
+		<args>
+		  <module>Mac_Custom</module>
+		  <frontName>custom</frontName>
+		</args>
+	  </custom>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <custom module="custom">
+		<title>Custom</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <kittedout module="custom">
+		    <title>Manage Kittedout</title>
+			<sort_order>5</sort_order>
+			<action>custom/adminhtml_kittedout</action>
+		  </kittedout>
+		   <requestcatalog module="requestcatalog">
+		    <title>Manage Requestcatalog</title>
+			<sort_order>2</sort_order>
+			<action>requestcatalog/adminhtml_requestcatalog</action>
+		  </requestcatalog>
+		 <gamechanger module="content">
+		    <title>Manage Gamechanger</title>
+			<sort_order>4</sort_order>
+			<action>content/adminhtml_gamechanger</action>
+		  </gamechanger>
+		   <whitelies module="whitelies">
+		    <title>Manage Whitelies</title>
+			<sort_order>6</sort_order>
+			<action>whitelies/adminhtml_whitelies</action>
+		  </whitelies>
+		    <lookbook module="lookbook">
+		    <title>Manage Lookbook</title>
+			<sort_order>3</sort_order>
+			<action>lookbook/adminhtml_lookbook</action>
+		  </lookbook>
+		  <landingpages module="landingpages">
+		    <title>Manage Landingpages</title>
+			<sort_order>1</sort_order>
+			<action>landingpages/adminhtml_landingpages</action>
+		  </landingpages>
+		 <!--   <man module="landingpage">
+		    <title>Manage Homepage</title>
+			<sort_order>0</sort_order>
+			<action>landingpage/adminhtml_man</action>
+		  </man> -->
+		</children>
+	  </custom>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<custom translate="title" module="custom">
+			  <title>Custom</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+		  <kittedout translate="title">
+			<title>Manage Kittedout</title>
+			<sort_order>0</sort_order>
+		  </kittedout>
+			  </children>
+			</custom>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<custom>
+		  <file>custom.xml</file>
+		</custom>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

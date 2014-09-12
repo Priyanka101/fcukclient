@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Iksula_Customorder>
+      <version>0.1.1</version>
+    </Iksula_Customorder>
+  </modules>
+  <global>
+    <helpers>
+      <customorder>
+        <class>Iksula_Customorder_Helper</class>
+      </customorder>
+    </helpers>
+	<models>
+	  <customorder>
+		<class>Iksula_Customorder_Model</class>
+		<resourceModel>customorder_mysql4</resourceModel>
+	  </customorder>
+	</models>
+	<resources>
+	  <salesattribute1373013490_setup>
+		<setup>
+		  <module>Iksula_Customorder</module>
+		  <class>Mage_Sales_Model_Mysql4_Setup</class>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </salesattribute1373013490_setup>
+	  <salesattribute1373013490_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </salesattribute1373013490_write>
+	  <salesattribute1373013490_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </salesattribute1373013490_read>
+	</resources>
+    <events>
+  <!--  <sales_order_place_after>
+            <observers>
+                <customorder_observer>
+                    <type>singleton</type>
+                    <class>Iksula_Customorder_Model_Observer</class>
+                    <method>customattributeset</method>
+                </customorder_observer>
+            </observers>
+    </sales_order_place_after> -->
+    
+    </events>
+  </global>
+</config> 

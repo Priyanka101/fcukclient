@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Mage_Adminhtml>
+            <version>0.7.1</version>
+        </Mage_Adminhtml>
+    </modules>
+
+    <global>
+        <block>
+            <adminhtml>
+                <widget>
+                        <grid>Mage_Adminhtml_Block_Widget_Grid</grid>
+                </widget>
+                <sales>
+                    <rewrite>
+                        <!--<shipment_grid>Mage_Adminhtml_Block_Sales_Shipment_Grid</shipment_grid>-->
+                        <order_grid>Mage_Adminhtml_Block_Sales_Order_Grid</order_grid>
+                        <!--<totals>Mage_Adminhtml_Block_Sales_Totals</totals>-->
+						<creditmemo_grid>Mage_Adminhtml_Block_Sales_Creditmemo_Grid</creditmemo_grid>
+                    </rewrite>
+                </sales>
+            </adminhtml>
+        </block>
+	
+    </global>
+</config>

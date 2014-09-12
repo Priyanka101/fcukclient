@@ -1,0 +1,442 @@
+<?php
+/* $product = Mage::registry('current_product');
+	$product_id =$product->getId();
+//	echo $product_id;
+
+$product_model = Mage::getModel('catalog/product'); //get product model             
+$all_cats = array();
+$product_model->reset();
+ 
+$_product = $product_model->load($product_id); // $product_id is the given product id 
+ 
+$all_cats = $product_model->getCategoryIds($_product); 
+//print_r($all_cats);// all the categories to which this product is assigned   
+
+ $info = Mage::getModel('catalog/category')
+			->load($all_cats[0])
+            ->getParentCategory();
+	$pcat_id=$info->getId(); 
+	echo $pcat_id; */
+	
+/* $_helper = $this->helper('catalog/output');
+	$_category_detail=Mage::registry('current_category');
+	//echo  $_category_detail->getName(); //gives current  category name
+   $_category_id=$_category_detail->getId(); //gives current category id
+echo $_category_id;
+    $info = Mage::getModel('catalog/category')
+			->load($_category_id)
+            ->getParentCategory();
+	$parentcat_id=$info->getId(); 
+//print_r($info);
+	//echo trim($pcat_id);*/
+/* if($parentcat_id!=5)
+	{  */
+
+?> 
+
+<div class="size-chart-outer-container">
+<div id="size-fit-popup">
+<div align="center">
+<h2 class="size-chart-title">French Connection Size Guide</h2>
+<table class="size-guide">
+<tbody>
+<tr><th colspan="9">
+<h3>WOMENSWEAR SIZE GUIDE</h3>
+</th></tr>
+<tr><th>UK SIZE</th>
+<td>6</td>
+<td>8</td>
+<td>10</td>
+<td>12</td>
+<td>14</td>
+<td>16</td>
+<td>18</td>
+<td>20</td>
+</tr>
+<tr><th>&nbsp;</th>
+
+<td>XS</td>
+<td>S</td>
+<td>M</td>
+<td>L</td>
+<td>XL</td>
+<td>XXL</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><th>BUST <br /> INCHES</th>
+<td>32"</td>
+<td>33"</td>
+<td>34"</td>
+<td>36"</td>
+<td>38"</td>
+<td>40"</td>
+<td>42"</td>
+<td>44"</td>
+</tr>
+<tr><th>CM</th>
+<td>81cm</td>
+<td>84cm</td>
+<td>86cm</td>
+<td>91cm</td>
+<td>96cm</td>
+<td>101cm</td>
+<td>106.5cm</td>
+<td>112cm</td>
+</tr>
+<tr><th>WAIST<br /> INCHES</th>
+<td>25.5"</td>
+<td>26.5"</td>
+<td>27.5"</td>
+<td>29.5"</td>
+<td>31.5"</td>
+<td>33.5"</td>
+<td>35.5"</td>
+<td>37.5"</td>
+</tr>
+<tr><th>CM</th>
+<td>65cm</td>
+<td>67cm</td>
+<td>70cm</td>
+<td>75cm</td>
+<td>80cm</td>
+<td>85cm</td>
+<td>90cm</td>
+<td>95cm</td>
+</tr>
+<tr><th>HIP<br /> INCHES</th>
+<td>35.5"</td>
+<td>36.5"</td>
+<td>37.5"</td>
+<td>39.5"</td>
+<td>41.5"</td>
+<td>43.5"</td>
+<td>45.5"</td>
+<td>47.5"</td>
+</tr>
+<tr><th>CM</th>
+<td>90cm</td>
+<td>93cm</td>
+<td>95cm</td>
+<td>100cm</td>
+<td>105cm</td>
+<td>110cm</td>
+<td>115cm</td>
+<td>120.5cm</td>
+</tr>
+</tbody>
+</table>
+<!--table cellspacing="0" cellpadding="0" border="0" class="size-guide">
+          <tbody>
+            <tr>
+              <th colspan="11"><h3>WOMENSWEAR SHOE SIZE GUIDE</h3></th>
+            </tr>
+
+<tr>
+        <th>UK</th>
+        <td>2</td>
+    <td>3</td>
+    <td>4</td>
+    <td>5</td>
+    <td>6</td>
+    <td>7</td>
+    <td>8</td>
+      </tr>
+      <tr>
+        <th>US &amp; Can</th>
+    <td>4</td>
+    <td>5</td>
+    <td>6</td>
+    <td>7</td>
+    <td>8</td>
+    <td>9</td>
+    <td>10</td>
+      </tr>
+      <tr>
+        <th>CONTINENTAL</th>
+        <td>35</td>
+    <td>36</td>
+    <td>37</td>
+    <td>38</td>
+    <td>39</td>
+    <td>40</td>
+    <td>41</td>
+      </tr>    
+      </tbody>
+    </table--> <!--
+        <table cellspacing="0" cellpadding="0" border="0" class="size-guide">
+          <tbody>
+            <tr>
+              <th colspan="7"><h3>WOMENSWEAR SIZE GUIDE</h3></th>
+            </tr>
+            <tr>
+              <th>UK SIZE </th>
+              <td>6 </td>
+              <td>8 </td>
+              <td>10 </td>
+              <td>12 </td>
+              <td>14 </td>
+              <td>16 </td>
+
+            </tr>
+            <tr>
+              <th>BUST <br />
+              INCHES</th>
+              <td>32" </td>
+              <td>33" </td>
+              <td>34" </td>
+              <td>35.5" </td>
+              <td>37.5" </td>
+              <td>39.5" </td>
+
+            </tr>
+            <tr>
+              <th> CM </th>
+              <td>81cm </td>
+              <td>84cm </td>
+              <td>86cm </td>
+              <td>90cm </td>
+              <td>95cm </td>
+              <td>100cm </td>
+
+            </tr>
+            <tr>
+              <th>WAIST<br />
+              INCHES</th>
+              <td>25.5" </td>
+              <td>26.5" </td>
+              <td>27.5" </td>
+              <td>29" </td>
+              <td>31" </td>
+              <td>33" </td>
+
+            </tr>
+            <tr>
+              <th> CM </th>
+              <td>65cm </td>
+              <td>67cm </td>
+              <td>70cm </td>
+              <td>74cm </td>
+              <td>79cm </td>
+              <td>84cm </td>
+
+            </tr>
+            <tr>
+              <th>HIP<br />
+              INCHES</th>
+              <td>35.5" </td>
+              <td>36.5" </td>
+              <td>37.5" </td>
+              <td>39" </td>
+              <td>41" </td>
+              <td>43" </td>
+
+            </tr>
+            <tr>
+              <th>CM </th>
+              <td>90cm </td>
+              <td>93cm </td>
+              <td>95cm </td>
+              <td>99cm </td>
+              <td>104cm </td>
+              <td>109cm </td>
+
+            </tr>
+          </tbody>
+        </table>-->
+<table class="size-guide" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr><th colspan="7">
+<h3>MENSWEAR SIZE GUIDE</h3>
+</th></tr>
+<tr><th>&nbsp;</th>
+<td>XS</td>
+<td>S</td>
+<td>M</td>
+<td>L</td>
+<td>XL</td>
+<td>XXL</td>
+</tr>
+<tr><th>CHEST<br /> INCHES</th>
+<td>37"</td>
+<td>38"</td>
+<td>40"</td>
+<td>42"</td>
+<td>44"</td>
+<td>46"</td>
+</tr>
+<tr><th>CM</th>
+<td>94cm</td>
+<td>97cm</td>
+<td>102cm</td>
+<td>107cm</td>
+<td>112cm</td>
+<td>117cm</td>
+</tr>
+<tr><th>NECK<br /> INCHES</th>
+<td>15.25"</td>
+<td>15.5"</td>
+<td>16"</td>
+<td>16.5"</td>
+<td>17"</td>
+<td>17.5"</td>
+</tr>
+<tr><th>CM</th>
+<td>38.5cm</td>
+<td>39cm</td>
+<td>41cm</td>
+<td>42cm</td>
+<td>43cm</td>
+<td>44cm</td>
+</tr>
+<tr><th>WAIST<br /> INCHES</th>
+<td>29"</td>
+<td>30"</td>
+<td>32"</td>
+<td>34"</td>
+<td>36"</td>
+<td>38"</td>
+</tr>
+<tr><th>CM</th>
+<td>73.5cm</td>
+<td>76cm</td>
+<td>81cm</td>
+<td>86cm</td>
+<td>91cm</td>
+<td>96cm</td>
+</tr>
+
+</tbody>
+</table>
+
+<!--table cellspacing="0" cellpadding="0" border="0" class="size-guide">
+          <tbody>
+            <tr>
+              <th colspan="9"><h3>KIDSWEAR SIZE GUIDE</h3>
+              </th>
+            </tr>
+            <tr>
+              <th>AGE (years)</th>
+              <td>2 - 3 </td>
+              <td> 4 - 5 </td>
+              <td> 6 - 7 </td>
+              <td> 8 - 9 </td>
+              <td> 10 - 11 </td>
+              <td> 12 - 13 </td>
+              <td>14 - 15</td>
+
+            </tr>
+            <tr>
+              <th>HEIGHT </th>
+              <td>92CM - 98CM</td>
+              <td>104CM - 110CM</td>
+              <td>116CM - 122CM</td>
+              <td>128CM - 134CM</td>
+              <td>140CM - 146CM</td>
+              <td>152CM - 158CM</td>
+              <td>164CM - 166CM</td>
+
+            </tr>
+            <tr>
+              <th>CHEST</th>
+              <td>53CM - 55CM </td>
+              <td>57CM - 59CM </td>
+              <td>61CM - 63CM </td>
+              <td>66CM - 69CM </td>
+              <td>72CM - 75CM </td>
+              <td>78CM - 82CM</td>
+              <td>85CM - 89CM</td>
+            </tr>
+            
+          </tbody>
+        </table--> <!--table cellspacing="0" cellpadding="0" border="0" class="size-guide">
+          <tbody>
+            <tr>
+              <th colspan="7"><h3>BABY SIZE GUIDE</h3>
+              </th>
+            </tr>
+            <tr>
+              <th>AGE (months)</th>
+              <td>0 - 3 </td>
+              <td> 3 - 6 </td>
+              <td> 6 - 9 </td>
+              <td>9 - 12</td>
+              <td> 12 - 18 </td>
+              <td> 18 - 24 </td>
+
+            </tr>
+            <tr>
+              <th>WEIGHT (in kg)</th>
+              <td>up to 6.5kg </td>
+              <td>up to 8kg </td>
+              <td>up to 9.5kg </td>
+              <td>up to 10.5kg </td>
+              <td>up to 11.5kg </td>
+              <td>up to 12.5kg </td>
+
+            </tr>
+            <tr>
+              <th>WEIGHT (in lbs)</th>
+              <td>up to 14lbs </td>
+              <td>up to 18lbs </td>
+              <td>up to 21lbs </td>
+              <td>up to 23lbs </td>
+              <td>up to 25lbs </td>
+              <td>up to 27.5kg </td>
+
+            </tr>
+
+          </tbody>
+        </table>
+        <table cellspacing="0" cellpadding="0" border="0" class="size-guide">
+          <tbody>
+            <tr>
+              <th colspan="11"><h3>MENSWEAR SHOE SIZE GUIDE</h3></th>
+            </tr>
+            <tr>
+              <th>UK </th>
+              <td>3 </td>
+              <td>4 </td>
+              <td>5 </td>
+              <td>6 </td>
+              <td>7 </td>
+              <td>8 </td>
+              <td>9 </td>
+              <td>10 </td>
+              <td>11 </td>
+              <td>12 </td>
+            </tr>
+            
+            
+
+            <tr>
+              <th>US &amp; Can</th>
+              <td>4</td>
+              <td>5</td>
+              <td>6</td>
+              <td>7</td>
+              <td>8</td>
+              <td>9</td>
+              <td>10</td>
+              <td>11</td>
+              <td>12</td>
+              <td>13</td>
+            </tr>
+
+            <tr>
+              <th>CONTINENTAL </th>
+              <td>36 </td>
+              <td>37 </td>
+              <td>38 </td>
+              <td>39 </td>
+              <td>40 </td>
+              <td>42 </td>
+              <td>43 </td>
+              <td>44 </td>
+              <td>45 </td>
+              <td>46 </td>
+            </tr>
+          </tbody>
+        </table--></div>
+</div>
+</div>

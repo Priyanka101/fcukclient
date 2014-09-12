@@ -1,0 +1,88 @@
+<?php
+$resource = Mage::getSingleton('core/resource');
+		$read = $resource->getConnection('core_read');
+	
+		$query = "SELECT * FROM man";
+			$result=$read->query($query);
+		$landingpage = $result->fetchAll();
+	//	print_r($landingpage);
+		$mediaurl=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+		//print_r($mediaurl);
+?>
+<style>
+.breadcrumbs {display:none;}
+a.women-cat-link {
+    background-image: url("http://fcuk.iksulabeta.com/skin/frontend/fcuk/default/images/link_woman.png");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    display: block;
+    float: left;
+    height: 64px;
+    margin: 20px 100px;
+    text-decoration: none;
+    width: 307px;
+}
+
+a.men-cat-link {
+    background-image: url("http://fcuk.iksulabeta.com/skin/frontend/fcuk/default/images/link_man.png");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    display: block;
+    float: left;
+    height: 64px;
+    margin: 20px 100px;
+    text-decoration: none;
+    width: 177px;
+}
+	body {
+	margin: 0px;
+	padding: 0px;
+	 background-image: url("<?php echo $mediaurl.''.$landingpage[5]['image']; ?>");
+	 background-repeat: no-repeat;
+	background-position: center 24px;
+	}
+
+.header-bg {
+ width: 100%;
+background-color: rgba(255,255,255,0.6);
+background-image: url('http://fcuk.iksulabeta.com/skin/frontend/fcuk/default/images/header-bg.png')	9;
+background-repeat: repeat	9;
+}
+
+.header-bg {
+    background-color: rgba(255, 255, 255, 0.6);
+    width: 100%;
+}
+.header-bg-1 {
+height: 130px;
+}
+</style>
+
+
+<div class="main-container home-banner"> 
+	<div class="mainArea">
+	<script type="text/javascript">jwplayer.key="r/b4lw74MwDzyS+21OqkhxoUGQzsSX3waoxGLg==";</script>
+    
+		<div id="myElement">Loading the player...</div>
+
+	<script type="text/javascript">
+		jwplayer("myElement").setup({
+			file: "<?php echo $this->getSkinUrl('images/movie.mp4')?>",
+			image: "<?php echo $this->getSkinUrl('images/preview.jpg')?>",
+			height: 360,
+			width : 640
+
+		});
+	</script>
+    
+	<div class="home-cat-links">
+		<a class="women-cat-link" href="<?php echo $this->getUrl('catalog/category/view/id/3');?>"></a>
+		<img src="<?php echo $this->getSkinUrl('images/home_banner_link_divide.png');?>" class="cat_link_divider"/>
+		<a class="men-cat-link" href="<?php echo $this->getUrl('catalog/category/view/id/4');?>"></a>
+	</div>	
+</div>
+	<div class="copyright_text">
+		Established in 1972, French Connection is a world-renowned fashion brand famed for its high-design approach. In addition to producing seasonal <a href="#">menswear</a> and <a href="#">womenswear</a> clothing collections, French Connection also offers a <a href="#">homeware</a> line, <a href="#">footwear</a> and <a href="#">accessories</a>.
+	</div>
+	</div>
+

@@ -1,0 +1,158 @@
+<div id="social">
+  <div id="social_inner">
+    <img id="close_social" src="<?php echo $this->getSkinUrl('images/kishan/14px_close_icon.png');?>" alt="" width="15" height="15">
+    <div id="social_box">
+      <li data-social="email" data-width="340" class="social_box_icon social_box_email"><a href="#">Email</a></li>
+      <li data-social="blog" data-width="284" class="social_box_icon social_box_blog a"><a href="#">blog</a></li>
+      <li data-social="facebook" data-width="340" class="social_box_icon social_box_facebook"><a href="#">facebook</a></li>
+      <li data-social="twitter" data-width="284" class="social_box_icon social_box_twitter"><a href="#">twitter</a></li>
+      <li data-social="youtube" data-width="284" class="social_box_icon social_box_youtube"><a href="#">youtube</a></li>
+     <!--  <li data-social="pinterest" data-width="284" class="social_box_icon social_box_pinterest"><a href="#">Pinterest</a></li>
+      <li data-social="insta" data-width="284" class="social_box_icon social_box_insta"><a href="#">Instagram</a></li> -->
+    </div>
+
+    <div class="social_content_container">
+      <div id="social_2">
+        <div class="social_content social_content_email">
+             <?php echo $this->getLayout()->createBlock('newsletter/subscribe')->setTemplate('newsletter/subscribe.phtml')->toHtml();?>
+        </div>
+      </div>
+
+
+      <div class="social_content social_content_blog">
+
+        <h3>OFF THE RECORD FC:BLOG</h3>
+
+        <div class="social_content_inner social_content_inner_blog">
+          <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('blogs_rightbar')->toHtml(); ?>
+          <div class="social_content_inner_item">
+            <a href="http://911fashion.frenchconnection.in/" target="_blank">
+              <div class="social_content_inner_item_link"></div>
+              visit our blog
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="social_content social_content_facebook">
+          <h3>THIS WEEK ON FACEBOOK</h3>
+
+          <div class="social_content_inner_item">
+              <div id="fb-root"></div>
+              <script>(function(d, s, id) {
+               var js, fjs = d.getElementsByTagName(s)[0];
+               if (d.getElementById(id)) return;
+               js = d.createElement(s); js.id = id;
+               js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=212285925491999";
+               fjs.parentNode.insertBefore(js, fjs);
+              }(document, 'script', 'facebook-jssdk'));</script>
+              <div class="fb-like-box" data-href="https://www.facebook.com/frenchconnectionindia" data-width="292" data-show-faces="false" data-header="false" data-stream="true" data-show-border="false"></div>
+
+              <div class="social_content_inner_item">
+                <a href="#" target="_blank">
+                  <div class="social_content_inner_item_link"></div>
+                  visit our Facebook Page
+                </a>
+              </div>
+          </div>
+      </div>
+
+      <div class="social_content social_content_twitter">
+        <h3>@FCUK</h3>
+
+        <div class="social_content_inner_item">
+         
+          <a class="twitter-timeline" href="https://twitter.com/FCUK_India" data-widget-id="372601657625821184" data-chrome="nofooter noheader noborders transparent" data-aria-polite="assertive" data-show-replies="false" width="290" height="400">Tweets by @FCUK_India</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+          <div class="social_content_inner_item" style="text-align:center;">
+          <a href="https://twitter.com/fcuk" style="color:#666666; text-decoration:none;" target="_blank">
+            <div class="social_content_inner_item_link"></div>
+            visit our Twitter Page
+          </a>
+        </div>
+
+        </div>
+
+        
+      </div>
+
+       <!-- <div class="social_content social_content_pinterest">
+        <h3>RECENTLY ON PINTEREST</h3>
+
+        <div class="social_content_inner social_content_inner_pinterest">
+            Content for Pintrest
+        </div>
+      </div> -->
+
+
+       <div class="social_content social_content_youtube">
+          <h3>RECENTLY ON YOUTUBE</h3>
+
+          <div class="social_content_inner social_content_inner_youtube">
+            <div class="social_content_inner_item social_content_inner_item_first">
+              <h3>Harvey</h3>AW13 Campaign
+              <a href="https://www.youtube.com/watch?v=BbHn3Q2IBLc&amp;feature=c4-overview-vl&amp;list=PL0fna5c6IpS3bC5Wo3B9QMjuqs9P09C82" target="_blank"><img src="<?php 
+              echo $this->getSkinUrl('images/youtube_04.jpg')?>" alt="youtube Content"></a>
+            </div>
+
+            <div class="social_content_inner_item">
+              <h3>Mllou</h3>AW13 Campaign
+              <a href="https://www.youtube.com/watch?v=kEA5BS3hw9s&amp;feature=c4-overview-vl&amp;list=PL0fna5c6IpS3bC5Wo3B9QMjuqs9P09C82%3Dwaftbartweet_milouvideo_100713" target="_blank"><img src="<?php 
+              echo $this->getSkinUrl('images/youtube_02.jpg')?>" alt="youtube Content"></a>
+            </div>
+
+            <div class="social_content_inner_item">
+              <h3>Georgia</h3>AW13 Campaign
+              <a href="https://www.youtube.com/watch?v=2fjZsuLeKVY&amp;feature=c4-overview-vl&amp;list=PL0fna5c6IpS3bC5Wo3B9QMjuqs9P09C82%3Dwaftbartweet_georgiavideo_190713" target="_blank"><img src="<?php 
+              echo $this->getSkinUrl('images/youtube_03.jpg')?>" alt="youtube Content"></a>
+            </div>
+          </div>
+
+          <div class="social_content_inner_item">
+            <a href="#" target="_blank">
+              <div class="social_content_inner_item_link"></div>
+              visit our Youtube Page
+            </a>
+          </div>
+      </div>
+
+      <!-- <div class="social_content social_content_insta">
+        <h3>RECENTLY ON INSTAGRAM</h3>
+
+        <div class="social_content_inner social_content_inner_instagram">
+          Content for instagram
+        </div>
+      </div> -->
+
+    </div>
+    </div>
+  </div>
+  <script>
+  jQuery("#social_box li").bind({
+   click: function() {
+    jQuery(".social_box_icon").removeClass("social_box_icon_on");
+    jQuery(this).addClass("social_box_icon_on");
+    jQuery('#close_social').fadeIn();
+    //$("#social").animate({"width" : "350px"}, "slow");
+    jQuery("#social").animate({"width" : jQuery(this).attr("data-width") + "px"}, "medium");
+    var social = jQuery(this).attr("data-social");
+    //alert(social);
+   jQuery('.social_content').hide();
+      jQuery('.social_content_' + social).show();
+    }
+  });
+
+  jQuery("#close_social").bind({
+    click: function() {
+      jQuery("#social").animate({"width" : "40px"}, "slow");
+      jQuery(".social_box_icon").removeClass("social_box_icon_on");
+      jQuery("#close_social").fadeOut();
+    }
+  });
+
+
+
+</script>
+

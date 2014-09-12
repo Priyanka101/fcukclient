@@ -1,0 +1,164 @@
+<div class="main-container home-banner"> 
+
+   <img src="<?php echo $this->getSkinUrl('images/top_img.jpg')?>"  usemap="#home-banner"/>
+   
+   
+  <div class="woman-div"><a class="woman-link" href="<?php echo $this->getUrl('catalog/category/view/id/3');?>"><?php echo $this->__('WOMAN')?></a></div>
+  <div class="man-div"><a class="man-link" href="<?php echo $this->getUrl('catalog/category/view/id/4');?>"><?php echo $this->__('MAN')?></a></div>
+  
+    <img src="<?php echo $this->getSkinUrl('images/bottom_img.jpg')?>" usemap="#home-banner" />
+  
+  
+</div>
+<map name="home-banner">
+  <area shape="rect" coords="0,0,670,700" href="woman.html" alt="woman">
+  <area shape="rect" coords="680,0,1400,1100" href="man.html" alt="man">
+</map> 
+<!--p>
+	<a class="home-woman" href="<?php //echo $this->getUrl('woman')?>">
+		<img src="<?php //echo $this->getSkinUrl('images/woman_01.jpg') ?>" alt="WOMAN" id="woman" />
+	</a>
+	<a class="home-man" href="<?php //echo $this->getUrl('man')?>">
+		<img src="<?php //echo $this->getSkinUrl('images/man_01.jpg') ?>" alt="MAN" />
+	</a>
+</p--> 
+<!--div class="woman-image">
+    <div class="view-scale-expand">
+        <a href="<?php //echo $this->getUrl('woman.html')?>" class="panel_woman" id="hl-w-gate" style="background:none;"><img src="<?php //echo $this->getSkinUrl('images/woman_01.jpg') ?>" id="hl-w-gate_image" ></a>
+	</div>
+</div>
+<div class="man-image" >
+      <div class="view-scale-expand" data-width="478" data-height="576" style="margin-left: -482px; position:absolute;">
+        <a href="<?php //echo $this->getUrl('man.html')?>" class="panel_woman" id="hl-m-gate" style=" background:none;"><img src="<?php //echo $this->getSkinUrl('images/man_01.jpg') ?>" id="hl-m-gate_image" ></a>
+      </div>
+</div--> 
+
+<!--script>
+jQuery(document).ready(function($){
+  
+  $(".rollover_panel").fadeOut(0);
+  
+  $(".view-rollover").hover(function(){
+    $(this).find(".rollover_panel").stop().fadeIn(0);
+  },function(){
+    $(this).find(".rollover_panel").stop().fadeOut(0);  
+  });
+  
+  $(".view-scale-expand").hover(function(){
+    
+    var dataWidth = $(this).attr("data-width");
+    var dataHeight = $(this).attr("data-height");
+    
+    var expandWidth = dataWidth * 1.13;
+    var expandHeight = dataHeight * 1.13;
+    var expandLeftPos = (dataWidth - expandWidth)/2;
+    var expandTopPos = (dataHeight - expandHeight)/2;
+    
+    $(this).find("a.expand_link").hide();
+    $(this).stop();
+    $(this).stop().animate({
+      "top":expandTopPos,
+      "left":expandLeftPos,
+      "width":expandWidth,
+      "height":expandHeight  
+    },500).css({
+      "z-index":1000,
+      "box-shadow":"0px 0px 18px rgba(51,51,51,0.4)"  
+    }).parent("div").css({
+      "z-index":1000  
+    }).find("div").find("a.expand_link").delay(500).fadeIn(500);
+
+  },function(){
+    
+    $(this).find("a.expand_link").clearQueue(); 
+    
+    var dataWidth = $(this).attr("data-width");
+    var dataHeight = $(this).attr("data-height");
+    $(this).stop();
+    $(this).stop().animate({
+      "top":0,
+      "left":0,
+      "width":dataWidth,
+      "height":dataHeight  
+    }).css({
+      "z-index":10,
+      "box-shadow":"0px 0px 0px rgba(51,51,51,0.4)"  
+    }).parent("div").css({
+      "z-index":10  
+    }).find("div").find("a.expand_link").hide();
+
+  });
+  
+  
+  $(".view-hover-link").hover(function(){
+    $(this).find(".home_link").addClass('home_link_hover');  
+  },function(){
+    $(this).find(".home_link").removeClass('home_link_hover');    
+  });
+  
+  
+  $(".view-scale-video, .view-scale-video img").click(function(){
+    //$("#video_container_2").slideDown(1000).find("#video_player").load("video.htm");
+    $("#video_container_2").slideDown(1000).find("#video_player").html(
+      '<div style="padding:0px 0 0 0; text-align:center; position:relative;"><iframe width="974" height="548" src="http://www.youtube.com/embed/jFGdFmcmccw?rel=0&wmode=opaque" frameborder="0" allowfullscreen></iframe></div>'
+    );
+    
+    $("#video_panel").hide();
+    
+    if($('html').hasClass('lt-ie8')){
+      
+    }else{
+    
+    $('html, body').animate({
+      scrollTop: 640
+    }, 1000);
+    
+    }
+  });  
+  
+  $("#close_video").click(function(){
+    $("#video_container_2").slideUp(1000).find("#video_player").html("");
+    $('html, body').animate({
+      scrollTop: 0
+    }, 1000);
+    $("#video_panel").show();
+  });  
+  
+  $("#video_container_close").click(function(){
+    $("#video_container").html("").animate({
+      "top":0,
+      "left":0,
+      "width":482,
+      "height":236  
+    }).fadeOut(100);
+    $("#video_container_close").hide();  
+  });
+  
+});
+</script-->
+<script type="text/javascript">
+jQuery(document).ready(function($){
+	if ($.browser.msie  && parseInt($.browser.version, 10) === 6) {
+	  alert('This Site is Best Viewed in IE Version above 7..'); 
+	}
+	var check_cookie = $.cookie('example');
+	if(check_cookie !='1' )
+	{
+		//alert('not set');
+		$.cookie('example', '1',{ expires: 1 });
+		$.fancybox({'overlayColor'     : '#000',  
+        'overlayOpacity'    : 0.7,  
+        'titleShow'         : false,  
+        'hideOnOverlayClick': false,  
+        'autoScale'         : false,  
+        'scrolling'         : 'no',  
+        'transitionIn'      : 'elastic',  
+                'transitionOut'     : 'elastic'  ,
+                'type'                         : 'image',  
+                'href'                          : '<?php echo $this->getUrl('media').'light_box.jpg'?>'}  
+		);   
+	}
+	
+});
+
+</script>

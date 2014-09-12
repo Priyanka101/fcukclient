@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Module bootstrap file
+-->
+<config>
+    <modules>
+        <Iksula_Customgridexport>
+            <active>false</active>
+            <codePool>local</codePool>
+            <depends>
+                <Mage_Sales />
+            </depends>
+        </Iksula_Customgridexport>
+    </modules>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Fcuk_Check>
+      <active>true</active>
+      <codePool>local</codePool>
+      <version>0.1.1</version>
+    </Fcuk_Check>
+  </modules>
+</config>

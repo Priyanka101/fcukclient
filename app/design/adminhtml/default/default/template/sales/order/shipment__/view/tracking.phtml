@@ -1,0 +1,295 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php /** @var $this Mage_Adminhtml_Block_Sales_Order_Shipment_View_Tracking */ ?>
+<div class="field-row grid" id="shipment_tracking_info">
+<table cellspacing="0" class="data">
+    <col width="100" />
+    <col />
+    <col />
+    <col width="80" />
+    <thead>
+        <tr class="headings">
+            <th><?php echo Mage::helper('sales')->__('Carrier') ?></th>
+            <th><?php echo Mage::helper('sales')->__('Title') ?></th>
+            <th><?php echo Mage::helper('sales')->__('Number') ?></th>
+            <th class="last"><?php echo Mage::helper('sales')->__('Action') ?></th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <td>
+                <select name="carrier" class="select" style="width:110px" onchange="selectCarrier(this)">
+                    <?php foreach ($this->getCarriers() as $_code=>$_name): ?>
+                    <option value="<?php echo $_code ?>"><?php echo $this->escapeHtml($_name) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+            <td><input class="input-text" type="text" id="tracking_title" name="title" value="" /></td>
+            <td><input class="input-text" type="text" id="tracking_number" name="number" value="" /></td>
+            <td class="last"><?php echo $this->getSaveButtonHtml() ?></td>
+			<?php 
+		/* 	$orders = Mage::getModel('sales/order')->getCollection();	
+			$order = $orders->getFirstItem();
+			$id = $order->getIncrementId();
+			$payment =$order->getPayment();
+			$method = $payment->getMethodInstance(); */
+			
+			$_orders = $this->getShipment();
+			$order_id=$_orders->getData('order_id');
+			$order = Mage::getModel('sales/order')->load($order_id);
+			$payment =$order->getPayment();
+
+				//echo '<pre>';
+				//print_r(trim($payment->getData('method')));
+			//	echo $payment->getData('method');
+				?>
+				
+        </tr>
+    </tfoot>
+<?php if($_tracks = $this->getShipment()->getAllTracks()): ?>
+    <tbody>
+    <?php $i=0;foreach ($_tracks as $_track):$i++ ?>
+        <tr class="<?php echo ($i%2==0)?'even':'odd' ?>">
+            <td><?php echo $this->escapeHtml($this->getCarrierTitle($_track->getCarrierCode())) ?></td>
+            <td><?php echo $this->escapeHtml($_track->getTitle()) ?></td>
+            <td>
+                <?php if ($_track->isCustom()): ?>
+                <?php echo $this->escapeHtml($_track->getNumber()) ?>
+                <?php else: ?>
+				
+				<?php //if($_track->getCarrierCode()=='quantium')?>
+				 <!--a href='#' onclick="popWin('http://atquantiumaspac.com/QSDTSAPI/TrackXML.aspx?trackingno=<?php //echo $_track->getNumber();?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')"><?php //echo $this->escapeHtml($_track->getNumber()) ?></a-->
+				<?php 
+				switch ($_track->getCarrierCode())
+				{
+				case "quantium": ?>
+				<a href='#' onclick="popWin('<?php echo $this->getBaseUrl().'/shiptrack/index/new';?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')"><?php echo $this->escapeHtml($_track->getNumber()) ?></a>
+				<?php   break;
+				case "aramex":  ?>
+				  <a href='#' onclick="popWin('http://aramaex.com','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')"><?php echo $this->escapeHtml($_track->getNumber()) ?></a>
+				<?php   break;
+				case "bluedart":  ?>
+				  <a href='#' onclick="popWin('http://bluedart.com','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')"><?php echo $this->escapeHtml($_track->getNumber()) ?></a>
+				<?php   break;
+				default:
+				  echo "no shipping method found";
+				}
+				?> 
+                <!--a href="#" onclick="popWin('<?php echo $this->helper('shipping')->getTrackingPopupUrlBySalesModel($_track) ?>','trackorder','width=800,height=600,resizable=yes,scrollbars=yes')"><?php echo $this->escapeHtml($_track->getNumber()) ?></a-->
+				
+                <div id="shipment_tracking_info_response_<?php echo $_track->getId() ?>"></div>
+                <?php endif; ?>
+            </td>
+            <td class="last"><a href="#" onclick="deleteTrackingNumber('<?php echo $this->getRemoveUrl($_track) ?>'); return false;"><?php echo Mage::helper('sales')->__('Delete') ?></a></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+<?php endif; ?>
+</table>
+</div>
+ <?php
+
+	/* 	$client = new SoapClient('http://fcuk.iksuladev.com/api/soap/?wsdl');
+
+		$session = $client->login('fcuk', 'fcuk123');
+		$result = $client->call($session, 'customer.list',array());
+		echo '<pre>';
+		print_r($result);
+		//var_dump ($result);
+		$client->endSession($session);  */
+?> 
+
+<?php
+/* error_reporting(E_ALL);
+ini_set('display_errors', true);
+ini_set('display_startup_errors', true);
+
+$test = 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance&#8221; xmlns:xsd="http://www.w3.org/2001/XMLSchema&#8221; xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+<soap:Body>
+<!–
+Keep your XML here to send request using SOAP. And yo will get response by reading predefine XML tags.
+–>
+</soap:Body>
+</soap:Envelope>';
+
+
+//Change this variables.
+$location_URL = 'http://atquantiumaspac.com/QSDTSAPI/TrackXML.aspx?trackingno=D40199699';//write_your_location_url.asmx&#8217;;
+$action_URL = 'http://atquantiumaspac.com/QSDTSAPI/TrackXML.aspx?trackingno=D40199699';
+
+$client = new SoapClient(null, array('location' => $location_URL,'uri' => "",'trace'=> 1,));
+
+try{
+
+$order_return = $client->__doRequest($test,$location_URL,$action_URL,1);
+echo '<pre>';
+//print_r($order_return);
+//var_dump($order_return);
+}
+catch (SoapFault $exception){
+var_dump(get_class($exception));
+var_dump($exception);
+}
+ */
+
+//$simple = "<para><note>simple note</note></para>";
+/* $p = xml_parser_create();
+xml_parse_into_struct($p, $simple, $vals, $index);
+xml_parser_free($p);
+//echo "Index array\n";
+//print_r($index);
+//echo "\nVals array\n";
+print_r($vals); */
+
+/* $url      = 'http://atquantiumaspac.com/QSDTSAPI/TrackXML.aspx?trackingno=D40199699';
+$ns_lf    = 'http://atquantiumaspac.com/QSDTSAPI/TrackXML.aspx?trackingno=D40199699';
+
+$response = (array)simplexml_load_file($url);
+echo 'TrackingNo = '.$response['StageHeader']->TrackingNo;echo '</br>';
+echo 'OrderDate = '.$response['StageHeader']->OrderDate;echo '</br>';
+echo 'PickingDate = '.$response['StageHeader']->PickingDate;echo '</br>';
+echo 'Origin = '.$response['StageHeader']->Origin;echo '</br>';
+echo 'Destination = '.$response['StageHeader']->Destination;echo '</br>';
+echo 'DestinationCity = '.$response['StageHeader']->DestinationCity;echo '</br>';
+echo 'Reference = '.$response['StageHeader']->Reference;echo '</br>';
+echo 'Quantity = '.$response['StageHeader']->Quantity;echo '</br>';
+echo 'Weight = '.$response['StageHeader']->Weight;echo '</br>';
+echo 'ReceiverName = '.$response['StageHeader']->ReceiverName;echo '</br>';
+
+echo 'ReceiverContactNo = '.$response['StageHeader']->ReceiverContactNo;echo '</br>';
+
+echo 'ReceiverArea = '.$response['StageHeader']->ReceiverArea;echo '</br>';
+echo 'ReceiverCity = '.$response['StageHeader']->ReceiverCity;echo '</br>';
+echo 'ReceiverZip = '.$response['StageHeader']->ReceiverZip;echo '</br>';
+echo 'CurrentStatus = '.$response['StageHeader']->CurrentStatus;echo '</br>';
+echo 'LastUpdatedDate = '.$response['StageHeader']->LastUpdatedDate;echo '</br>';
+echo 'SpecialDeliveryInstruction = '.$response['StageHeader']->SpecialDeliveryInstruction;echo '</br>';
+echo 'SenderInformation = '.$response['StageHeader']->SenderInformation;echo '</br>';
+$test = (array)$response['StageHeader']->Details[0];
+$test1 = (array)$response['StageHeader']->Details[1];
+$test2 = (array)$response['StageHeader']->Details[2];
+echo 'Details';echo '</br>';echo '</br>';
+echo 'StageDetails = '.$test['@attributes']['StageDetails'];echo '</br>';
+echo 'StatusUpdatedDate = '.$test['@attributes']['StatusUpdatedDate'];echo '</br>';
+echo 'UpdatedLocation = '.$test['@attributes']['UpdatedLocation'];echo '</br>';
+echo 'Remarks = '.$test['@attributes']['Remarks'];echo '</br>';echo '</br>';
+
+echo 'StageDetails = '.$test1['@attributes']['StageDetails'];echo '</br>';
+echo 'StatusUpdatedDate = '.$test1['@attributes']['StatusUpdatedDate'];echo '</br>';
+echo 'UpdatedLocation = '.$test1['@attributes']['UpdatedLocation'];echo '</br>';
+echo 'Remarks = '.$test1['@attributes']['Remarks'];echo '</br>';echo '</br>';
+
+echo 'StageDetails = '.$test2['@attributes']['StageDetails'];echo '</br>';
+echo 'StatusUpdatedDate = '.$test2['@attributes']['StatusUpdatedDate'];echo '</br>';
+echo 'UpdatedLocation = '.$test2['@attributes']['UpdatedLocation'];echo '</br>';
+echo 'Remarks = '.$test2['@attributes']['Remarks'];echo '</br>';echo '</br>';
+
+echo '<pre>'; */
+//print_r($response);
+
+// children() fetches all nodes of a given namespace
+//$result = $response->children($ns_lf)->result;
+
+// dump the entire <lf:result> to see what it looks like
+//print_r($result);
+
+// once the namespace was handled, you can go on normally (-> syntax)
+// foreach ($result->item as $item) {
+  // $title = $item->xpath("TrackingNo");
+  // $state = $item->xpath("OrderDate");
+
+  //xpath() always returns an array of matches, hence the [0]
+  // echo( $title[0].", ".$state[0] );
+// }
+?>
+
+<script type="text/javascript">
+//<![CDATA[
+function selectCarrier(elem) {
+  //  var option = elem.options[elem.selectedIndex];
+	    var option = elem.options[elem.selectedIndex];
+		var carrier=elem.options[elem.selectedIndex].value;
+	/* comment on 2/3/13
+		var method='<?php echo $payment->getData('method'); ?>';
+	//	alert(method);
+		//alert(carrier);
+	
+		$('tracking_title').value = option.value && option.value != 'custom' ? option.text : '';
+		//jQuery('#tracking_number').attr();
+		
+		if(carrier!='custom')
+		{
+		//var link='<?php echo $this->getUrl('shiptrack/index/addtrack') ?>';
+		var link='<?php echo $this->getBaseUrl().'shiptrack/index/addtrack' ?>';
+		//alert(link);
+		jQuery.post(link,'carrier='+carrier+'&method='+method,function(responseText){
+	
+		 var abc=jQuery('#tracking_number').val(responseText);
+		 jQuery('#tracking_number').attr("readonly","true");
+		 
+		});		
+	}
+	else
+	{
+	jQuery('#tracking_number').val('');
+	jQuery("#tracking_number").removeAttr("readonly");
+
+	 
+
+	}*/
+	
+		//alert('i ma here in end');
+			
+ }
+ 
+function deleteTrackingNumber(url) {
+    if (confirm('<?php echo Mage::helper('sales')->__('Are you sure?') ?>')) {
+	     submitAndReloadArea($('shipment_tracking_info').parentNode, url);
+		 
+
+		
+    }
+}
+
+/*commented on 2/3/2013
+
+jQuery('.save').click(function(){
+	//var link='<?php echo $this->getBaseUrl().'shiptrack/index/updatetrack' ?>';
+	var track=jQuery('#tracking_number').val();
+	//alert(track);
+	var link='<?php echo $this->getBaseUrl().'shiptrack/index/updatetrack' ?>';
+	jQuery.post(link,'track='+track,function(responseText){
+	//alert('successfully updated 1');
+	
+});
+});*/
+
+
+
+
+//]]>
+</script>

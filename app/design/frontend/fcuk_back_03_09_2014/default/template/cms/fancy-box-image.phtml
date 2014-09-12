@@ -1,0 +1,31 @@
+<?php ?>
+<div class="image-popup"> 
+<a class="grouped_elements" rel="group2" href="<?php echo $this->getSkinUrl('images/home_banner.jpg')?>"></a> 
+<a class="grouped_elements" rel="group2" href="<?php echo $this->getSkinUrl('images/about_us.jpg')?>"><img src="<?php echo $this->getSkinUrl('images/about_us.jpg')?>" alt=""/></a> 	
+<a class="grouped_elements" rel="group2" href="<?php echo $this->getSkinUrl('images/contact_us.jpg')?>"><img src="<?php echo $this->getSkinUrl('images/contact_us.jpg')?>" alt=""/></a> 
+<a class="grouped_elements" rel="group2" href="<?php echo $this->getSkinUrl('images/home_banner.jpg')?>"><img src="<?php echo $this->getSkinUrl('images/home_banner.jpg')?>" alt=""/></a> 
+</div>	
+	
+	
+	
+	<script type="text/javascript">
+
+
+	jQuery(document).ready(function($){
+	$('.grouped_elements').fancybox({
+				'height': 450,
+				'width': 360,
+				'type'		 : 'iframe',
+
+		onComplete: function() { 
+		//alert("i m here");
+			$.fancybox.showActivity();
+			$('#fancybox-frame').unbind('load');
+			$('#fancybox-frame').bind('load', 
+			function() {
+					$.fancybox.hideActivity();
+			});
+		}
+	});	
+	});
+	</script>

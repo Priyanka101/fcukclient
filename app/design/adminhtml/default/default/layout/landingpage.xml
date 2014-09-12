@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <landingpage_adminhtml_man_index>
+	<reference name="content">
+	  <block type="landingpage/adminhtml_man" name="man" />
+	</reference>
+  </landingpage_adminhtml_man_index>
+</layout>

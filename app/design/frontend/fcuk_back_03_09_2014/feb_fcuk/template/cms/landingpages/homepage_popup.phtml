@@ -1,0 +1,38 @@
+
+<div class="container_24">
+  <a id="hidden_link" style="display:none;" href="<?php echo $this->getSkinUrl(); ?>images/homepage_popup/light-box-summer-offer.jpg" target="_blank">
+    <img src="<?php echo $this->getSkinUrl(); ?>images/homepage_popup/light-box-summer-offer.jpg" border="0" />
+  </a>
+  
+</div>
+
+<?php 
+
+$my_product_sku = Mage::getStoreConfig('configuration/configuration/product_sku');
+//echo $my_product_sku;exit;
+$product_model = Mage::getModel('catalog/product');
+$my_product_id  = $product_model->getIdBySku($my_product_sku);
+
+$my_product = $product_model->load($my_product_id);
+      //echo '<pre>';print_r($my_product->getData());exit;
+$stocklevel = (int)Mage::getModel('cataloginventory/stock_item')
+                ->loadByProduct($my_product)->getQty();
+//var_dump($stocklevel);exit;
+?>
+
+
+<script type="text/javascript">
+
+jQuery(document).ready(function($){
+  $("#hidden_link").fancybox().trigger('click');
+  var i = 1;
+  var max_slides = 2;
+  rotate_imagbox(i,max_slides);
+  stocklevel = <?php echo $stocklevel?>;
+  //alert($.type(stocklevel));return false;
+  if(stocklevel != 0){
+  $("#hidden_link").fancybox().trigger('click');
+ }
+});
+
+</script>
